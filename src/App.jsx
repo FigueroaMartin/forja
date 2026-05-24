@@ -189,9 +189,8 @@ const PRODUCTS = [
 const LINEAS = ["Todos","Anillos","Collares","Pulseras"];
 
 const MATERIALS = [
-  { id:"steel",  label:"Acero",  modifier:0,   suffix:"316L" },
-  { id:"silver", label:"Plata",  modifier:40,  suffix:"925"  },
-  { id:"gold",   label:"Oro",    modifier:120, suffix:"18K"  },
+  { id:"silver", label:"Plata", modifier:0,  suffix:"925" },
+  { id:"gold",   label:"Oro",   modifier:80, suffix:"18K" },
 ];
 
 const PIECE_TYPES = [
@@ -649,7 +648,7 @@ function Gallery({ imgs }) {
 }
 
 function ProductDetail({ product, onBack, onAdd }) {
-  const [mat, setMat] = useState("steel");
+  const [mat, setMat] = useState("silver");
   const matD = MATERIALS.find(m => m.id === mat);
   const price = calcPrice(product.basePrice, mat);
 
@@ -748,7 +747,7 @@ function ProductDetail({ product, onBack, onAdd }) {
           <motion.div variants={FI} className="di-div"/>
 
           <motion.div variants={FU} className="dtrust">
-            <div className="dtr"><span className="dtr-ic">◈</span> Materiales certificados — Acero 316L · Plata 925 · Oro 18K</div>
+            <div className="dtr"><span className="dtr-ic">◈</span> Materiales certificados — Plata 925 · Oro 18K</div>
             <div className="dtr"><span className="dtr-ic">⬡</span> Garantía de autenticidad incluida</div>
             <div className="dtr"><span className="dtr-ic">◇</span> Devolución en 15 días sin preguntas</div>
             <div className="dtr"><span className="dtr-ic">⬟</span> Empaque de regalo incluido</div>
@@ -902,7 +901,7 @@ function QuoteForm({ onBack }) {
         <motion.div variants={FU}>
           <div className="qf-sh">¿En qué material la imaginas?</div>
           <div className="opt-grp" style={{marginBottom:"1.5rem"}}>
-            {[...MATERIALS, {id:"mixed",label:"Mixto",suffix:"a definir",modifier:0}].map(m => (
+            {MATERIALS.map(m => (
               <button key={m.id} className={`opt-btn${material===m.id?" on":""}`} onClick={()=>setMaterial(m.id)}>
                 {m.label} {m.suffix}
               </button>
@@ -1154,7 +1153,7 @@ export default function App() {
       <style>{css}</style>
 
       {/* ANNOUNCEMENT */}
-      <div className="ann">Envío gratis en pedidos sobre $120 USD · Acero 316L · Plata 925 · Oro 18K</div>
+      <div className="ann">Envío gratis en pedidos sobre $120 USD · Plata 925 · Oro 18K</div>
 
       <Nav cartCount={cart.length} onCartOpen={()=>setCartOpen(true)} onLogo={handleLogo} activeLinea={activeLinea} onLinea={handleLinea} onQuote={()=>setView("quote")}/>
 
@@ -1203,7 +1202,7 @@ export default function App() {
           variants={SC(0, 0.1)}
         >
           {[
-            {icon:"◈",title:"Acero 316L · Plata · Oro",sub:"Materiales premium certificados"},
+            {icon:"◈",title:"Plata 925 · Oro 18K",sub:"Materiales premium certificados"},
             {icon:"⬡",title:"Garantía de autenticidad",sub:"Cada pieza verificada"},
             {icon:"⬟",title:"Envío a todo Chile",sub:"5–7 días hábiles"},
             {icon:"◇",title:"Empaque de regalo",sub:"Presentación incluida"},
@@ -1256,7 +1255,7 @@ export default function App() {
                       <div className="pc-name">{p.name}</div>
                       <div className="pc-tgl">{p.tagline}</div>
                       <div className="pc-ft">
-                        <div className="pc-price">desde {fmt(p.basePrice)}</div>
+                        <div className="pc-price">desde {fmt(calcPrice(p.basePrice, "silver"))}</div>
                         <div className="pc-cta">Ver pieza →</div>
                       </div>
                     </div>
@@ -1285,7 +1284,7 @@ export default function App() {
             <h2 className="hl-t">Maestría local.<br/>Legado digital.</h2>
             <p className="hl-d">Cada pieza FORJA nace del oficio artesanal. No vendemos un objeto terminado; vendemos el derecho a presenciar su nacimiento. Cada modelo tiene nombre, historia y propósito.</p>
             <div className="hl-list">
-              <div className="hl-li">Acero 316L · Plata 925 · Oro 18K amarillo</div>
+              <div className="hl-li">Plata 925 · Oro 18K amarillo</div>
               <div className="hl-li">Cada pieza tiene nombre e historia propia</div>
               <div className="hl-li">Piezas hipoalergénicas resistentes al agua</div>
               <div className="hl-li">Empaque de regalo incluido en cada pedido</div>
