@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── FORJA — CSS variables mapeadas al sistema de shadcn ─────────────────── */
+@layer base {
+  :root {
+    /* Backgrounds */
+    --background:  0 0% 4%;          /* #0a0a0a — fondo global FORJA */
+    --foreground:  30 11% 94%;       /* #f0ede8 — texto crema */
+
+    /* Superficies */
+    --card:             0 0% 7%;     /* #111111 — surf */
+    --card-foreground:  30 11% 94%;
+    --popover:          0 0% 6%;     /* #0e0e0e — surf2 */
+    --popover-foreground: 30 11% 94%;
+
+    /* Acento principal → Oro FORJA */
+    --primary:            43 51% 54%;  /* #C9A84C */
+    --primary-foreground: 0 0% 0%;
+
+    /* Secundario */
+    --secondary:            0 0% 16%; /* #2a2a2a */
+    --secondary-foreground: 30 11% 94%;
+
+    /* Muted */
+    --muted:            0 0% 27%;
+    --muted-foreground: 0 0% 40%;    /* #666 */
+
+    /* Accent (igual al gold) */
+    --accent:            43 51% 54%;
+    --accent-foreground: 0 0% 0%;
+
+    /* Estados */
+    --destructive:            0 72% 51%;
+    --destructive-foreground: 0 0% 98%;
+
+    /* Bordes e inputs */
+    --border: 0 0% 12%;              /* #1e1e1e */
+    --input:  0 0% 12%;
+    --ring:   43 51% 54%;            /* gold para focus rings */
+
+    /* FORJA usa geometría pura — sin border-radius */
+    --radius: 0rem;
+  }
+}
+
+/* ─── Base reset limpio para FORJA ────────────────────────────────────────── */
+@layer base {
+  *, *::before, *::after {
+    @apply border-border box-border;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    color-scheme: dark;
+  }
+
+  body {
+    background: #0a0a0a;
+    color: #f0ede8;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+  }
+
+  /* #root ocupa todo el ancho — sin restricción del template Vite */
+  #root {
+    width: 100%;
+    max-width: 100%;
+    min-height: 100svh;
+    display: block;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    border: none;
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+  }
+
+  button {
+    cursor: pointer;
+  }
+}

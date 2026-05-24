@@ -1,0 +1,1179 @@
+import { useState, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+
+// ─── LÍNEAS Y PRODUCTOS ───────────────────────────────────────────────────────
+const PRODUCTS = [
+  // ── LÍNEA ANILLOS ──
+  {
+    id:"frj-r01", slug:"norte", linea:"Anillos",
+    name:"Norte", basePrice:89,
+    tagline:"Sigue tu dirección. Sin excusas.",
+    concepto:"Este anillo representa la claridad de quien sabe adónde va. Su geometría limpia y perfil bajo son el reflejo de un hombre que no necesita adornos para demostrar su rumbo. Lo que comunica lo hace con presencia.",
+    inspiracion:"Dirección · Propósito · Claridad",
+    detalles:["Anillo sello de perfil bajo","Acero 316L · Plata 925 · Oro 18K","Acabado cepillado satinado","Ancho 8mm · Espesor 2mm","Ajustable tallas 7–12","Resistente al agua"],
+    accent:"#C9A84C", tag:"Más vendido",
+    img:"https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=700&q=85&auto=format&fit=crop",
+    imgs:[
+      "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=700&q=85&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1680916697343-7a32044f5a61?w=700&q=85&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1612285127364-58ede3fa1686?w=700&q=85&auto=format&fit=crop",
+    ],
+    reviews:[
+      {name:"Rodrigo V.", stars:5, text:"Lo uso en cada reunión importante. Tiene algo que da peso a la presencia."},
+      {name:"Felipe A.",  stars:5, text:"El acabado es impecable. Acero 316L real, no se mancha ni descolora."},
+    ]
+  },
+  {
+    id:"frj-r02", slug:"sello", linea:"Anillos",
+    name:"Sello", basePrice:95,
+    tagline:"Tu historia grabada en metal.",
+    concepto:"Un anillo sello es una declaración ancestral de identidad. Desde los romanos hasta los ejecutivos modernos, quien lleva un sello comunica que tiene algo que defender. Forja lo interpreta con líneas del siglo XXI.",
+    inspiracion:"Identidad · Legado · Autoridad",
+    detalles:["Anillo sello rectangular plano","Acero 316L · Plata 925 · Oro 18K","Superficie grabable a pedido","Ancho 12mm · Espesor 2.5mm","Tallas 7–13","Cepillado mate en cara superior"],
+    accent:"#A8A9AD", tag:"Personalizable",
+    img:"https://images.unsplash.com/photo-1603561591411-07134e71a2a9?w=700&q=85&auto=format&fit=crop",
+    imgs:[
+      "https://images.unsplash.com/photo-1603561591411-07134e71a2a9?w=700&q=85&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1680916697343-7a32044f5a61?w=700&q=85&auto=format&fit=crop",
+    ],
+    reviews:[
+      {name:"Matías C.", stars:5, text:"Me lo grabaron con mis iniciales. Quedó perfecto, mejor que lo que esperaba."},
+      {name:"Andrés M.", stars:5, text:"Lo mandé a hacer en oro 18K. Vale cada peso."},
+    ]
+  },
+  {
+    id:"frj-r03", slug:"bloque", linea:"Anillos",
+    name:"Bloque", basePrice:79,
+    tagline:"Construido para durar. Como tú.",
+    concepto:"Inspirado en la arquitectura brutalista: formas masivas, líneas rectas, sin ornamentos innecesarios. El Bloque es para el hombre que construye cosas reales y quiere una joya que lo represente.",
+    inspiracion:"Fuerza · Construcción · Permanencia",
+    detalles:["Banda ancha de perfil cuadrado","Acero 316L · Plata 925","Acabado pulido espejo","Ancho 10mm · Espesor 3mm","Tallas 8–13","Alto impacto visual"],
+    accent:"#C9A84C", tag:null,
+    img:"https://images.unsplash.com/photo-1574169208507-84376144848b?w=700&q=85&auto=format&fit=crop",
+    imgs:[
+      "https://images.unsplash.com/photo-1574169208507-84376144848b?w=700&q=85&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1612285127364-58ede3fa1686?w=700&q=85&auto=format&fit=crop",
+    ],
+    reviews:[
+      {name:"Sebastián R.", stars:5, text:"Lo primero que notan cuando doy la mano. Elegante sin ser ostentoso."},
+    ]
+  },
+  {
+    id:"frj-r04", slug:"corte", linea:"Anillos",
+    name:"Corte", basePrice:109,
+    tagline:"Precisión que se lleva puesta.",
+    concepto:"El Corte nace de la obsesión por el detalle. Cada ángulo fue pensado para capturar la luz de manera distinta. Es el anillo del hombre que valora la ingeniería detrás de las cosas.",
+    inspiracion:"Precisión · Detalle · Excelencia",
+    detalles:["Anillo facetado de corte geométrico","Acero 316L · Plata 925 · Oro 18K","Múltiples facetas pulidas","Ancho 8mm variable","Tallas 7–12","Diseño exclusivo FORJA"],
+    accent:"#C9A84C", tag:"Ed. limitada",
+    img:"https://images.unsplash.com/photo-1620656798579-1984d9e87df7?w=700&q=85&auto=format&fit=crop",
+    imgs:[
+      "https://images.unsplash.com/photo-1620656798579-1984d9e87df7?w=700&q=85&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1680916697343-7a32044f5a61?w=700&q=85&auto=format&fit=crop",
+    ],
+    reviews:[
+      {name:"Cristóbal F.", stars:5, text:"El acabado en oro 18K es brutal. Vale la inversión completamente."},
+      {name:"Diego P.", stars:5, text:"Edición limitada y se nota. Una joya con carácter real."},
+    ]
+  },
+
+  // ── LÍNEA COLLARES ──
+  {
+    id:"frj-c01", slug:"ruta", linea:"Collares",
+    name:"Ruta", basePrice:110,
+    tagline:"El camino que elegiste te define.",
+    concepto:"Una cadena rolo limpia y directa. Sin pendientes, sin excesos. La Ruta es la joya del hombre que ya llegó a donde quería llegar y lo demuestra con sobriedad. Cincuenta y cinco centímetros de carácter.",
+    inspiracion:"Camino · Disciplina · Sobriedad",
+    detalles:["Cadena rolo eslabón redondo 3mm","Acero 316L · Plata 925 · Oro 18K","Largo 55cm ajustable","Cierre de langosta","Resistente al agua y al sudor","Apto uso diario"],
+    accent:"#A8A9AD", tag:"Más vendido",
+    img:"https://images.unsplash.com/photo-1679973297332-cb76bf05275c?w=700&q=85&auto=format&fit=crop",
+    imgs:[
+      "https://images.unsplash.com/photo-1679973297332-cb76bf05275c?w=700&q=85&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1599643477877-530eb83abc8e?w=700&q=85&auto=format&fit=crop",
+    ],
+    reviews:[
+      {name:"Ignacio T.", stars:5, text:"La uso con todo. Con polera, con camisa, hasta debajo de la chaqueta. Siempre está."},
+      {name:"Tomás V.",   stars:5, text:"Plata 925 real. No se pone negra ni pierde brillo."},
+    ]
+  },
+  {
+    id:"frj-c02", slug:"eslabón", linea:"Collares",
+    name:"Eslabón", basePrice:125,
+    tagline:"Cada vínculo que construyes es tuyo.",
+    concepto:"La cadena de eslabón plano es uno de los diseños más masculinos de la historia de la joyería. El Eslabón lo toma y lo simplifica al máximo: anchura justa, grosor honesto, caída perfecta.",
+    inspiracion:"Vínculo · Historia · Solidez",
+    detalles:["Cadena eslabón plano tipo curb 5mm","Acero 316L · Plata 925 · Oro 18K","Largo 50cm fijo","Cierre de mosquetón","Peso sustancial · Caída perfecta","Diseño unisex con esencia masculina"],
+    accent:"#C9A84C", tag:null,
+    img:"https://images.unsplash.com/photo-1679973297365-04286fb12e6c?w=700&q=85&auto=format&fit=crop",
+    imgs:[
+      "https://images.unsplash.com/photo-1679973297365-04286fb12e6c?w=700&q=85&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1611085583191-a3b181a88401?w=700&q=85&auto=format&fit=crop",
+    ],
+    reviews:[
+      {name:"Álvaro S.", stars:5, text:"El eslabón tiene un peso perfecto. No es exagerado pero sí lo notas."},
+    ]
+  },
+  {
+    id:"frj-c03", slug:"vértice", linea:"Collares",
+    name:"Vértice", basePrice:98,
+    tagline:"El punto donde todo converge.",
+    concepto:"Una cadena fina con un colgante geométrico discreto. El Vértice es para el ejecutivo que quiere una declaración sutil. Visible solo cuando importa. Un punto de enfoque para los que saben mirar.",
+    inspiracion:"Enfoque · Convergencia · Sutileza",
+    detalles:["Cadena rolo fina 1.5mm + colgante","Colgante hexagonal 8mm","Acero 316L · Plata 925","Largo 45cm","Cierre de langosta","Diseño minimalista de autor"],
+    accent:"#A8A9AD", tag:"Nuevo",
+    img:"https://images.unsplash.com/photo-1680068098869-aa8224f6bd64?w=700&q=85&auto=format&fit=crop",
+    imgs:[
+      "https://images.unsplash.com/photo-1680068098869-aa8224f6bd64?w=700&q=85&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=700&q=85&auto=format&fit=crop",
+    ],
+    reviews:[
+      {name:"Patricio M.", stars:5, text:"El colgante hexagonal es minimalista pero con identidad. Exactamente lo que buscaba."},
+    ]
+  },
+
+  // ── LÍNEA PULSERAS ──
+  {
+    id:"frj-b01", slug:"base", linea:"Pulseras",
+    name:"Base", basePrice:64,
+    tagline:"Lo esencial nunca pasa de moda.",
+    concepto:"La pulsera de eslabón es el punto de partida de cualquier colección masculina. La Base no trata de ser más de lo que es: una pieza honesta, duradera, que se lleva solo o se apila. Sin pretensiones. Con carácter.",
+    inspiracion:"Esencia · Durabilidad · Honestidad",
+    detalles:["Pulsera eslabón plano tipo curb","Acero 316L · Plata 925 · Oro 18K","Largo 20cm con cierre caja","Cierre doble seguro","Ancho 5mm","Resistente al agua"],
+    accent:"#C9A84C", tag:"Más vendido",
+    img:"https://images.unsplash.com/photo-1748017741116-6c53196ba9d0?w=700&q=85&auto=format&fit=crop",
+    imgs:[
+      "https://images.unsplash.com/photo-1748017741116-6c53196ba9d0?w=700&q=85&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1573408301185-9519f94ae4f1?w=700&q=85&auto=format&fit=crop",
+    ],
+    reviews:[
+      {name:"Gonzalo H.", stars:5, text:"La primera pulsera que uso regularmente. El cierre es sólido, no se abre solo."},
+      {name:"Javier L.",  stars:5, text:"La tengo en acero y en plata. Las apilo. Quedó perfecto."},
+    ]
+  },
+  {
+    id:"frj-b02", slug:"arco", linea:"Pulseras",
+    name:"Arco", basePrice:95,
+    tagline:"Rígido por fuera. Flexible por dentro.",
+    concepto:"El brazalete rígido es la pieza de joyería masculina más antigua del mundo. El Arco lo trae al presente con grabado lineal y apertura lateral inteligente. Para el hombre que entiende que la fortaleza también tiene forma.",
+    inspiracion:"Fortaleza · Historia · Estructura",
+    detalles:["Brazalete rígido apertura lateral","Acero 316L · Plata 925","Ancho 6mm · Grabado lineal interior","Apertura elástica regulable","Diámetro interior 58–62mm","Acabado cepillado"],
+    accent:"#A8A9AD", tag:null,
+    img:"https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=700&q=85&auto=format&fit=crop",
+    imgs:[
+      "https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=700&q=85&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1748018384116-41eabe92aae0?w=700&q=85&auto=format&fit=crop",
+    ],
+    reviews:[
+      {name:"Eduardo C.", stars:5, text:"El brazalete tiene un peso y rigidez perfectos. Se siente premium."},
+    ]
+  },
+  {
+    id:"frj-b03", slug:"nudo", linea:"Pulseras",
+    name:"Nudo", basePrice:72,
+    tagline:"Lo que atas, lo defines.",
+    concepto:"Una pulsera de cuerda trenzada con cierre de acero. El Nudo mezcla lo orgánico con lo industrial. Es casual pero con intención. Para los días en que no vas de traje pero igual quieres comunicar algo.",
+    inspiracion:"Compromiso · Textura · Autenticidad",
+    detalles:["Pulsera cuerda trenzada + cierre acero","Cuerda náutica de 3 hebras","Cierre deslizante ajustable","Largo regulable 16–22cm","Mixto: textil + acero 316L","Resistente al agua"],
+    accent:"#C9A84C", tag:"Nuevo",
+    img:"https://images.unsplash.com/photo-1624913503273-5f9c4e980dba?w=700&q=85&auto=format&fit=crop",
+    imgs:[
+      "https://images.unsplash.com/photo-1624913503273-5f9c4e980dba?w=700&q=85&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1748017741116-6c53196ba9d0?w=700&q=85&auto=format&fit=crop",
+    ],
+    reviews:[
+      {name:"Bruno A.", stars:5, text:"La uso en el gym y en la oficina. Se adapta a todo. Buena construcción."},
+    ]
+  },
+];
+
+const LINEAS = ["Todos","Anillos","Collares","Pulseras"];
+
+const MATERIALS = [
+  { id:"steel",  label:"Acero",  modifier:0,   suffix:"316L" },
+  { id:"silver", label:"Plata",  modifier:40,  suffix:"925"  },
+  { id:"gold",   label:"Oro",    modifier:120, suffix:"18K"  },
+];
+
+const calcPrice = (base, mat) => base + (MATERIALS.find(m=>m.id===mat)?.modifier ?? 0);
+const fmt = n => `$${n.toLocaleString("es-CL")} USD`;
+const genId = () => `FRJ-${Date.now().toString(36).toUpperCase()}`;
+
+// ─── ANIMATION VARIANTS ───────────────────────────────────────────────────────
+const FU = {
+  hidden: { opacity: 0, y: 22 },
+  show:   { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.25,0.46,0.45,0.94] } },
+};
+const FI = {
+  hidden: { opacity: 0 },
+  show:   { opacity: 1, transition: { duration: 0.5 } },
+};
+const SC = (delay = 0, sc = 0.1) => ({
+  hidden: {},
+  show:   { transition: { staggerChildren: sc, delayChildren: delay } },
+});
+
+// ─── LOGO ─────────────────────────────────────────────────────────────────────
+function Logo({ size=26, color="#C9A84C" }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 100 100" fill="none">
+      <polygon points="50,4 91,27.5 91,72.5 50,96 9,72.5 9,27.5" stroke={color} strokeWidth="2" fill="none"/>
+      <polygon points="50,20 76,35 76,65 50,80 24,65 24,35" stroke={color} strokeWidth="1.2" fill="none" opacity="0.55"/>
+      <polygon points="50,33 67,50 50,67 33,50" stroke={color} strokeWidth="1.4" fill="none"/>
+      <circle cx="50" cy="50" r="4.5" fill={color}/>
+      {[0,1,2,3,4,5].map(i=>{
+        const a=(i*Math.PI)/3-Math.PI/6;
+        return <circle key={i} cx={50+46*Math.cos(a)} cy={50+46*Math.sin(a)} r="2.2" fill={color} opacity="0.65"/>;
+      })}
+    </svg>
+  );
+}
+
+// ─── CSS ──────────────────────────────────────────────────────────────────────
+const css = `
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#0a0a0a;--surf:#111;--surf2:#0e0e0e;--brd:#1e1e1e;--brd2:#2a2a2a;
+  --txt:#f0ede8;--mut:#666;--mut2:#444;
+  --gold:#C9A84C;--silver:#A8A9AD;--white:#fff;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --mono:'DM Mono',monospace;
+  --ease:cubic-bezier(.25,.46,.45,.94);
+  --eout:cubic-bezier(0,.55,.45,1);
+}
+body{background:var(--bg);color:var(--txt);font-family:var(--mono);-webkit-font-smoothing:antialiased;}
+img{display:block;max-width:100%;}
+button{cursor:pointer;font-family:var(--mono);}
+
+/* ANN BAR */
+.ann{background:var(--gold);color:#000;text-align:center;padding:.5rem 1rem;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:100;background:rgba(10,10,10,.96);backdrop-filter:blur(16px);border-bottom:.5px solid var(--brd);}
+.nav-top{display:flex;align-items:center;justify-content:space-between;padding:.9rem 2.5rem;}
+.nav-logo{display:flex;align-items:center;gap:.7rem;cursor:pointer;}
+.nav-wm{font-family:var(--serif);font-size:1.35rem;font-weight:300;letter-spacing:.22em;color:var(--white);}
+.nav-right{display:flex;align-items:center;gap:1.5rem;}
+.nav-ph{font-size:.58rem;color:var(--mut);letter-spacing:.1em;text-decoration:none;transition:color .2s;}
+.nav-ph:hover{color:var(--gold);}
+.nav-cart{display:flex;align-items:center;gap:.5rem;background:none;border:none;color:var(--mut);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;transition:color .2s;}
+.nav-cart:hover{color:var(--gold);}
+.nav-bbl{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:var(--gold);color:#000;font-size:.58rem;font-weight:700;}
+.nav-lineas{display:flex;align-items:center;border-top:.5px solid var(--brd);overflow-x:auto;padding:0 2.5rem;scrollbar-width:none;}
+.nav-lineas::-webkit-scrollbar{display:none;}
+.nav-lb{background:none;border:none;color:var(--mut);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;padding:.75rem 1.1rem;white-space:nowrap;transition:color .2s;border-bottom:1.5px solid transparent;margin-bottom:-1px;}
+.nav-lb:hover{color:var(--white);}
+.nav-lb.on{color:var(--gold);border-bottom-color:var(--gold);}
+
+/* HERO */
+.hero{position:relative;height:90vh;min-height:560px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 100%,rgba(201,168,76,.07) 0%,transparent 65%);}
+.hero-grid{position:absolute;inset:0;pointer-events:none;}
+.hero-c{position:relative;z-index:1;padding:2rem;}
+.hero-eye{font-size:.58rem;letter-spacing:.3em;color:var(--gold);text-transform:uppercase;margin-bottom:1.5rem;}
+.hero-h1{font-family:var(--serif);font-weight:300;line-height:1.02;letter-spacing:.05em;font-size:clamp(3rem,8vw,6rem);color:var(--white);}
+.hero-h1 em{font-style:italic;color:var(--gold);}
+.hero-sub{margin-top:1.25rem;font-size:.7rem;color:var(--mut);letter-spacing:.1em;line-height:1.9;max-width:400px;margin-left:auto;margin-right:auto;}
+.hero-ctas{display:flex;align-items:center;gap:1rem;margin-top:2.5rem;justify-content:center;flex-wrap:wrap;}
+.btn-p{padding:.85rem 2rem;background:var(--gold);color:#000;font-family:var(--mono);font-size:.65rem;letter-spacing:.16em;text-transform:uppercase;border:none;transition:opacity .2s,transform .15s;}
+.btn-p:hover{opacity:.88;transform:translateY(-1px);}
+.btn-s{padding:.85rem 2rem;background:transparent;color:var(--mut);font-family:var(--mono);font-size:.65rem;letter-spacing:.16em;text-transform:uppercase;border:.5px solid var(--brd2);transition:color .2s,border-color .2s;}
+.btn-s:hover{color:var(--white);border-color:var(--white);}
+.hero-scr{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.5rem;}
+.hero-scr-l{width:.5px;height:40px;background:var(--brd2);animation:sl 2s infinite;}
+@keyframes sl{0%{transform:scaleY(0);transform-origin:top;}50%{transform:scaleY(1);transform-origin:top;}51%{transform-origin:bottom;}100%{transform:scaleY(0);transform-origin:bottom;}}
+.hero-scr-t{font-size:.5rem;color:var(--mut2);letter-spacing:.14em;text-transform:uppercase;}
+
+/* TRUST */
+.trust{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:.5px solid var(--brd);}
+@media(max-width:640px){.trust{grid-template-columns:repeat(2,1fr);}}
+.trust-i{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.8rem 1rem;gap:.5rem;border-right:.5px solid var(--brd);text-align:center;}
+.trust-i:last-child{border-right:none;}
+.ti-ic{font-size:1rem;color:var(--gold);}
+.ti-t{font-size:.62rem;letter-spacing:.12em;color:var(--white);text-transform:uppercase;}
+.ti-s{font-size:.58rem;color:var(--mut);letter-spacing:.08em;}
+
+/* SECTION */
+.sec{padding:4rem 2.5rem;}
+.sec-hdr{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:2.5rem;flex-wrap:wrap;gap:.5rem;}
+.sec-t{font-family:var(--serif);font-size:1.8rem;font-weight:300;color:var(--white);}
+.sec-lbl{font-size:.58rem;letter-spacing:.22em;color:var(--mut);text-transform:uppercase;margin-bottom:.3rem;}
+.sec-lnk{font-size:.6rem;letter-spacing:.1em;color:var(--mut);text-transform:uppercase;text-decoration:none;transition:color .2s;cursor:pointer;background:none;border:none;}
+.sec-lnk:hover{color:var(--gold);}
+.sec-div{height:.5px;background:var(--brd);margin:0 2.5rem;}
+
+/* LINEA HEADERS */
+.linea-hdr{display:flex;align-items:center;gap:1.5rem;padding:2rem 2.5rem 1.5rem;border-top:.5px solid var(--brd);}
+.linea-hdr:first-child{border-top:none;}
+.linea-num{font-size:.55rem;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;}
+.linea-title{font-family:var(--serif);font-size:2rem;font-weight:300;color:var(--white);}
+.linea-desc{font-size:.62rem;color:var(--mut);letter-spacing:.06em;margin-left:auto;}
+
+/* PRODUCT GRID */
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1px;background:var(--brd);margin:0 2.5rem;}
+.pc{background:var(--surf);cursor:pointer;display:flex;flex-direction:column;position:relative;overflow:hidden;transition:background .25s;}
+.pc:hover{background:#141414;}
+.pc-iw{position:relative;overflow:hidden;aspect-ratio:1;background:var(--surf2);}
+.pc-img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease),filter .5s;filter:brightness(.82);}
+.pc:hover .pc-img{transform:scale(1.06);filter:brightness(.55);}
+.pc-iw::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,10,.8) 0%,rgba(10,10,10,0) 55%);opacity:0;transition:opacity .45s var(--ease);pointer-events:none;z-index:1;}
+.pc:hover .pc-iw::after{opacity:1;}
+.pc-tag{position:absolute;top:1rem;left:1rem;font-size:.52rem;letter-spacing:.12em;text-transform:uppercase;background:var(--gold);color:#000;padding:.25rem .6rem;z-index:2;}
+.pc-w{position:absolute;top:1rem;right:1rem;background:rgba(10,10,10,.7);width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-size:.9rem;opacity:0;transition:opacity .2s;border:none;color:var(--mut);z-index:2;}
+.pc:hover .pc-w{opacity:1;}
+.pc-b{padding:1.25rem 1.5rem 1.75rem;display:flex;flex-direction:column;gap:.5rem;flex:1;}
+.pc-linea{font-size:.5rem;letter-spacing:.18em;color:var(--mut);text-transform:uppercase;}
+.pc-name{font-family:var(--serif);font-size:1.6rem;font-weight:300;color:var(--white);line-height:1.05;}
+.pc-tgl{font-size:.6rem;color:var(--mut);line-height:1.7;font-style:italic;flex:1;}
+.pc-ft{display:flex;align-items:center;justify-content:space-between;margin-top:.5rem;}
+.pc-price{font-size:.72rem;color:var(--gold);letter-spacing:.04em;}
+.pc-cta{font-size:.58rem;color:var(--mut2);letter-spacing:.1em;text-transform:uppercase;transition:color .2s;}
+.pc:hover .pc-cta{color:var(--silver);}
+.pc-line{position:absolute;bottom:0;left:0;height:1.5px;width:0;background:linear-gradient(to right,var(--gold),transparent);transition:width .5s var(--ease);}
+.pc:hover .pc-line{width:100%;}
+
+/* HIGHLIGHT */
+.hl{display:grid;grid-template-columns:1fr 1fr;min-height:480px;}
+@media(max-width:700px){.hl{grid-template-columns:1fr;}}
+.hl-iw{overflow:hidden;}
+.hl-iw img{width:100%;height:100%;object-fit:cover;filter:brightness(.6);transition:transform .7s var(--ease);}
+.hl:hover .hl-iw img{transform:scale(1.04);}
+.hl-c{background:var(--surf);display:flex;flex-direction:column;justify-content:center;padding:3.5rem;gap:1.5rem;}
+.hl-eye{font-size:.58rem;letter-spacing:.22em;color:var(--gold);text-transform:uppercase;}
+.hl-t{font-family:var(--serif);font-size:2.4rem;font-weight:300;color:var(--white);line-height:1.1;}
+.hl-d{font-size:.68rem;color:var(--mut);line-height:1.9;}
+.hl-list{display:flex;flex-direction:column;gap:.5rem;}
+.hl-li{display:flex;align-items:center;gap:.6rem;font-size:.62rem;color:var(--mut);}
+.hl-li::before{content:'';width:4px;height:4px;background:var(--gold);flex-shrink:0;}
+
+/* CRAFT */
+.craft{display:grid;grid-template-columns:1fr 1fr;}
+@media(max-width:700px){.craft{grid-template-columns:1fr;}}
+.craft-c{background:var(--surf2);padding:4rem 3.5rem;display:flex;flex-direction:column;gap:1.5rem;justify-content:center;}
+.craft-lbl{font-size:.55rem;letter-spacing:.24em;color:var(--gold);text-transform:uppercase;}
+.craft-t{font-family:var(--serif);font-size:2.2rem;font-weight:300;color:var(--white);line-height:1.1;}
+.craft-d{font-size:.67rem;color:var(--mut);line-height:1.9;}
+.craft-q{border-left:1.5px solid var(--gold);padding-left:1.25rem;font-family:var(--serif);font-size:1.1rem;font-style:italic;color:var(--silver);line-height:1.5;}
+.craft-iw{overflow:hidden;}
+.craft-iw img{width:100%;height:100%;object-fit:cover;filter:brightness(.7);transition:transform .7s var(--ease);}
+.craft:hover .craft-iw img{transform:scale(1.03);}
+
+/* TESTIMONIOS */
+.tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1px;background:var(--brd);}
+.tc{background:var(--surf);padding:2rem;display:flex;flex-direction:column;gap:1rem;transition:background .25s;}
+.tc:hover{background:#141414;}
+.tc-stars{color:var(--gold);font-size:.85rem;letter-spacing:.1em;}
+.tc-txt{font-size:.68rem;color:var(--mut);line-height:1.9;font-style:italic;flex:1;}
+.tc-name{font-size:.6rem;color:var(--silver);letter-spacing:.1em;text-transform:uppercase;}
+
+/* NEWSLETTER */
+.nl{background:var(--surf);padding:4rem 2.5rem;text-align:center;border-top:.5px solid var(--brd);border-bottom:.5px solid var(--brd);}
+.nl-t{font-family:var(--serif);font-size:2rem;font-weight:300;color:var(--white);margin-bottom:.5rem;}
+.nl-s{font-size:.65rem;color:var(--mut);letter-spacing:.1em;margin-bottom:2rem;}
+.nl-form{display:flex;max-width:420px;margin:0 auto;}
+.nl-inp{flex:1;background:var(--bg);border:.5px solid var(--brd2);color:var(--white);font-family:var(--mono);font-size:.68rem;padding:.8rem 1rem;outline:none;border-right:none;transition:border-color .2s;}
+.nl-inp:focus{border-color:var(--gold);}
+.nl-inp::placeholder{color:var(--mut2);}
+.nl-btn{padding:.8rem 1.25rem;background:var(--gold);color:#000;font-family:var(--mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;border:none;transition:opacity .2s;}
+.nl-btn:hover{opacity:.88;}
+
+/* FOOTER */
+.ftr{padding:3.5rem 2.5rem 2rem;border-top:.5px solid var(--brd);}
+.ftr-top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem;}
+@media(max-width:760px){.ftr-top{grid-template-columns:1fr 1fr;gap:2rem;}}
+@media(max-width:440px){.ftr-top{grid-template-columns:1fr;}}
+.ftr-brand{display:flex;flex-direction:column;gap:1rem;}
+.ftr-tgl{font-size:.62rem;color:var(--mut);line-height:1.8;letter-spacing:.06em;}
+.ftr-ct{font-size:.58rem;letter-spacing:.22em;color:var(--white);text-transform:uppercase;margin-bottom:.75rem;}
+.ftr-cl{display:flex;flex-direction:column;gap:.5rem;}
+.ftr-lk{font-size:.6rem;color:var(--mut);letter-spacing:.06em;text-decoration:none;transition:color .2s;cursor:pointer;}
+.ftr-lk:hover{color:var(--gold);}
+.ftr-bot{display:flex;align-items:center;justify-content:space-between;border-top:.5px solid var(--brd);padding-top:1.5rem;flex-wrap:wrap;gap:.75rem;}
+.ftr-cp{font-size:.55rem;color:var(--mut2);letter-spacing:.1em;}
+.ftr-pay{display:flex;gap:.5rem;align-items:center;}
+.pay-b{font-size:.48rem;letter-spacing:.06em;color:var(--mut2);border:.5px solid var(--brd2);padding:.25rem .5rem;}
+
+/* DETAIL */
+.detail{max-width:1100px;margin:0 auto;padding:0 2.5rem 5rem;}
+.detail-back{display:inline-flex;align-items:center;gap:.5rem;font-size:.6rem;letter-spacing:.12em;color:var(--mut);text-transform:uppercase;background:none;border:none;padding:2rem 0;transition:color .2s;}
+.detail-back:hover{color:var(--white);}
+.detail-layout{display:grid;grid-template-columns:1fr 1fr;gap:0;align-items:start;}
+@media(max-width:720px){.detail-layout{grid-template-columns:1fr;}}
+
+/* GALLERY */
+.gal{display:flex;flex-direction:column;gap:0;position:sticky;top:4rem;}
+.gal-main{aspect-ratio:1;overflow:hidden;border:.5px solid var(--brd);position:relative;}
+.gal-main img{width:100%;height:100%;object-fit:cover;filter:brightness(.85);}
+.gal-thumbs{display:flex;gap:1px;background:var(--brd);margin-top:1px;}
+.gal-th{flex:1;aspect-ratio:1;overflow:hidden;cursor:pointer;opacity:.45;transition:opacity .2s;border:none;background:none;padding:0;}
+.gal-th.on,.gal-th:hover{opacity:1;}
+.gal-th img{width:100%;height:100%;object-fit:cover;filter:brightness(.8);}
+
+/* DETAIL INFO */
+.di{padding:2.5rem;display:flex;flex-direction:column;gap:1.75rem;background:var(--surf2);}
+.di-brd{display:flex;align-items:center;gap:.5rem;font-size:.55rem;color:var(--mut2);letter-spacing:.08em;}
+.di-linea{font-size:.55rem;letter-spacing:.22em;color:var(--gold);text-transform:uppercase;}
+.di-name{font-family:var(--serif);font-size:3rem;font-weight:300;color:var(--white);line-height:.95;margin-top:.2rem;}
+.di-tgl{font-family:var(--serif);font-size:1.1rem;font-style:italic;color:var(--silver);line-height:1.4;}
+.di-div{height:.5px;background:var(--brd);}
+.concepto-box{background:var(--surf);border:.5px solid var(--brd);padding:1.5rem;}
+.cb-title{font-size:.55rem;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;margin-bottom:.75rem;}
+.cb-txt{font-size:.68rem;color:var(--mut);line-height:1.9;}
+.cb-ins{display:flex;align-items:center;gap:.5rem;margin-top:.75rem;font-size:.58rem;color:var(--mut2);letter-spacing:.06em;}
+.cb-ins::before{content:'';width:20px;height:.5px;background:var(--gold);}
+.opt-lbl{font-size:.55rem;letter-spacing:.18em;color:var(--mut);text-transform:uppercase;margin-bottom:.8rem;}
+.opt-grp{display:flex;flex-wrap:wrap;gap:.5rem;}
+.opt-btn{padding:.55rem 1rem;border:.5px solid var(--brd2);background:transparent;color:var(--mut);font-family:var(--mono);font-size:.6rem;letter-spacing:.08em;transition:all .2s;}
+.opt-btn:hover{border-color:var(--silver);color:var(--white);}
+.opt-btn.on{border-color:var(--gold);color:var(--gold);background:rgba(201,168,76,.05);}
+.price-from{font-size:.6rem;color:var(--mut);letter-spacing:.08em;margin-bottom:.25rem;}
+.price-main{font-family:var(--serif);font-size:2.8rem;font-weight:300;color:var(--white);}
+.price-bd{font-size:.58rem;color:var(--mut2);letter-spacing:.06em;margin-top:.3rem;}
+.price-ship{font-size:.6rem;color:var(--mut);margin-top:.5rem;}
+.btn-add{width:100%;padding:1.1rem;background:var(--gold);color:#000;font-family:var(--mono);font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;border:none;transition:opacity .2s,transform .15s;}
+.btn-add:hover{opacity:.88;transform:translateY(-1px);}
+.det-list{display:flex;flex-direction:column;gap:.6rem;}
+.det-row{display:flex;align-items:center;gap:.75rem;font-size:.62rem;color:var(--mut);}
+.det-row::before{content:'';width:4px;height:4px;border:1px solid var(--gold);flex-shrink:0;}
+.dtrust{display:flex;flex-direction:column;gap:.6rem;border:.5px solid var(--brd);padding:1.25rem;}
+.dtr{display:flex;align-items:center;gap:.75rem;font-size:.6rem;color:var(--mut);}
+.dtr-ic{color:var(--gold);}
+.d-rev-title{font-family:var(--serif);font-size:1.4rem;font-weight:300;color:var(--white);}
+.d-rev-grid{display:flex;flex-direction:column;gap:1rem;}
+.d-rev{background:var(--surf);border:.5px solid var(--brd);padding:1.25rem;display:flex;flex-direction:column;gap:.5rem;}
+.d-rev-stars{color:var(--gold);font-size:.8rem;}
+.d-rev-txt{font-size:.65rem;color:var(--mut);line-height:1.85;font-style:italic;}
+.d-rev-name{font-size:.55rem;color:var(--silver);letter-spacing:.1em;text-transform:uppercase;}
+
+/* CART */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:199;}
+.cart-panel{position:fixed;top:0;right:0;bottom:0;width:min(440px,100vw);background:var(--surf);border-left:.5px solid var(--brd);z-index:200;display:flex;flex-direction:column;}
+.cart-hdr{display:flex;align-items:center;justify-content:space-between;padding:1.5rem 2rem;border-bottom:.5px solid var(--brd);}
+.cart-ttl{font-family:var(--serif);font-size:1.4rem;font-weight:300;color:var(--white);}
+.cart-cls{background:none;border:none;color:var(--mut);font-size:1rem;transition:color .2s;padding:.25rem;}
+.cart-cls:hover{color:var(--white);}
+.cart-items{flex:1;overflow-y:auto;padding:1.5rem 2rem;display:flex;flex-direction:column;gap:1.5rem;}
+.cart-empty{text-align:center;color:var(--mut);font-size:.65rem;letter-spacing:.1em;padding-top:3rem;line-height:2;}
+.cart-item{display:flex;gap:1rem;align-items:flex-start;}
+.ci-img{width:60px;height:60px;object-fit:cover;flex-shrink:0;border:.5px solid var(--brd);filter:brightness(.85);}
+.ci-info{flex:1;min-width:0;}
+.ci-name{font-family:var(--serif);font-size:1.05rem;color:var(--white);}
+.ci-opts{font-size:.56rem;color:var(--mut);letter-spacing:.08em;margin-top:.2rem;text-transform:uppercase;}
+.ci-price{font-size:.7rem;color:var(--gold);margin-top:.4rem;}
+.ci-rm{background:none;border:none;color:var(--mut2);transition:color .2s;padding:.25rem;font-size:.75rem;}
+.ci-rm:hover{color:#e55;}
+.cart-ftr{padding:1.5rem 2rem;border-top:.5px solid var(--brd);display:flex;flex-direction:column;gap:1.25rem;}
+.cart-cnt{font-size:.55rem;color:var(--mut2);letter-spacing:.12em;}
+.cart-tot{display:flex;justify-content:space-between;align-items:baseline;}
+.cart-tot-l{font-size:.6rem;letter-spacing:.16em;color:var(--mut);text-transform:uppercase;}
+.cart-tot-v{font-family:var(--serif);font-size:1.6rem;color:var(--white);}
+.btn-chk{width:100%;padding:1rem;background:transparent;color:var(--white);font-family:var(--mono);font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;border:.5px solid var(--brd2);transition:background .25s,color .25s,border-color .25s;}
+.btn-chk:hover{background:var(--white);color:#000;border-color:var(--white);}
+
+/* CHECKOUT */
+.checkout{max-width:580px;margin:0 auto;padding:4rem 2.5rem;}
+.co-t{font-family:var(--serif);font-size:2.2rem;font-weight:300;color:var(--white);margin-bottom:.25rem;}
+.co-s{font-size:.6rem;color:var(--mut);letter-spacing:.1em;margin-bottom:2.5rem;}
+.co-sum{background:var(--surf);border:.5px solid var(--brd);padding:1.5rem;margin-bottom:2.5rem;display:flex;flex-direction:column;gap:.8rem;}
+.co-sum-h{font-size:.56rem;letter-spacing:.2em;color:var(--mut);text-transform:uppercase;margin-bottom:.25rem;}
+.co-row{display:flex;justify-content:space-between;font-size:.63rem;color:var(--mut);}
+.co-row.tot{color:var(--white);border-top:.5px solid var(--brd);padding-top:.8rem;margin-top:.1rem;font-size:.76rem;}
+.co-row.tot .v{color:var(--gold);}
+.fs{margin-bottom:2rem;}
+.fs-h{font-size:.55rem;letter-spacing:.2em;color:var(--mut);text-transform:uppercase;padding-bottom:.7rem;border-bottom:.5px solid var(--brd);margin-bottom:1rem;}
+.field{display:flex;flex-direction:column;gap:.4rem;margin-bottom:.8rem;}
+.field label{font-size:.56rem;letter-spacing:.14em;color:var(--mut);text-transform:uppercase;}
+.field input{background:var(--surf);border:.5px solid var(--brd);color:var(--white);font-family:var(--mono);font-size:.7rem;padding:.75rem 1rem;outline:none;transition:border-color .2s;-webkit-appearance:none;}
+.field input:focus{border-color:var(--gold);}
+.field input::placeholder{color:var(--mut2);}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.btn-cfm{width:100%;padding:1.1rem;margin-top:.5rem;background:var(--gold);color:#000;font-family:var(--mono);font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;border:none;transition:opacity .2s;}
+.btn-cfm:hover:not(:disabled){opacity:.88;}
+.btn-cfm:disabled{opacity:.35;cursor:not-allowed;}
+
+/* SUCCESS */
+.suc{max-width:500px;margin:5rem auto;padding:3rem 2.5rem;text-align:center;}
+.suc-t{font-family:var(--serif);font-size:2.4rem;font-weight:300;color:var(--white);margin-bottom:.4rem;}
+.suc-id{font-size:.58rem;letter-spacing:.14em;color:var(--gold);margin-bottom:1.5rem;}
+.suc-s{font-size:.67rem;color:var(--mut);line-height:1.9;margin-bottom:2.5rem;}
+.suc-meta{display:flex;flex-direction:column;margin-bottom:2.5rem;}
+.suc-row{display:flex;justify-content:space-between;font-size:.6rem;color:var(--mut2);padding:.65rem 0;border-bottom:.5px solid var(--brd);}
+.suc-row span:last-child{color:var(--silver);}
+.btn-gh{padding:.8rem 2rem;border:.5px solid var(--brd2);background:transparent;color:var(--mut);font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;transition:all .2s;}
+.btn-gh:hover{border-color:var(--white);color:var(--white);}
+
+/* TOAST */
+.toast{position:fixed;bottom:2.5rem;left:50%;transform:translateX(-50%);background:var(--gold);color:#000;padding:.75rem 1.75rem;font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;z-index:400;white-space:nowrap;}
+
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--brd2);}
+`;
+
+// ─── COMPONENTS ──────────────────────────────────────────────────────────────
+
+function Nav({ cartCount, onCartOpen, onLogo, activeLinea, onLinea }) {
+  return (
+    <nav className="nav">
+      <div className="nav-top">
+        <div className="nav-logo" onClick={onLogo}>
+          <Logo size={26}/><span className="nav-wm">FORJA</span>
+        </div>
+        <div className="nav-right">
+          <a className="nav-ph" href="tel:+56912345678">+56 9 1234 5678</a>
+          <button className="nav-cart" onClick={onCartOpen}>
+            <AnimatePresence mode="wait">
+              {cartCount > 0 && (
+                <motion.span
+                  key={cartCount}
+                  className="nav-bbl"
+                  initial={{ scale: 0.5, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  exit={{ scale: 0.5, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  {cartCount}
+                </motion.span>
+              )}
+            </AnimatePresence>
+            Carrito
+          </button>
+        </div>
+      </div>
+      <div className="nav-lineas">
+        {LINEAS.map(l => (
+          <button key={l} className={`nav-lb${activeLinea===l?" on":""}`} onClick={() => onLinea(l)}>{l}</button>
+        ))}
+      </div>
+    </nav>
+  );
+}
+
+function Gallery({ imgs }) {
+  const [active, setActive] = useState(0);
+  return (
+    <div className="gal">
+      <div className="gal-main">
+        <AnimatePresence mode="wait">
+          <motion.img
+            key={active}
+            src={imgs[active]}
+            alt="producto"
+            initial={{ opacity: 0, scale: 1.03 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3, ease: [0.25,0.46,0.45,0.94] }}
+          />
+        </AnimatePresence>
+      </div>
+      {imgs.length > 1 && (
+        <div className="gal-thumbs">
+          {imgs.map((src, i) => (
+            <button key={i} className={`gal-th${active===i?" on":""}`} onClick={() => setActive(i)}>
+              <img src={src} alt={`vista ${i+1}`}/>
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function ProductDetail({ product, onBack, onAdd }) {
+  const [mat, setMat] = useState("steel");
+  const matD = MATERIALS.find(m => m.id === mat);
+  const price = calcPrice(product.basePrice, mat);
+
+  return (
+    <div className="detail">
+      <motion.button
+        className="detail-back"
+        onClick={onBack}
+        initial={{ opacity: 0, x: -10 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.4 }}
+      >
+        ← Volver al catálogo
+      </motion.button>
+      <div className="detail-layout">
+
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5, ease: [0.25,0.46,0.45,0.94] }}
+        >
+          <Gallery imgs={product.imgs}/>
+        </motion.div>
+
+        <motion.div
+          className="di"
+          initial="hidden"
+          animate="show"
+          variants={SC(0.15, 0.07)}
+        >
+          <motion.div variants={FU}>
+            <div className="di-brd">
+              <span>Tienda</span><span>/</span>
+              <span>{product.linea}</span><span>/</span>
+              <span style={{color:"var(--mut)"}}>{product.name}</span>
+            </div>
+            <div className="di-linea">{product.linea}</div>
+            <div className="di-name">{product.name}</div>
+            <div className="di-tgl">"{product.tagline}"</div>
+          </motion.div>
+
+          <motion.div variants={FI} className="di-div"/>
+
+          <motion.div variants={FU} className="concepto-box">
+            <div className="cb-title">El concepto</div>
+            <div className="cb-txt">{product.concepto}</div>
+            <div className="cb-ins">{product.inspiracion}</div>
+          </motion.div>
+
+          <motion.div variants={FI} className="di-div"/>
+
+          <motion.div variants={FU}>
+            <div className="opt-lbl">Material</div>
+            <div className="opt-grp">
+              {MATERIALS.map(m => (
+                <button
+                  key={m.id}
+                  className={`opt-btn${mat===m.id?" on":""}`}
+                  onClick={() => setMat(m.id)}
+                >
+                  {m.label} {m.suffix}{m.modifier>0?` +${m.modifier}`:""}
+                </button>
+              ))}
+            </div>
+          </motion.div>
+
+          <motion.div variants={FU}>
+            <div className="price-from">Precio final</div>
+            <div className="price-main">{fmt(price)}</div>
+            <div className="price-bd">
+              Base {fmt(product.basePrice)}
+              {matD?.modifier > 0 && ` + ${matD.label} ${fmt(matD.modifier)}`}
+            </div>
+            <div className="price-ship">✓ Envío gratis · Entrega 5–7 días hábiles</div>
+          </motion.div>
+
+          <motion.button
+            variants={FU}
+            className="btn-add"
+            onClick={() => onAdd({...product, materialId:mat, materialLabel:matD?.label, price})}
+            whileHover={{ scale: 1.01 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            Agregar al carrito
+          </motion.button>
+
+          <motion.div variants={FU}>
+            <div className="opt-lbl" style={{marginBottom:"1rem"}}>Detalles</div>
+            <div className="det-list">
+              {product.detalles.map((d,i) => (
+                <div className="det-row" key={i}>{d}</div>
+              ))}
+            </div>
+          </motion.div>
+
+          <motion.div variants={FI} className="di-div"/>
+
+          <motion.div variants={FU} className="dtrust">
+            <div className="dtr"><span className="dtr-ic">◈</span> Materiales certificados — Acero 316L · Plata 925 · Oro 18K</div>
+            <div className="dtr"><span className="dtr-ic">⬡</span> Garantía de autenticidad incluida</div>
+            <div className="dtr"><span className="dtr-ic">◇</span> Devolución en 15 días sin preguntas</div>
+            <div className="dtr"><span className="dtr-ic">⬟</span> Empaque de regalo incluido</div>
+          </motion.div>
+
+          {product.reviews?.length > 0 && (
+            <motion.div variants={FU}>
+              <div className="d-rev-title" style={{marginBottom:"1rem"}}>Lo que dicen de él</div>
+              <div className="d-rev-grid">
+                {product.reviews.map((r,i) => (
+                  <div className="d-rev" key={i}>
+                    <div className="d-rev-stars">{"★".repeat(r.stars)}</div>
+                    <div className="d-rev-txt">"{r.text}"</div>
+                    <div className="d-rev-name">{r.name} · Verificado</div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </motion.div>
+      </div>
+    </div>
+  );
+}
+
+function CartPanel({ items, onClose, onRemove, onCheckout }) {
+  const total = items.reduce((s,i) => s+i.price, 0);
+  return (
+    <>
+      <motion.div
+        className="overlay"
+        onClick={onClose}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.2 }}
+      />
+      <motion.aside
+        className="cart-panel"
+        initial={{ x: "100%" }}
+        animate={{ x: 0 }}
+        exit={{ x: "100%" }}
+        transition={{ duration: 0.38, ease: [0, 0.55, 0.45, 1] }}
+      >
+        <div className="cart-hdr">
+          <span className="cart-ttl">Carrito</span>
+          <button className="cart-cls" onClick={onClose}>✕</button>
+        </div>
+        <div className="cart-items">
+          {items.length === 0 ? (
+            <div className="cart-empty">
+              <div style={{marginBottom:"1rem",opacity:.3}}><Logo size={28}/></div>
+              El carrito está vacío.<br/>Explora la colección.
+            </div>
+          ) : items.map((it,i) => (
+            <motion.div
+              className="cart-item"
+              key={i}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: i * 0.06, duration: 0.3 }}
+            >
+              <img className="ci-img" src={it.imgs[0]} alt={it.name}/>
+              <div className="ci-info">
+                <div className="ci-name">{it.name}</div>
+                <div className="ci-opts">{it.linea} · {it.materialLabel}</div>
+                <div className="ci-price">{fmt(it.price)}</div>
+              </div>
+              <button className="ci-rm" onClick={() => onRemove(i)}>✕</button>
+            </motion.div>
+          ))}
+        </div>
+        {items.length > 0 && (
+          <div className="cart-ftr">
+            <div>
+              <div className="cart-cnt">{items.length} {items.length===1?"pieza":"piezas"}</div>
+              <div className="cart-tot">
+                <span className="cart-tot-l">Total</span>
+                <span className="cart-tot-v">{fmt(total)}</span>
+              </div>
+            </div>
+            <button className="btn-chk" onClick={onCheckout}>Proceder al pago</button>
+          </div>
+        )}
+      </motion.aside>
+    </>
+  );
+}
+
+function CheckoutForm({ cart, onBack, onConfirm }) {
+  const total = cart.reduce((s,i) => s+i.price, 0);
+  const [f, setF] = useState({name:"",email:"",card:"",exp:"",cvv:""});
+  const set = k => e => setF(p => ({...p,[k]:e.target.value}));
+  const ok = f.name.length>2 && f.email.includes("@") && f.card.length>=16 && f.exp.length>=4 && f.cvv.length>=3;
+  return (
+    <motion.div
+      className="checkout"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <button className="detail-back" onClick={onBack}>← Volver al carrito</button>
+      <div className="co-t">Checkout</div>
+      <p className="co-s">Transacción segura · Sin almacenamiento de datos</p>
+      <div className="co-sum">
+        <div className="co-sum-h">Resumen del pedido</div>
+        {cart.map((it,i) => (
+          <div className="co-row" key={i}><span>{it.name} · {it.materialLabel}</span><span>{fmt(it.price)}</span></div>
+        ))}
+        <div className="co-row" style={{color:"var(--mut2)",fontSize:".6rem"}}><span>Envío</span><span>Gratis</span></div>
+        <div className="co-row tot"><span>Total</span><span className="v">{fmt(total)}</span></div>
+      </div>
+      <div className="fs">
+        <div className="fs-h">Datos de contacto</div>
+        <div className="field"><label>Nombre completo</label><input placeholder="Juan Rodríguez" value={f.name} onChange={set("name")}/></div>
+        <div className="field"><label>Email</label><input type="email" placeholder="juan@email.com" value={f.email} onChange={set("email")}/></div>
+      </div>
+      <div className="fs">
+        <div className="fs-h">Datos de pago (simulado)</div>
+        <div className="field"><label>Número de tarjeta</label><input placeholder="4242 4242 4242 4242" maxLength={16} value={f.card} onChange={set("card")}/></div>
+        <div className="field-row">
+          <div className="field"><label>Vencimiento</label><input placeholder="MM/AA" maxLength={5} value={f.exp} onChange={set("exp")}/></div>
+          <div className="field"><label>CVV</label><input placeholder="123" maxLength={3} value={f.cvv} onChange={set("cvv")}/></div>
+        </div>
+      </div>
+      <button className="btn-cfm" disabled={!ok} onClick={onConfirm}>Confirmar pedido — {fmt(total)}</button>
+    </motion.div>
+  );
+}
+
+function SuccessScreen({ orderId, cart, onReset }) {
+  const total = cart.reduce((s,i) => s+i.price, 0);
+  const del = new Date(Date.now()+7*86400000).toLocaleDateString("es-CL",{day:"numeric",month:"long"});
+  return (
+    <motion.div
+      className="suc"
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+    >
+      <motion.div
+        style={{marginBottom:"2rem"}}
+        initial={{ scale: 0.7, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ delay: 0.2, duration: 0.5, ease: [0, 0.55, 0.45, 1] }}
+      >
+        <Logo size={56}/>
+      </motion.div>
+      <div className="suc-t">Pedido confirmado</div>
+      <div className="suc-id">{orderId}</div>
+      <p className="suc-s">Tu pieza comenzará a forjarse en las próximas horas. Recibirás confirmación por correo.</p>
+      <div className="suc-meta">
+        <div className="suc-row"><span>Total pagado</span><span>{fmt(total)}</span></div>
+        <div className="suc-row"><span>Piezas</span><span>{cart.length}</span></div>
+        <div className="suc-row"><span>Entrega estimada</span><span>{del}</span></div>
+      </div>
+      <button className="btn-gh" onClick={onReset}>Volver al catálogo</button>
+    </motion.div>
+  );
+}
+
+// ─── APP ──────────────────────────────────────────────────────────────────────
+const TESTIMONIALS_GLOBAL = [
+  {name:"Rodrigo V.", stars:5, text:"Calidad impresionante. El Norte en acero llegó perfecto y el empaque es de otro nivel. Lo uso todos los días."},
+  {name:"Matías C.",  stars:5, text:"La pulsera Base es exactamente lo que buscaba: minimalista, resistente y con un cierre perfecto."},
+  {name:"Felipe A.",  stars:5, text:"Me sorprendió la atención. La Ruta en plata 925 supera todas mis expectativas."},
+  {name:"Andrés M.",  stars:5, text:"El Sello personalizado con mis iniciales quedó impecable. Vale cada peso."},
+];
+
+export default function App() {
+  const [view, setView] = useState("catalog");
+  const [selected, setSelected] = useState(null);
+  const [cart, setCart] = useState([]);
+  const [cartOpen, setCartOpen] = useState(false);
+  const [toast, setToast] = useState(false);
+  const [orderId, setOrderId] = useState(null);
+  const [activeLinea, setActiveLinea] = useState("Todos");
+  const [nlEmail, setNlEmail] = useState("");
+  const [nlSent, setNlSent] = useState(false);
+  const catalogRef = useRef(null);
+
+  const filtered = activeLinea === "Todos" ? PRODUCTS : PRODUCTS.filter(p => p.linea === activeLinea);
+  const byLinea = LINEAS.slice(1).map(l => ({ linea: l, items: filtered.filter(p => p.linea === l) })).filter(g => g.items.length > 0);
+
+  const showToast = () => { setToast(true); setTimeout(()=>setToast(false), 1500); };
+  const addToCart = item => { setCart(c=>[...c,item]); showToast(); };
+  const removeFromCart = idx => setCart(c=>c.filter((_,i)=>i!==idx));
+  const scrollCat = () => setTimeout(()=>catalogRef.current?.scrollIntoView({behavior:"smooth"}),50);
+  const handleLinea = l => { setActiveLinea(l); setView("catalog"); scrollCat(); };
+  const handleLogo = () => { setView("catalog"); setSelected(null); setActiveLinea("Todos"); };
+  const handleConfirm = () => { setOrderId(genId()); setView("success"); setCartOpen(false); };
+  const reset = () => { setView("catalog"); setCart([]); setSelected(null); setCartOpen(false); setOrderId(null); setActiveLinea("Todos"); };
+
+  return (
+    <>
+      <style>{css}</style>
+
+      {/* ANNOUNCEMENT */}
+      <div className="ann">Envío gratis en pedidos sobre $120 USD · Acero 316L · Plata 925 · Oro 18K</div>
+
+      <Nav cartCount={cart.length} onCartOpen={()=>setCartOpen(true)} onLogo={handleLogo} activeLinea={activeLinea} onLinea={handleLinea}/>
+
+      {view === "catalog" && (<>
+
+        {/* ── HERO ── */}
+        <section className="hero">
+          <div className="hero-bg"/>
+          <svg className="hero-grid" viewBox="0 0 1440 800" preserveAspectRatio="xMidYMid slice">
+            {[200,400,600,800,1000,1200].map(x=><line key={x} x1={x} y1="0" x2={x} y2="800" stroke="#1e1e1e" strokeWidth=".5"/>)}
+            {[160,320,480,640].map(y=><line key={y} x1="0" y1={y} x2="1440" y2={y} stroke="#1e1e1e" strokeWidth=".5"/>)}
+          </svg>
+          <motion.div
+            className="hero-c"
+            initial="hidden"
+            animate="show"
+            variants={SC(0.1, 0.12)}
+          >
+            <motion.div variants={FI} style={{marginBottom:"2rem"}}>
+              <Logo size={68}/>
+            </motion.div>
+            <motion.div variants={FU} className="hero-eye">Joyería Masculina de Autor · Colección 2025</motion.div>
+            <motion.h1 variants={FU} className="hero-h1">Forjado para<br/>el hombre <em>moderno</em></motion.h1>
+            <motion.p variants={FU} className="hero-sub">Tres líneas. Diez piezas. Una identidad.<br/>Anillos, Collares y Pulseras con nombre propio.</motion.p>
+            <motion.div variants={FU} className="hero-ctas">
+              <button className="btn-p" onClick={scrollCat}>Explorar colección</button>
+              <button className="btn-s">Nuestra historia</button>
+            </motion.div>
+          </motion.div>
+          <motion.div
+            className="hero-scr"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.9, duration: 0.6 }}
+          >
+            <div className="hero-scr-l"/><div className="hero-scr-t">Scroll</div>
+          </motion.div>
+        </section>
+
+        {/* ── TRUST ── */}
+        <motion.div
+          className="trust"
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.3 }}
+          variants={SC(0, 0.1)}
+        >
+          {[
+            {icon:"◈",title:"Acero 316L · Plata · Oro",sub:"Materiales premium certificados"},
+            {icon:"⬡",title:"Garantía de autenticidad",sub:"Cada pieza verificada"},
+            {icon:"⬟",title:"Envío a todo Chile",sub:"5–7 días hábiles"},
+            {icon:"◇",title:"Empaque de regalo",sub:"Presentación incluida"},
+          ].map((t,i)=>(
+            <motion.div className="trust-i" key={i} variants={FU}>
+              <div className="ti-ic">{t.icon}</div>
+              <div className="ti-t">{t.title}</div>
+              <div className="ti-s">{t.sub}</div>
+            </motion.div>
+          ))}
+        </motion.div>
+
+        {/* ── CATÁLOGO POR LÍNEAS ── */}
+        <div ref={catalogRef}>
+          {byLinea.length === 0 ? (
+            <div style={{padding:"4rem 2.5rem",color:"var(--mut)",fontSize:".7rem",textAlign:"center"}}>
+              No hay productos en esta línea aún.
+            </div>
+          ) : byLinea.map(({ linea, items }, gi) => (
+            <div key={linea}>
+              <motion.div
+                className="linea-hdr"
+                initial={{ opacity: 0, x: -24 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, ease: [0.25,0.46,0.45,0.94] }}
+              >
+                <div className="linea-num">Línea 0{gi+1}</div>
+                <div className="linea-title">{linea}</div>
+                <div className="linea-desc">{items.length} piezas</div>
+              </motion.div>
+              <div className="pgrid">
+                {items.map((p, idx) => (
+                  <motion.div
+                    className="pc"
+                    key={p.id}
+                    initial={{ opacity: 0, y: 32 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-60px" }}
+                    transition={{ duration: 0.55, delay: (idx % 3) * 0.09, ease: [0.25,0.46,0.45,0.94] }}
+                    onClick={()=>{setSelected(p);setView("detail");}}
+                  >
+                    <div className="pc-iw">
+                      <img className="pc-img" src={p.img} alt={p.name} loading="lazy"/>
+                      {p.tag && <span className="pc-tag">{p.tag}</span>}
+                      <button className="pc-w">♡</button>
+                    </div>
+                    <div className="pc-b">
+                      <div className="pc-linea">{p.linea}</div>
+                      <div className="pc-name">{p.name}</div>
+                      <div className="pc-tgl">{p.tagline}</div>
+                      <div className="pc-ft">
+                        <div className="pc-price">desde {fmt(p.basePrice)}</div>
+                        <div className="pc-cta">Ver pieza →</div>
+                      </div>
+                    </div>
+                    <div className="pc-line"/>
+                  </motion.div>
+                ))}
+              </div>
+              <div style={{height:"1px",background:"var(--brd)",margin:"0 2.5rem"}}/>
+            </div>
+          ))}
+        </div>
+
+        {/* ── HIGHLIGHT ── */}
+        <motion.section
+          className="hl"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.7, ease: [0.25,0.46,0.45,0.94] }}
+        >
+          <div className="hl-iw">
+            <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=900&q=80&auto=format&fit=crop" alt="Joyero artesanal"/>
+          </div>
+          <div className="hl-c">
+            <div className="hl-eye">El proceso importa</div>
+            <h2 className="hl-t">Maestría local.<br/>Legado digital.</h2>
+            <p className="hl-d">Cada pieza FORJA nace del oficio artesanal. No vendemos un objeto terminado; vendemos el derecho a presenciar su nacimiento. Cada modelo tiene nombre, historia y propósito.</p>
+            <div className="hl-list">
+              <div className="hl-li">Acero 316L · Plata 925 · Oro 18K amarillo</div>
+              <div className="hl-li">Cada pieza tiene nombre e historia propia</div>
+              <div className="hl-li">Piezas hipoalergénicas resistentes al agua</div>
+              <div className="hl-li">Empaque de regalo incluido en cada pedido</div>
+            </div>
+            <button className="btn-p" style={{alignSelf:"flex-start"}} onClick={scrollCat}>Ver la colección</button>
+          </div>
+        </motion.section>
+
+        {/* ── CRAFT ── */}
+        <motion.section
+          className="craft"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.7, ease: [0.25,0.46,0.45,0.94] }}
+        >
+          <div className="craft-c">
+            <div className="craft-lbl">Identidad de marca</div>
+            <h2 className="craft-t">El Lujo de la<br/>Identidad</h2>
+            <p className="craft-d">Forja nace desde la convicción de que una joya no es solo un accesorio, sino una extensión de la identidad de quien la lleva. Cada pieza representa carácter, decisión y presencia.</p>
+            <div className="craft-q">"La verdadera fuerza no necesita exagerarse: se transmite con presencia."</div>
+            <button className="btn-s" style={{alignSelf:"flex-start"}}>Nuestra historia →</button>
+          </div>
+          <div className="craft-iw">
+            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80&auto=format&fit=crop" alt="Joyería masculina"/>
+          </div>
+        </motion.section>
+
+        {/* ── TESTIMONIOS ── */}
+        <section className="sec">
+          <motion.div
+            className="sec-hdr"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            <div>
+              <div className="sec-lbl">Lo que dicen nuestros clientes</div>
+              <h2 className="sec-t">Opiniones</h2>
+            </div>
+            <button className="sec-lnk">Ver en Google →</button>
+          </motion.div>
+          <motion.div
+            className="tgrid"
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.1 }}
+            variants={SC(0, 0.12)}
+          >
+            {TESTIMONIALS_GLOBAL.map((t,i)=>(
+              <motion.div className="tc" key={i} variants={FU}>
+                <div className="tc-stars">{"★".repeat(t.stars)}</div>
+                <div className="tc-txt">"{t.text}"</div>
+                <div className="tc-name">{t.name} · Verificado</div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </section>
+
+        {/* ── NEWSLETTER ── */}
+        <motion.div
+          className="nl"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.6 }}
+        >
+          <div className="nl-t">Acceso anticipado</div>
+          <div className="nl-s">Sé el primero en conocer nuevos lanzamientos y ediciones limitadas</div>
+          {nlSent ? (
+            <motion.div
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              style={{fontSize:".68rem",color:"var(--gold)",letterSpacing:".1em"}}
+            >
+              ✓ Registrado — te avisaremos pronto
+            </motion.div>
+          ) : (
+            <div className="nl-form">
+              <input className="nl-inp" type="email" placeholder="tu@email.com" value={nlEmail} onChange={e=>setNlEmail(e.target.value)}/>
+              <button className="nl-btn" onClick={()=>nlEmail&&setNlSent(true)}>Suscribir</button>
+            </div>
+          )}
+        </motion.div>
+
+        {/* ── FOOTER ── */}
+        <footer className="ftr">
+          <div className="ftr-top">
+            <div className="ftr-brand">
+              <div onClick={handleLogo} style={{cursor:"pointer"}}><Logo size={22}/></div>
+              <p className="ftr-tgl">Joyería masculina de autor.<br/>Piezas de precisión forjadas<br/>para el hombre moderno.</p>
+            </div>
+            <div>
+              <div className="ftr-ct">Líneas</div>
+              <div className="ftr-cl">
+                {["Anillos","Collares","Pulseras"].map(l=><span key={l} className="ftr-lk" onClick={()=>handleLinea(l)}>{l}</span>)}
+              </div>
+            </div>
+            <div>
+              <div className="ftr-ct">Ayuda</div>
+              <div className="ftr-cl">
+                {["Contacto","Envíos y devoluciones","Guía de tallas","Política de privacidad"].map(l=><span key={l} className="ftr-lk">{l}</span>)}
+              </div>
+            </div>
+            <div>
+              <div className="ftr-ct">Síguenos</div>
+              <div className="ftr-cl">
+                {["Instagram","TikTok","Pinterest","Facebook"].map(l=><span key={l} className="ftr-lk">{l}</span>)}
+              </div>
+            </div>
+          </div>
+          <div className="ftr-bot">
+            <span className="ftr-cp">© 2025 FORJA — Todos los derechos reservados.</span>
+            <div className="ftr-pay">
+              {["Visa","Mastercard","Amex","Webpay"].map(b=><span key={b} className="pay-b">{b}</span>)}
+            </div>
+          </div>
+        </footer>
+
+      </>)}
+
+      {view === "detail" && selected && (
+        <ProductDetail
+          product={selected}
+          onBack={()=>setView("catalog")}
+          onAdd={item=>{addToCart(item);setView("catalog");}}
+        />
+      )}
+
+      {view === "checkout" && (
+        <CheckoutForm cart={cart} onBack={()=>setCartOpen(true)} onConfirm={handleConfirm}/>
+      )}
+
+      {view === "success" && (
+        <SuccessScreen orderId={orderId} cart={cart} onReset={reset}/>
+      )}
+
+      {/* CART con AnimatePresence */}
+      <AnimatePresence>
+        {cartOpen && (
+          <CartPanel
+            items={cart}
+            onClose={()=>setCartOpen(false)}
+            onRemove={removeFromCart}
+            onCheckout={()=>{setCartOpen(false);setView("checkout");}}
+          />
+        )}
+      </AnimatePresence>
+
+      {/* TOAST con AnimatePresence */}
+      <AnimatePresence>
+        {toast && (
+          <motion.div
+            className="toast"
+            initial={{ opacity: 0, y: 16, x: "-50%" }}
+            animate={{ opacity: 1, y: 0,  x: "-50%" }}
+            exit={{ opacity: 0,    y: -10, x: "-50%" }}
+            transition={{ duration: 0.25, ease: [0, 0.55, 0.45, 1] }}
+          >
+            ✓ Agregado al carrito
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+}
