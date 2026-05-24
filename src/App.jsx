@@ -194,6 +194,20 @@ const MATERIALS = [
   { id:"gold",   label:"Oro",    modifier:120, suffix:"18K"  },
 ];
 
+const PIECE_TYPES = [
+  { id:"ring",     icon:"◈", label:"Anillo",      desc:"Sello · Banda · Facetado" },
+  { id:"necklace", icon:"⬡", label:"Collar",      desc:"Cadena · Colgante · Mixto" },
+  { id:"bracelet", icon:"◇", label:"Pulsera",     desc:"Eslabón · Rígida · Cuerda" },
+  { id:"set",      icon:"⬟", label:"Set completo",desc:"Combinación a medida" },
+];
+
+const BUDGETS = [
+  { id:"b1", label:"$80 – $150 USD" },
+  { id:"b2", label:"$150 – $300 USD" },
+  { id:"b3", label:"$300 – $600 USD" },
+  { id:"b4", label:"Sin límite definido" },
+];
+
 const calcPrice = (base, mat) => base + (MATERIALS.find(m=>m.id===mat)?.modifier ?? 0);
 const fmt = n => `$${n.toLocaleString("es-CL")} USD`;
 const genId = () => `FRJ-${Date.now().toString(36).toUpperCase()}`;
@@ -505,6 +519,60 @@ button{cursor:pointer;font-family:var(--mono);}
 /* TOAST */
 .toast{position:fixed;bottom:2.5rem;left:50%;transform:translateX(-50%);background:var(--gold);color:#000;padding:.75rem 1.75rem;font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;z-index:400;white-space:nowrap;}
 
+/* NAV QUOTE BUTTON */
+.nav-quote{padding:.42rem 1rem;background:transparent;border:.5px solid var(--gold);color:var(--gold);font-family:var(--mono);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;transition:all .22s;}
+.nav-quote:hover{background:var(--gold);color:#000;}
+
+/* QUOTE SECTION — catalog teaser */
+.qsec{position:relative;padding:5.5rem 2.5rem;overflow:hidden;border-top:.5px solid var(--brd);border-bottom:.5px solid var(--brd);}
+.qsec-bg{position:absolute;inset:0;background:radial-gradient(ellipse 100% 70% at 50% 100%,rgba(201,168,76,.06) 0%,transparent 65%),radial-gradient(ellipse 50% 40% at 15% 0%,rgba(168,169,173,.03) 0%,transparent 55%);}
+.qsec-inner{position:relative;z-index:1;text-align:center;}
+.qsec-lbl{font-size:.52rem;letter-spacing:.32em;color:var(--gold);text-transform:uppercase;margin-bottom:1.2rem;}
+.qsec-t{font-family:var(--serif);font-size:clamp(2.8rem,6vw,4.5rem);font-weight:300;color:var(--white);line-height:1.02;margin-bottom:1.25rem;}
+.qsec-t em{font-style:italic;color:var(--gold);}
+.qsec-body{font-size:.7rem;color:var(--mut);line-height:2.1;letter-spacing:.04em;max-width:580px;margin:0 auto 1.25rem;}
+.qsec-q{font-family:var(--serif);font-size:1.08rem;font-style:italic;color:var(--silver);opacity:.65;margin-bottom:2.5rem;line-height:1.65;}
+.qsec-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--brd);margin:2.5rem 0 3rem;text-align:left;}
+@media(max-width:700px){.qsec-steps{grid-template-columns:repeat(2,1fr);}}
+.qss{background:var(--surf);padding:1.5rem 1.25rem;}
+.qss-n{font-size:.48rem;letter-spacing:.22em;color:var(--gold);text-transform:uppercase;margin-bottom:.55rem;}
+.qss-ic{font-size:1.05rem;margin-bottom:.45rem;opacity:.65;}
+.qss-t{font-family:var(--serif);font-size:1.15rem;color:var(--white);margin-bottom:.3rem;}
+.qss-d{font-size:.58rem;color:var(--mut);line-height:1.75;}
+
+/* QUOTE FORM VIEW */
+.qf{max-width:720px;margin:0 auto;padding:3.5rem 2.5rem 5rem;}
+.qf-hdr{margin-bottom:2rem;}
+.qf-lbl{font-size:.52rem;letter-spacing:.28em;color:var(--gold);text-transform:uppercase;margin-bottom:.55rem;}
+.qf-t{font-family:var(--serif);font-size:clamp(2.2rem,4vw,3.2rem);font-weight:300;color:var(--white);line-height:1.02;margin-bottom:.75rem;}
+.qf-sub{font-size:.65rem;color:var(--mut);line-height:1.9;max-width:520px;}
+.qf-div{height:.5px;background:var(--brd);margin:2rem 0;}
+.qf-sh{font-size:.52rem;letter-spacing:.2em;color:var(--mut);text-transform:uppercase;margin-bottom:.9rem;}
+.qf-tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:1px;background:var(--brd);margin-bottom:1.5rem;}
+.qf-tile{background:var(--surf);padding:1.25rem 1rem;cursor:pointer;border:1.5px solid transparent;transition:all .22s;display:flex;flex-direction:column;gap:.4rem;}
+.qf-tile:hover{background:#141414;}
+.qf-tile.on{border-color:var(--gold);background:rgba(201,168,76,.04);}
+.qf-tile-ic{font-size:1.05rem;opacity:.65;}
+.qf-tile-t{font-family:var(--serif);font-size:1rem;color:var(--white);}
+.qf-tile-d{font-size:.54rem;color:var(--mut);letter-spacing:.04em;}
+.qf-textarea{width:100%;background:var(--surf);border:.5px solid var(--brd);color:var(--white);font-family:var(--mono);font-size:.67rem;padding:1rem 1.1rem;outline:none;resize:vertical;min-height:110px;transition:border-color .2s;line-height:1.9;-webkit-appearance:none;}
+.qf-textarea:focus{border-color:var(--gold);}
+.qf-textarea::placeholder{color:var(--mut2);}
+.qf-inp{width:100%;background:var(--surf);border:.5px solid var(--brd);color:var(--white);font-family:var(--mono);font-size:.68rem;padding:.75rem 1rem;outline:none;transition:border-color .2s;-webkit-appearance:none;}
+.qf-inp:focus{border-color:var(--gold);}
+.qf-inp::placeholder{color:var(--mut2);}
+.qf-flbl{font-size:.54rem;letter-spacing:.14em;color:var(--mut);text-transform:uppercase;margin-bottom:.35rem;display:block;}
+.qf-budget{display:flex;flex-wrap:wrap;gap:.5rem;}
+.qf-bud{padding:.55rem 1.1rem;border:.5px solid var(--brd2);background:transparent;color:var(--mut);font-family:var(--mono);font-size:.6rem;letter-spacing:.06em;transition:all .22s;cursor:pointer;}
+.qf-bud:hover{border-color:var(--silver);color:var(--white);}
+.qf-bud.on{border-color:var(--gold);color:var(--gold);background:rgba(201,168,76,.05);}
+.btn-qsend{width:100%;padding:1.1rem;background:var(--gold);color:#000;font-family:var(--mono);font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;border:none;transition:opacity .2s,transform .15s;margin-top:.5rem;}
+.btn-qsend:hover:not(:disabled){opacity:.88;transform:translateY(-1px);}
+.btn-qsend:disabled{opacity:.35;cursor:not-allowed;}
+.qf-sent{text-align:center;padding:4rem 1rem;}
+.qf-sent-t{font-family:var(--serif);font-size:2.5rem;font-weight:300;color:var(--white);margin-bottom:.5rem;}
+.qf-sent-sub{font-size:.65rem;color:var(--mut);letter-spacing:.06em;line-height:2.2;margin-bottom:2rem;}
+
 ::-webkit-scrollbar{width:4px;}
 ::-webkit-scrollbar-track{background:var(--bg);}
 ::-webkit-scrollbar-thumb{background:var(--brd2);}
@@ -512,7 +580,7 @@ button{cursor:pointer;font-family:var(--mono);}
 
 // ─── COMPONENTS ──────────────────────────────────────────────────────────────
 
-function Nav({ cartCount, onCartOpen, onLogo, activeLinea, onLinea }) {
+function Nav({ cartCount, onCartOpen, onLogo, activeLinea, onLinea, onQuote }) {
   return (
     <nav className="nav">
       <div className="nav-top">
@@ -521,6 +589,7 @@ function Nav({ cartCount, onCartOpen, onLogo, activeLinea, onLinea }) {
         </div>
         <div className="nav-right">
           <a className="nav-ph" href="tel:+56912345678">+56 9 1234 5678</a>
+          <button className="nav-quote" onClick={onQuote}>Cotizar</button>
           <button className="nav-cart" onClick={onCartOpen}>
             <AnimatePresence mode="wait">
               {cartCount > 0 && (
@@ -705,6 +774,213 @@ function ProductDetail({ product, onBack, onAdd }) {
   );
 }
 
+// ─── QUOTE SECTION (catalog teaser) ─────────────────────────────────────────
+function QuoteSection({ onQuote }) {
+  return (
+    <motion.section
+      className="qsec"
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.12 }}
+      transition={{ duration: 0.7, ease: [0.25,0.46,0.45,0.94] }}
+    >
+      <div className="qsec-bg"/>
+      <motion.div
+        className="qsec-inner"
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true }}
+        variants={SC(0.1, 0.1)}
+      >
+        <motion.div variants={FU} className="qsec-lbl">Pieza única · Creada solo para ti</motion.div>
+        <motion.h2 variants={FU} className="qsec-t">
+          Tu historia,<br/>grabada en <em>metal</em>
+        </motion.h2>
+        <motion.p variants={FU} className="qsec-body">
+          Hay joyas que no pueden existir en serie porque llevan algo que nadie más tiene: un nombre, una fecha, un símbolo que solo tú comprendes. En FORJA, la forja más íntima no comienza con el metal — comienza con tu relato.
+        </motion.p>
+        <motion.p variants={FI} className="qsec-q">
+          "Como el herrero que escucha el acero antes de doblarlo,<br/>
+          nosotros escuchamos tu historia antes de forjar tu pieza."
+        </motion.p>
+
+        <motion.div className="qsec-steps" variants={SC(0, 0.08)}>
+          {[
+            { n:"01", ic:"◈", t:"El Relato",  d:"Cuéntanos qué quieres transmitir y qué hace especial esta pieza." },
+            { n:"02", ic:"⬡", t:"La Materia", d:"Elegimos juntos el metal, la forma y cada detalle." },
+            { n:"03", ic:"⬟", t:"La Forja",   d:"Un maestro joyero trabaja tu pieza única en 3 a 5 días." },
+            { n:"04", ic:"◇", t:"La Entrega", d:"Llega a tus manos con certificado de autor y empaque de regalo." },
+          ].map((s,i) => (
+            <motion.div className="qss" key={i} variants={FU}>
+              <div className="qss-n">Paso {s.n}</div>
+              <div className="qss-ic">{s.ic}</div>
+              <div className="qss-t">{s.t}</div>
+              <div className="qss-d">{s.d}</div>
+            </motion.div>
+          ))}
+        </motion.div>
+
+        <motion.button
+          variants={FU}
+          className="btn-p"
+          onClick={onQuote}
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.97 }}
+        >
+          Solicitar cotización →
+        </motion.button>
+      </motion.div>
+    </motion.section>
+  );
+}
+
+// ─── QUOTE FORM (full view) ──────────────────────────────────────────────────
+function QuoteForm({ onBack }) {
+  const [pieceType, setPieceType] = useState(null);
+  const [material, setMaterial]   = useState(null);
+  const [vision, setVision]       = useState("");
+  const [engraving, setEngraving] = useState("");
+  const [budget, setBudget]       = useState(null);
+  const [name, setName]           = useState("");
+  const [contact, setContact]     = useState("");
+  const [sent, setSent]           = useState(false);
+
+  const ok = pieceType && material && vision.length > 10 && budget && name.length > 2 && contact.length > 4;
+
+  if (sent) return (
+    <motion.div className="qf" initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }} transition={{ duration:0.5 }}>
+      <div className="qf-sent">
+        <motion.div
+          initial={{ scale:0.7, opacity:0 }}
+          animate={{ scale:1, opacity:1 }}
+          transition={{ delay:0.2, duration:0.5, ease:[0,0.55,0.45,1] }}
+          style={{ marginBottom:"1.75rem", display:"flex", justifyContent:"center" }}
+        >
+          <Logo size={56}/>
+        </motion.div>
+        <div className="qf-sent-t">Tu relato está en nuestras manos</div>
+        <p className="qf-sent-sub">
+          Un maestro joyero de FORJA revisará tu solicitud<br/>
+          y se pondrá en contacto contigo en menos de 24 horas.<br/>
+          Cada pieza única merece ser escuchada antes de ser forjada.
+        </p>
+        <button className="btn-gh" onClick={onBack}>← Volver al catálogo</button>
+      </div>
+    </motion.div>
+  );
+
+  return (
+    <motion.div className="qf" initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }} transition={{ duration:0.5 }}>
+      <button className="detail-back" onClick={onBack}>← Volver al catálogo</button>
+
+      <div className="qf-hdr">
+        <div className="qf-lbl">Pieza única · Forja personalizada</div>
+        <h1 className="qf-t">Forjemos algo<br/>solo para ti</h1>
+        <p className="qf-sub">
+          Cuéntanos tu visión y un maestro joyero te contactará en menos de 24 horas con una propuesta diseñada desde cero — solo para ti.
+        </p>
+      </div>
+
+      <motion.div initial="hidden" animate="show" variants={SC(0.15, 0.09)}>
+
+        {/* — Tipo de pieza — */}
+        <div className="qf-div"/>
+        <motion.div variants={FU}>
+          <div className="qf-sh">¿Qué tipo de pieza imaginas?</div>
+          <div className="qf-tiles">
+            {PIECE_TYPES.map(pt => (
+              <div key={pt.id} className={`qf-tile${pieceType===pt.id?" on":""}`} onClick={()=>setPieceType(pt.id)}>
+                <div className="qf-tile-ic">{pt.icon}</div>
+                <div className="qf-tile-t">{pt.label}</div>
+                <div className="qf-tile-d">{pt.desc}</div>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* — Material — */}
+        <motion.div variants={FU}>
+          <div className="qf-sh">¿En qué material la imaginas?</div>
+          <div className="opt-grp" style={{marginBottom:"1.5rem"}}>
+            {[...MATERIALS, {id:"mixed",label:"Mixto",suffix:"a definir",modifier:0}].map(m => (
+              <button key={m.id} className={`opt-btn${material===m.id?" on":""}`} onClick={()=>setMaterial(m.id)}>
+                {m.label} {m.suffix}
+              </button>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* — Visión — */}
+        <div className="qf-div"/>
+        <motion.div variants={FU}>
+          <div className="qf-sh">Cuéntanos tu visión</div>
+          <textarea
+            className="qf-textarea"
+            placeholder="Describe qué quieres transmitir con esta pieza. ¿Qué la hace especial? ¿Hay un nombre, una fecha, un símbolo o una historia detrás? No hay detalles pequeños cuando se trata de algo verdaderamente único..."
+            value={vision}
+            onChange={e=>setVision(e.target.value)}
+            rows={5}
+          />
+        </motion.div>
+
+        {/* — Grabado — */}
+        <motion.div variants={FU} style={{marginTop:"1.5rem"}}>
+          <div className="qf-sh">
+            Grabado o texto especial&nbsp;
+            <span style={{color:"var(--mut2)",fontSize:".5rem",letterSpacing:".1em"}}>(opcional)</span>
+          </div>
+          <input className="qf-inp" placeholder="Nombre, fecha, coordenadas, frase, símbolo..." value={engraving} onChange={e=>setEngraving(e.target.value)}/>
+        </motion.div>
+
+        {/* — Presupuesto — */}
+        <div className="qf-div"/>
+        <motion.div variants={FU}>
+          <div className="qf-sh">Presupuesto estimado</div>
+          <div className="qf-budget">
+            {BUDGETS.map(b => (
+              <button key={b.id} className={`qf-bud${budget===b.id?" on":""}`} onClick={()=>setBudget(b.id)}>{b.label}</button>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* — Contacto — */}
+        <div className="qf-div"/>
+        <motion.div variants={FU}>
+          <div className="qf-sh">¿Cómo te contactamos?</div>
+          <div style={{display:"flex",flexDirection:"column",gap:".8rem"}}>
+            <div>
+              <label className="qf-flbl">Nombre</label>
+              <input className="qf-inp" placeholder="Tu nombre" value={name} onChange={e=>setName(e.target.value)}/>
+            </div>
+            <div>
+              <label className="qf-flbl">Email o WhatsApp</label>
+              <input className="qf-inp" placeholder="correo@email.com · +56 9 ..." value={contact} onChange={e=>setContact(e.target.value)}/>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* — Submit — */}
+        <motion.button
+          variants={FU}
+          className="btn-qsend"
+          disabled={!ok}
+          onClick={()=>ok&&setSent(true)}
+          whileHover={ok?{scale:1.01}:{}}
+          whileTap={ok?{scale:0.98}:{}}
+          style={{marginTop:"2rem"}}
+        >
+          Enviar solicitud de cotización
+        </motion.button>
+
+        <motion.p variants={FI} style={{fontSize:".57rem",color:"var(--mut2)",textAlign:"center",marginTop:"1rem",letterSpacing:".06em",lineHeight:1.7}}>
+          Sin compromiso · Respuesta en menos de 24 horas · Tu información es confidencial
+        </motion.p>
+
+      </motion.div>
+    </motion.div>
+  );
+}
+
 function CartPanel({ items, onClose, onRemove, onCheckout }) {
   const total = items.reduce((s,i) => s+i.price, 0);
   return (
@@ -880,7 +1156,7 @@ export default function App() {
       {/* ANNOUNCEMENT */}
       <div className="ann">Envío gratis en pedidos sobre $120 USD · Acero 316L · Plata 925 · Oro 18K</div>
 
-      <Nav cartCount={cart.length} onCartOpen={()=>setCartOpen(true)} onLogo={handleLogo} activeLinea={activeLinea} onLinea={handleLinea}/>
+      <Nav cartCount={cart.length} onCartOpen={()=>setCartOpen(true)} onLogo={handleLogo} activeLinea={activeLinea} onLinea={handleLinea} onQuote={()=>setView("quote")}/>
 
       {view === "catalog" && (<>
 
@@ -1038,6 +1314,9 @@ export default function App() {
           </div>
         </motion.section>
 
+        {/* ── COTIZAR ── */}
+        <QuoteSection onQuote={()=>setView("quote")}/>
+
         {/* ── TESTIMONIOS ── */}
         <section className="sec">
           <motion.div
@@ -1138,6 +1417,10 @@ export default function App() {
           onBack={()=>setView("catalog")}
           onAdd={item=>{addToCart(item);setView("catalog");}}
         />
+      )}
+
+      {view === "quote" && (
+        <QuoteForm onBack={()=>setView("catalog")}/>
       )}
 
       {view === "checkout" && (
