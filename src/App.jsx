@@ -522,6 +522,24 @@ button{cursor:pointer;font-family:var(--mono);}
 .nav-quote{padding:.42rem 1rem;background:transparent;border:.5px solid var(--gold);color:var(--gold);font-family:var(--mono);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;transition:all .22s;}
 .nav-quote:hover{background:var(--gold);color:#000;}
 
+/* PACKAGING */
+.pkg{display:grid;grid-template-columns:1fr 1.15fr;min-height:560px;border-top:.5px solid var(--brd);}
+@media(max-width:700px){.pkg{grid-template-columns:1fr;}}
+.pkg-c{background:var(--surf2);padding:4.5rem 3.5rem;display:flex;flex-direction:column;gap:1.6rem;justify-content:center;position:relative;overflow:hidden;}
+.pkg-c::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 90% 60% at 0% 110%,rgba(201,168,76,.055) 0%,transparent 60%);pointer-events:none;}
+.pkg-lbl{font-size:.52rem;letter-spacing:.3em;color:var(--gold);text-transform:uppercase;}
+.pkg-t{font-family:var(--serif);font-size:clamp(2.2rem,4vw,2.8rem);font-weight:300;color:var(--white);line-height:1.0;}
+.pkg-t em{font-style:italic;color:var(--gold);}
+.pkg-tag{font-family:var(--serif);font-size:1.08rem;font-style:italic;color:var(--silver);line-height:1.55;opacity:.8;}
+.pkg-d{font-size:.67rem;color:var(--mut);line-height:2;}
+.pkg-list{display:flex;flex-direction:column;gap:.55rem;}
+.pkg-li{display:flex;align-items:center;gap:.65rem;font-size:.61rem;color:var(--mut);}
+.pkg-li::before{content:'';width:4px;height:4px;background:var(--gold);flex-shrink:0;}
+.pkg-q{border-left:1.5px solid var(--gold);padding-left:1.25rem;font-family:var(--serif);font-size:1.05rem;font-style:italic;color:var(--silver);line-height:1.55;opacity:.7;}
+.pkg-iw{overflow:hidden;position:relative;}
+.pkg-iw img{width:100%;height:100%;object-fit:cover;transition:transform .85s var(--ease);}
+.pkg:hover .pkg-iw img{transform:scale(1.04);}
+
 /* QUOTE SECTION — catalog teaser */
 .qsec{position:relative;padding:5.5rem 2.5rem;overflow:hidden;border-top:.5px solid var(--brd);border-bottom:.5px solid var(--brd);}
 .qsec-bg{position:absolute;inset:0;background:radial-gradient(ellipse 100% 70% at 50% 100%,rgba(201,168,76,.06) 0%,transparent 65%),radial-gradient(ellipse 50% 40% at 15% 0%,rgba(168,169,173,.03) 0%,transparent 55%);}
@@ -770,6 +788,73 @@ function ProductDetail({ product, onBack, onAdd }) {
         </motion.div>
       </div>
     </div>
+  );
+}
+
+// ─── PACKAGING SECTION ───────────────────────────────────────────────────────
+function PackagingSection() {
+  return (
+    <motion.section
+      className="pkg"
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.12 }}
+      transition={{ duration: 0.75, ease: [0.25,0.46,0.45,0.94] }}
+    >
+      <motion.div
+        className="pkg-c"
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true }}
+        variants={SC(0.2, 0.1)}
+      >
+        <motion.div variants={FU} className="pkg-lbl">El arte de la entrega · Packaging FORJA</motion.div>
+
+        <motion.h2 variants={FU} className="pkg-t">
+          La experiencia<br/>
+          comienza antes<br/>
+          de <em>abrirlo</em>
+        </motion.h2>
+
+        <motion.p variants={FU} className="pkg-tag">
+          "Porque recibir una joya FORJA no es un simple envío.<br/>
+          Es el inicio de un rito."
+        </motion.p>
+
+        <motion.p variants={FU} className="pkg-d">
+          Tres formatos. Un solo lenguaje: negro profundo con foil dorado.
+          La caja no es un accidente del proceso — es la primera pieza que tocas,
+          el primer sello que sientes bajo los dedos.
+          Diseñada para que el momento de apertura se convierta en un recuerdo
+          que permanece mucho después de que la joya ya esté puesta.
+        </motion.p>
+
+        <motion.div variants={FU} className="pkg-list">
+          {[
+            "Negro absoluto exterior · interior aterciopelado oscuro",
+            "Foil en oro sobre cartón de alta gramaje",
+            "Tres formatos: anillo · collar · pulsera",
+            "Incluido en cada pedido — sin costo adicional",
+            "Diseñado para regalar sin necesidad de envoltura",
+          ].map((li, i) => (
+            <div className="pkg-li" key={i}>{li}</div>
+          ))}
+        </motion.div>
+
+        <motion.div variants={FI} className="pkg-q">
+          "Una joya bien dada llega ya envuelta en intención.<br/>
+          La caja es el primer gesto — la joya, el segundo."
+        </motion.div>
+      </motion.div>
+
+      <div className="pkg-iw">
+        <img
+          src="/packaging.jpg"
+          alt="Packaging FORJA — cajas premium en negro con foil dorado"
+          loading="lazy"
+        />
+      </div>
+    </motion.section>
   );
 }
 
@@ -1312,6 +1397,9 @@ export default function App() {
             <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80&auto=format&fit=crop" alt="Joyería masculina"/>
           </div>
         </motion.section>
+
+        {/* ── PACKAGING ── */}
+        <PackagingSection/>
 
         {/* ── COTIZAR ── */}
         <QuoteSection onQuote={()=>setView("quote")}/>
