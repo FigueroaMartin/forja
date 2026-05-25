@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 // ─── LÍNEAS Y PRODUCTOS ───────────────────────────────────────────────────────
@@ -1333,6 +1333,8 @@ export default function App() {
   const showToast = () => { setToast(true); setTimeout(()=>setToast(false), 1500); };
   const addToCart = item => { setCart(c=>[...c,item]); showToast(); };
   const removeFromCart = idx => setCart(c=>c.filter((_,i)=>i!==idx));
+  useEffect(() => { window.scrollTo({ top: 0, behavior: "instant" }); }, [view]);
+
   const scrollCat = () => setTimeout(()=>catalogRef.current?.scrollIntoView({behavior:"smooth"}),50);
   const handleLinea = l => { setActiveLinea(l); setView("catalog"); scrollCat(); };
   const handleLogo = () => { setView("catalog"); setSelected(null); setActiveLinea("Todos"); };
