@@ -523,22 +523,41 @@ button{cursor:pointer;font-family:var(--mono);}
 .nav-quote:hover{background:var(--gold);color:#000;}
 
 /* PACKAGING */
-.pkg{display:grid;grid-template-columns:1fr 1.15fr;min-height:560px;border-top:.5px solid var(--brd);}
+.pkg{display:grid;grid-template-columns:1fr 1.15fr;border-top:.5px solid var(--brd);}
 @media(max-width:700px){.pkg{grid-template-columns:1fr;}}
-.pkg-c{background:var(--surf2);padding:4.5rem 3.5rem;display:flex;flex-direction:column;gap:1.6rem;justify-content:center;position:relative;overflow:hidden;}
+.pkg-c{background:var(--surf2);padding:2.5rem 2.8rem;display:flex;flex-direction:column;gap:1rem;justify-content:center;position:relative;overflow:hidden;}
 .pkg-c::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 90% 60% at 0% 110%,rgba(201,168,76,.055) 0%,transparent 60%);pointer-events:none;}
-.pkg-lbl{font-size:.52rem;letter-spacing:.3em;color:var(--gold);text-transform:uppercase;}
-.pkg-t{font-family:var(--serif);font-size:clamp(2.2rem,4vw,2.8rem);font-weight:300;color:var(--white);line-height:1.0;}
+.pkg-lbl{font-size:.48rem;letter-spacing:.28em;color:var(--gold);text-transform:uppercase;}
+.pkg-t{font-family:var(--serif);font-size:clamp(1.6rem,3vw,2.1rem);font-weight:300;color:var(--white);line-height:1.05;}
 .pkg-t em{font-style:italic;color:var(--gold);}
-.pkg-tag{font-family:var(--serif);font-size:1.08rem;font-style:italic;color:var(--silver);line-height:1.55;opacity:.8;}
-.pkg-d{font-size:.67rem;color:var(--mut);line-height:2;}
-.pkg-list{display:flex;flex-direction:column;gap:.55rem;}
-.pkg-li{display:flex;align-items:center;gap:.65rem;font-size:.61rem;color:var(--mut);}
-.pkg-li::before{content:'';width:4px;height:4px;background:var(--gold);flex-shrink:0;}
-.pkg-q{border-left:1.5px solid var(--gold);padding-left:1.25rem;font-family:var(--serif);font-size:1.05rem;font-style:italic;color:var(--silver);line-height:1.55;opacity:.7;}
-.pkg-iw{overflow:hidden;position:relative;}
-.pkg-iw img{width:100%;height:100%;object-fit:cover;transition:transform .85s var(--ease);}
-.pkg:hover .pkg-iw img{transform:scale(1.04);}
+.pkg-tag{font-family:var(--serif);font-size:.88rem;font-style:italic;color:var(--silver);line-height:1.5;opacity:.8;}
+.pkg-d{font-size:.64rem;color:var(--mut);line-height:1.85;}
+.pkg-list{display:flex;flex-direction:column;gap:.4rem;}
+.pkg-li{display:flex;align-items:center;gap:.6rem;font-size:.58rem;color:var(--mut);}
+.pkg-li::before{content:'';width:3px;height:3px;background:var(--gold);flex-shrink:0;}
+.pkg-q{border-left:1.5px solid var(--gold);padding-left:1rem;font-family:var(--serif);font-size:.88rem;font-style:italic;color:var(--silver);line-height:1.5;opacity:.7;}
+.pkg-iw{overflow:hidden;position:relative;background:var(--bg);display:flex;align-items:center;justify-content:center;}
+.pkg-iw img{width:100%;height:100%;object-fit:contain;transition:transform .85s var(--ease);}
+.pkg:hover .pkg-iw img{transform:scale(1.03);}
+
+/* STORY VIEW */
+.story{max-width:860px;margin:0 auto;padding:3.5rem 2.5rem 6rem;}
+.story-hero{text-align:center;padding:2rem 0 3.5rem;}
+.story-eye{font-size:.52rem;letter-spacing:.32em;color:var(--gold);text-transform:uppercase;margin-bottom:1.5rem;}
+.story-h1{font-family:var(--serif);font-size:clamp(3rem,7vw,5rem);font-weight:300;color:var(--white);line-height:1.0;margin-bottom:1.5rem;}
+.story-h1 em{font-style:italic;color:var(--gold);}
+.story-intro{font-size:.7rem;color:var(--mut);line-height:2.1;max-width:560px;margin:0 auto;}
+.story-chapter{display:grid;grid-template-columns:52px 1fr;gap:0 2rem;padding:3rem 0;border-top:.5px solid var(--brd);}
+.story-num{font-size:.5rem;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;padding-top:.2rem;font-family:var(--mono);}
+.story-ch-lbl{font-size:.5rem;letter-spacing:.24em;color:var(--gold);text-transform:uppercase;margin-bottom:.75rem;}
+.story-ch-t{font-family:var(--serif);font-size:clamp(1.8rem,4vw,2.6rem);font-weight:300;color:var(--white);line-height:1.05;margin-bottom:1.25rem;}
+.story-ch-t em{font-style:italic;color:var(--gold);}
+.story-ch-d{font-size:.7rem;color:var(--mut);line-height:2;margin-bottom:1rem;}
+.story-ch-q{border-left:1.5px solid var(--gold);padding-left:1.25rem;font-family:var(--serif);font-size:1.1rem;font-style:italic;color:var(--silver);line-height:1.55;margin-top:.5rem;}
+.story-closing{text-align:center;padding:4rem 0 1rem;border-top:.5px solid var(--brd);}
+.story-closing-t{font-family:var(--serif);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:300;color:var(--white);margin-bottom:1rem;}
+.story-closing-t em{font-style:italic;color:var(--gold);}
+.story-closing-d{font-size:.7rem;color:var(--mut);line-height:2;max-width:520px;margin:0 auto 2rem;}
 
 /* QUOTE SECTION — catalog teaser */
 .qsec{position:relative;padding:5.5rem 2.5rem;overflow:hidden;border-top:.5px solid var(--brd);border-bottom:.5px solid var(--brd);}
@@ -791,6 +810,102 @@ function ProductDetail({ product, onBack, onAdd }) {
   );
 }
 
+// ─── STORY VIEW ──────────────────────────────────────────────────────────────
+function StoryView({ onBack, onQuote, onCatalog }) {
+  const chapters = [
+    {
+      n: "01",
+      lbl: "El origen",
+      title: <>Dos bomberos y<br/>una <em>revelación</em></>,
+      body: [
+        "Pasamos años enfrentando el fuego como enemigo. Aprendimos su fuerza, su lógica, su devastación. Pero en algún turno de madrugada, en medio del silencio que queda después del caos, algo cambió la pregunta que nos hacíamos.",
+        "Si el fuego tiene el poder de arrasar con todo, también tiene el poder de dar forma a lo que dura para siempre. Los metales preciosos no existen sin él. Las joyas que perduran generaciones nacen exactamente del mismo elemento que nosotros aprendimos a dominar.",
+      ],
+      quote: "\"El fuego no elige destruir o crear. Eso lo decide quien lo sostiene.\"",
+    },
+    {
+      n: "02",
+      lbl: "El maestro",
+      title: <>Treinta años de<br/><em>oficio</em></>,
+      body: [
+        "Nuestro aliado lleva más de tres décadas doblando metales preciosos con las manos. Conoce el oro como se conoce a un viejo amigo: sus caprichos, su comportamiento bajo el calor, la paciencia que exige. Conoce la plata como conoce su propia voz.",
+        "Cuando lo encontramos, entendimos de inmediato que la diferencia entre un metal y una joya es exactamente la misma que entre un incendio y una fragua: el control consciente, preciso y respetuoso del fuego.",
+      ],
+      quote: "\"Un maestro no doma el metal. Lo escucha hasta que el metal le dice qué quiere ser.\"",
+    },
+    {
+      n: "03",
+      lbl: "La alianza",
+      title: <>Tres visiones.<br/>Una sola <em>forja</em></>,
+      body: [
+        "La alianza entre dos bomberos y un maestro joyero no fue un negocio calculado. Fue una convergencia de propósitos que ninguno de los tres buscaba deliberadamente — simplemente ocurrió, como ocurren las cosas que tienen que ocurrir.",
+        "El conocimiento del fuego se encontró con el dominio del metal. La disciplina del rescate se fusionó con la paciencia del artesano. FORJA nació de esa mesa: donde lo que destruye y lo que crea son exactamente lo mismo, y la diferencia está en las manos que lo sostienen.",
+      ],
+      quote: "\"FORJA no es una marca. Es el nombre de lo que pasa cuando el fuego tiene una intención.\"",
+    },
+    {
+      n: "04",
+      lbl: "El propósito",
+      title: <>Tu joya.<br/>Tu <em>proceso</em>.</>,
+      body: [
+        "Lo que diferencia a FORJA no es solo el material ni el diseño. Es la invitación.",
+        "Queremos que seas parte activa del proceso de creación de tu propia joya. Que conozcas de qué está hecha, cómo nació, qué decisiones se tomaron en el camino. Que elijas el metal, el acabado, el grabado — y que entiendas el porqué de cada uno. Porque una joya que comprendes se lleva de manera completamente distinta a una que simplemente compras.",
+      ],
+      quote: "\"No te vendemos una joya. Te invitamos a forjarla.\"",
+    },
+  ];
+
+  return (
+    <motion.div className="story" initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }} transition={{ duration:0.5 }}>
+      <button className="detail-back" onClick={onBack}>← Volver</button>
+
+      <motion.div className="story-hero" initial="hidden" animate="show" variants={SC(0.1,0.12)}>
+        <motion.div variants={FU} className="story-eye">Nuestra historia · El origen de FORJA</motion.div>
+        <motion.h1 variants={FU} className="story-h1">El fuego que<br/><em>crea</em></motion.h1>
+        <motion.p variants={FU} className="story-intro">
+          Dos bomberos. Un maestro joyero con treinta años de oficio. Y la convicción de que el fuego no solo destruye — también es la herramienta más antigua de creación que existe.
+        </motion.p>
+      </motion.div>
+
+      {chapters.map((ch, i) => (
+        <motion.div
+          key={i}
+          className="story-chapter"
+          initial={{ opacity:0, y:30 }}
+          whileInView={{ opacity:1, y:0 }}
+          viewport={{ once:true, margin:"-60px" }}
+          transition={{ duration:0.6, ease:[0.25,0.46,0.45,0.94] }}
+        >
+          <div className="story-num">{ch.n}</div>
+          <div>
+            <div className="story-ch-lbl">{ch.lbl}</div>
+            <h2 className="story-ch-t">{ch.title}</h2>
+            {ch.body.map((p,j) => <p key={j} className="story-ch-d">{p}</p>)}
+            <div className="story-ch-q">{ch.quote}</div>
+          </div>
+        </motion.div>
+      ))}
+
+      <motion.div
+        className="story-closing"
+        initial={{ opacity:0, y:20 }}
+        whileInView={{ opacity:1, y:0 }}
+        viewport={{ once:true }}
+        transition={{ duration:0.6 }}
+      >
+        <div className="story-closing-t">El fuego sigue <em>encendido</em></div>
+        <p className="story-closing-d">
+          Cada pieza que sale de FORJA lleva en ella la historia de tres personas que decidieron que el fuego podía significar algo distinto. Si llegaste hasta aquí, ya eres parte de esa historia.
+        </p>
+        <div style={{display:"flex",gap:"1rem",justifyContent:"center",flexWrap:"wrap"}}>
+          <button className="btn-p" onClick={onCatalog}>Explorar colección</button>
+          <button className="btn-s" onClick={onQuote}>Cotizar pieza única</button>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+}
+
 // ─── PACKAGING SECTION ───────────────────────────────────────────────────────
 function PackagingSection() {
   return (
@@ -819,14 +934,6 @@ function PackagingSection() {
         <motion.p variants={FU} className="pkg-tag">
           "Porque recibir una joya FORJA no es un simple envío.<br/>
           Es el inicio de un rito."
-        </motion.p>
-
-        <motion.p variants={FU} className="pkg-d">
-          Tres formatos. Un solo lenguaje: negro profundo con foil dorado.
-          La caja no es un accidente del proceso — es la primera pieza que tocas,
-          el primer sello que sientes bajo los dedos.
-          Diseñada para que el momento de apertura se convierta en un recuerdo
-          que permanece mucho después de que la joya ya esté puesta.
         </motion.p>
 
         <motion.div variants={FU} className="pkg-list">
@@ -1261,11 +1368,11 @@ export default function App() {
               <Logo size={68}/>
             </motion.div>
             <motion.div variants={FU} className="hero-eye">Joyería Masculina de Autor · Colección 2025</motion.div>
-            <motion.h1 variants={FU} className="hero-h1">Forjado para<br/>el hombre <em>moderno</em></motion.h1>
+            <motion.h1 variants={FU} className="hero-h1">Forjando tu<br/><em>esencia</em></motion.h1>
             <motion.p variants={FU} className="hero-sub">Tres líneas. Diez piezas. Una identidad.<br/>Anillos, Collares y Pulseras con nombre propio.</motion.p>
             <motion.div variants={FU} className="hero-ctas">
               <button className="btn-p" onClick={scrollCat}>Explorar colección</button>
-              <button className="btn-s">Nuestra historia</button>
+              <button className="btn-s" onClick={()=>setView("story")}>Nuestra historia</button>
             </motion.div>
           </motion.div>
           <motion.div
@@ -1478,6 +1585,7 @@ export default function App() {
             <div>
               <div className="ftr-ct">Ayuda</div>
               <div className="ftr-cl">
+                <span className="ftr-lk" onClick={()=>setView("story")}>Nuestra historia</span>
                 {["Contacto","Envíos y devoluciones","Guía de tallas","Política de privacidad"].map(l=><span key={l} className="ftr-lk">{l}</span>)}
               </div>
             </div>
@@ -1503,6 +1611,14 @@ export default function App() {
           product={selected}
           onBack={()=>setView("catalog")}
           onAdd={item=>{addToCart(item);setView("catalog");}}
+        />
+      )}
+
+      {view === "story" && (
+        <StoryView
+          onBack={()=>setView("catalog")}
+          onQuote={()=>setView("quote")}
+          onCatalog={()=>{ setView("catalog"); scrollCat(); }}
         />
       )}
 
