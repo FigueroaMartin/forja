@@ -48,10 +48,10 @@ const PRODUCTS = [
     inspiracion:"Fuerza · Construcción · Permanencia",
     detalles:["Banda ancha de perfil cuadrado","Plata 925","Acabado pulido espejo","Ancho 10mm · Espesor 3mm","Tallas 8–13","Alto impacto visual"],
     accent:"#C9A84C", tag:null,
-    img:"https://images.unsplash.com/photo-1574169208507-84376144848b?w=700&q=85&auto=format&fit=crop",
+    img:"https://images.unsplash.com/photo-1565206077202-14752579e787?w=700&q=85&auto=format&fit=crop",
     imgs:[
-      "https://images.unsplash.com/photo-1574169208507-84376144848b?w=700&q=85&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1612285127364-58ede3fa1686?w=700&q=85&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1565206077202-14752579e787?w=700&q=85&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1575862469342-61fd7aa6d577?w=700&q=85&auto=format&fit=crop",
     ],
     reviews:[
       {name:"Sebastián R.", stars:5, text:"Lo primero que notan cuando doy la mano. Elegante sin ser ostentoso."},
