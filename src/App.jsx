@@ -956,7 +956,7 @@ function PackagingSection() {
 
       <div className="pkg-iw">
         <img
-          src="/packaging.jpg"
+          src={`${import.meta.env.BASE_URL}packaging.jpg`}
           alt="Packaging FORJA — cajas premium en negro con foil dorado"
           loading="lazy"
         />
