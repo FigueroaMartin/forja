@@ -612,6 +612,30 @@ button{cursor:pointer;font-family:var(--mono);}
 ::-webkit-scrollbar-track{background:var(--bg);}
 ::-webkit-scrollbar-thumb{background:var(--brd2);}
 
+/* ── SIZE GUIDE ACCORDION ── */
+.sg{border-top:.5px solid var(--brd);margin-top:1.5rem;}
+.sg-toggle{width:100%;display:flex;align-items:center;justify-content:space-between;padding:1.1rem 0;background:none;border:none;color:var(--white);font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;transition:color .2s;}
+.sg-toggle:hover{color:var(--gold);}
+.sg-toggle-t{display:flex;align-items:center;gap:.7rem;}
+.sg-ic{color:var(--gold);}
+.sg-arrow{transition:transform .3s ease;display:inline-block;font-size:.9rem;color:var(--mut);}
+.sg-arrow.open{transform:rotate(180deg);}
+.sg-inner{padding:0 0 1.8rem;}
+.sg-methods{display:flex;flex-direction:column;gap:0;margin-bottom:1.5rem;}
+.sg-method{display:flex;gap:1rem;align-items:flex-start;padding:.9rem 0;border-bottom:.5px solid var(--brd);}
+.sg-mn{font-family:var(--mono);font-size:.58rem;color:var(--gold);letter-spacing:.14em;min-width:22px;padding-top:.1rem;}
+.sg-mt{font-size:.7rem;color:var(--white);margin-bottom:.3rem;letter-spacing:.03em;}
+.sg-md{font-size:.67rem;color:var(--mut2);line-height:1.7;}
+.sg-tbl-wrap{margin-bottom:1.3rem;border:.5px solid var(--brd);}
+.sg-tbl-row{display:grid;grid-template-columns:1fr 1.2fr 1.2fr;padding:.6rem .8rem;border-bottom:.5px solid var(--brd);font-size:.68rem;color:var(--mut2);}
+.sg-tbl-row:last-child{border-bottom:none;}
+.sg-tbl-h{font-family:var(--mono);font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);background:rgba(255,255,255,.02);}
+.sg-tip{display:flex;gap:.8rem;align-items:flex-start;padding:.9rem 1rem;background:rgba(201,168,76,.04);border-left:2px solid var(--gold);margin-bottom:1.2rem;font-size:.68rem;color:var(--mut2);line-height:1.7;}
+.sg-tip-ic{color:var(--gold);flex-shrink:0;font-size:.9rem;}
+.sg-brc-note{font-size:.7rem;color:var(--mut2);line-height:1.8;padding:.75rem 1rem;border-left:2px solid var(--gold);margin-bottom:1.2rem;background:rgba(201,168,76,.03);}
+.sg-dl{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--mono);font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);text-decoration:none;border:.5px solid rgba(201,168,76,.35);padding:.55rem 1.1rem;transition:all .2s;}
+.sg-dl:hover{background:rgba(201,168,76,.08);}
+
 /* ── INFO PAGES ── */
 .info-pg{max-width:720px;margin:0 auto;padding:3rem 2.5rem 6rem;}
 .info-hdr{margin:2rem 0 3rem;}
@@ -799,6 +823,10 @@ function ProductDetail({ product, onBack, onAdd }) {
                 <div className="det-row" key={i}>{d}</div>
               ))}
             </div>
+          </motion.div>
+
+          <motion.div variants={FU}>
+            <SizeGuide linea={product.linea} slug={product.slug}/>
           </motion.div>
 
           <motion.div variants={FI} className="di-div"/>
@@ -1328,6 +1356,115 @@ function SuccessScreen({ orderId, cart, onReset }) {
   );
 }
 
+// ─── SIZE GUIDE ──────────────────────────────────────────────────────────────
+const RING_SIZES = [
+  ["7","17.3 mm","54.3 mm"],["8","18.1 mm","56.9 mm"],["9","18.9 mm","59.4 mm"],
+  ["10","19.7 mm","61.9 mm"],["11","20.5 mm","64.4 mm"],["12","21.3 mm","66.9 mm"],
+  ["13","22.1 mm","69.4 mm"],
+];
+const BANGLE_SIZES = [
+  ["Pequeña","14–16 cm","Hasta 58 mm"],
+  ["Mediana","17–18 cm","58–62 mm"],
+  ["Grande","18–20 cm","62–68 mm"],
+];
+
+function SizeGuide({ linea, slug }) {
+  const [open, setOpen] = useState(false);
+  if (linea !== "Anillos" && linea !== "Pulseras") return null;
+
+  const isRing   = linea === "Anillos";
+  const isBangle = slug === "tensor" || slug === "huggie";
+
+  return (
+    <div className="sg">
+      <button className="sg-toggle" onClick={()=>setOpen(o=>!o)}>
+        <span className="sg-toggle-t"><span className="sg-ic">◈</span> Guía de tallas</span>
+        <span className={`sg-arrow${open?" open":""}`}>▾</span>
+      </button>
+      <AnimatePresence>
+        {open && (
+          <motion.div key="sgb"
+            initial={{opacity:0,height:0}} animate={{opacity:1,height:"auto"}}
+            exit={{opacity:0,height:0}} style={{overflow:"hidden"}}
+            transition={{duration:.32,ease:[.25,.46,.45,.94]}}
+          >
+            <div className="sg-inner">
+              {isRing && (<>
+                <div className="sg-methods">
+                  {[
+                    {n:"01",t:"Con hilo o papel",d:"Rodea el dedo con hilo fino. Marca donde cierra y mide esa longitud en mm — esa es tu circunferencia."},
+                    {n:"02",t:"Con un anillo existente",d:"Mide el diámetro interior con una regla. Busca esa medida en la columna «Diám.» de la tabla."},
+                    {n:"03",t:"Si dudas entre dos tallas",d:"Elige siempre la más grande. Los dedos se hinchan a lo largo del día, especialmente en climas cálidos."},
+                  ].map(m=>(
+                    <div className="sg-method" key={m.n}>
+                      <div className="sg-mn">{m.n}</div>
+                      <div><div className="sg-mt">{m.t}</div><div className="sg-md">{m.d}</div></div>
+                    </div>
+                  ))}
+                </div>
+                <div className="sg-tbl-wrap">
+                  <div className="sg-tbl-row sg-tbl-h"><span>Talla</span><span>Diámetro</span><span>Circunf.</span></div>
+                  {RING_SIZES.map(([t,d,c])=>(
+                    <div className="sg-tbl-row" key={t}><span>{t}</span><span>{d}</span><span>{c}</span></div>
+                  ))}
+                </div>
+                <div className="sg-tip">
+                  <span className="sg-tip-ic">◇</span>
+                  <span>Mide por la mañana <strong>y</strong> por la noche — toma el promedio. Si tienes nudillos pronunciados, mide también ahí y elige según el más grande.</span>
+                </div>
+                <a href={`${import.meta.env.BASE_URL}guia-tallas.pdf`} download className="sg-dl">↓ Descargar guía completa PDF</a>
+              </>)}
+
+              {!isRing && isBangle && (<>
+                <div className="sg-methods">
+                  {[
+                    {n:"01",t:"Mide tu muñeca",d:"Con cinta métrica o hilo, rodea la muñeca en el punto más estrecho. Anota en cm."},
+                    {n:"02",t:"Mide el ancho de tus nudillos",d:"Cierra la mano suavemente. Mide la circunferencia a la altura de los nudillos — ese es el punto más ancho que debe pasar por el aro."},
+                  ].map(m=>(
+                    <div className="sg-method" key={m.n}>
+                      <div className="sg-mn">{m.n}</div>
+                      <div><div className="sg-mt">{m.t}</div><div className="sg-md">{m.d}</div></div>
+                    </div>
+                  ))}
+                </div>
+                <div className="sg-tbl-wrap">
+                  <div className="sg-tbl-row sg-tbl-h"><span>Talla</span><span>Muñeca</span><span>Nudillos máx.</span></div>
+                  {BANGLE_SIZES.map(([t,w,k])=>(
+                    <div className="sg-tbl-row" key={t}><span>{t}</span><span>{w}</span><span>{k}</span></div>
+                  ))}
+                </div>
+                <div className="sg-tip">
+                  <span className="sg-tip-ic">◇</span>
+                  <span>El brazalete se pone comprimiendo levemente la mano. Si tus nudillos son pronunciados, elige la apertura más grande.</span>
+                </div>
+              </>)}
+
+              {!isRing && !isBangle && (<>
+                <div className="sg-methods">
+                  <div className="sg-method">
+                    <div className="sg-mn">01</div>
+                    <div>
+                      <div className="sg-mt">Mide tu muñeca</div>
+                      <div className="sg-md">Con cinta métrica o hilo, rodea la muñeca en el punto más estrecho. Anota la longitud en cm.</div>
+                    </div>
+                  </div>
+                </div>
+                <div className="sg-brc-note">
+                  La <strong>Base</strong> tiene largo fijo de 20 cm — cómoda para muñecas de hasta 17 cm. Para muñecas más grandes, contáctanos para medida personalizada.
+                </div>
+                <div className="sg-tip">
+                  <span className="sg-tip-ic">◇</span>
+                  <span>El cierre de caja con doble seguro permite ajustar la holgura dentro del rango estándar.</span>
+                </div>
+              </>)}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
 // ─── INFO PAGES ──────────────────────────────────────────────────────────────
 const INFO_PAGES = {
   contacto: {
@@ -1361,18 +1498,20 @@ const INFO_PAGES = {
   tallas: {
     title:"Guía de tallas", eyebrow:"Encuentra tu medida exacta",
     sections:[
-      { heading:"Cómo medir tu dedo", text:"Toma un trozo de hilo o papel delgado y rodea el dedo que usarás. Marca el punto donde se cierra y mide esa longitud en milímetros — ese es tu diámetro interior.\n\nRecomendamos medir al final del día, cuando los dedos están en su mayor volumen." },
-      { heading:"Tabla de equivalencias", table:[
-        ["Talla","Diámetro (mm)","Circunferencia (mm)"],
-        ["7","17.3","54.4"],
-        ["8","18.2","57.2"],
-        ["9","19.0","59.7"],
-        ["10","19.8","62.2"],
-        ["11","20.6","64.7"],
-        ["12","21.4","67.2"],
-        ["13","22.2","69.7"],
+      { heading:"Tres métodos para anillos", text:"01 · Con hilo o papel — Rodea el dedo con un hilo fino, marca donde cierra y mide esa longitud en mm (circunferencia).\n\n02 · Con un anillo existente — Mide el diámetro interior con una regla y búscalo en la tabla.\n\n03 · Si dudas entre dos tallas — Elige siempre la más grande. Los dedos se hinchan a lo largo del día." },
+      { heading:"Tabla de equivalencias — anillos", table:[
+        ["Talla","Diámetro","Circunferencia"],
+        ["7","17.3 mm","54.3 mm"],
+        ["8","18.1 mm","56.9 mm"],
+        ["9","18.9 mm","59.4 mm"],
+        ["10","19.7 mm","61.9 mm"],
+        ["11","20.5 mm","64.4 mm"],
+        ["12","21.3 mm","66.9 mm"],
+        ["13","22.1 mm","69.4 mm"],
       ]},
-      { heading:"Consejo FORJA", text:"Si estás entre dos tallas, siempre elige la más grande. Los dedos varían durante el día y con la temperatura." },
+      { heading:"Pulseras de eslabón (Base)", text:"La Base tiene largo fijo de 20 cm — cómoda para muñecas de hasta 17 cm con holgura natural. Para muñecas más grandes, contáctanos para un largo personalizado." },
+      { heading:"Brazaletes rígidos (Tensor · Huggie)", text:"El factor crítico es el ancho de los nudillos: cierra la mano y mide la circunferencia a la altura de los nudillos.\n\nTensor — diámetro interior 58–62 mm (ajustable)\nHuggie — diámetro interior 56–60 mm\n\nSi tus nudillos miden más de 62 mm, contáctanos." },
+      { heading:"Descargar guía completa", text:"Descarga la guía PDF con instrucciones de medición paso a paso, tabla completa y referencia de brazaletes.", download:true },
     ]
   },
   privacidad: {
@@ -1401,6 +1540,11 @@ function InfoView({ page, onBack }) {
           <div key={i}>
             <div className="info-sh">{sec.heading}</div>
             {sec.text && <p className="info-p">{sec.text}</p>}
+            {sec.download && (
+              <a href={`${import.meta.env.BASE_URL}guia-tallas.pdf`} download className="sg-dl" style={{marginTop:"1rem",display:"inline-flex"}}>
+                ↓ Descargar guía de tallas PDF
+              </a>
+            )}
             {sec.items && (
               <div className="info-rows">
                 {sec.items.map((item,j)=>(
