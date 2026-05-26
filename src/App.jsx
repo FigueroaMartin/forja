@@ -1445,63 +1445,12 @@ function SizeGuide({ linea, slug }) {
           >
             <div className="sg-inner">
               {isRing && (
-                <div className="sg-card">
-                  {/* Encabezado */}
-                  <div className="sg-card-hdr">
-                    <div style={{display:"flex",justifyContent:"center",marginBottom:".7rem"}}>
-                      <Logo size={28}/>
-                    </div>
-                    <div className="sg-card-eye">Joyería masculina de autor</div>
-                    <div className="sg-card-t">GUÍA DE TALLAS</div>
-                    <div className="sg-card-sub">Encuentra tu talla perfecta</div>
-                  </div>
-
-                  {/* Pasos */}
-                  <div className="sg-sec-hdr"><span className="sg-sec-lbl">Anillos</span></div>
-                  <div className="sg-steps">
-                    {[
-                      {n:"1",t:"Recortá una tira de papel",d:"Envolvela alrededor del dedo que querés medir."},
-                      {n:"2",t:"Marcá el cierre",d:"Con un lápiz, marcá donde la tira se cierra sobre sí misma."},
-                      {n:"3",t:"Medí la longitud",d:"Medí desde el inicio hasta la marca. Esa es tu circunferencia."},
-                    ].map(s=>(
-                      <div className="sg-step" key={s.n}>
-                        <div className="sg-step-n">{s.n}</div>
-                        <div className="sg-step-t">{s.t}</div>
-                        <div className="sg-step-d">{s.d}</div>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Tabla */}
-                  <div className="sg-sec-hdr"><span className="sg-sec-lbl">Tabla de tallas</span></div>
-                  <div className="sg-tbl-wrap">
-                    <div className="sg-tbl-row two sg-tbl-h"><span>Talla FORJA</span><span>Circunferencia</span></div>
-                    {RING_SIZES.map(([t,c])=>(
-                      <div className="sg-tbl-row two" key={t}><span>{t}</span><span>{c}</span></div>
-                    ))}
-                  </div>
-
-                  {/* Tips */}
-                  <div className="sg-sec-hdr"><span className="sg-sec-lbl">Tips</span></div>
-                  <div className="sg-tips-grid">
-                    {[
-                      "Medí tu dedo al final del día, cuando esté a su tamaño normal.",
-                      "Evitá medir tus dedos cuando haga mucho frío o calor.",
-                      "Si estás entre dos tallas, te recomendamos elegir la más grande.",
-                    ].map((tip,i)=>(
-                      <div className="sg-tip2" key={i}>
-                        <span className="sg-tip2-ic">◇</span>
-                        <span>{tip}</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Footer */}
-                  <div className="sg-footer">
-                    Todos nuestros anillos están diseñados para acompañarte todos los días.<br/>
-                    Si tenés dudas, contactanos y te ayudamos a elegir tu talla.<br/>
-                    <span style={{letterSpacing:".2em",fontSize:".48rem",color:"var(--mut)",textTransform:"uppercase"}}>FORJA · JOYERÍA MASCULINA DE AUTOR</span>
-                  </div>
+                <div style={{margin:"0 0 1rem"}}>
+                  <img
+                    src={`${import.meta.env.BASE_URL}guia-tallas-anillos.png`}
+                    alt="Guía de tallas FORJA — Anillos"
+                    style={{width:"100%",display:"block",border:".5px solid var(--brd)"}}
+                  />
                 </div>
               )}
 
