@@ -664,6 +664,16 @@ button{cursor:pointer;font-family:var(--mono);}
 .size-note{font-size:.56rem;color:var(--gold);letter-spacing:.08em;margin-top:.6rem;display:flex;align-items:center;gap:.4rem;}
 .size-note::before{content:'';width:4px;height:4px;background:var(--gold);border-radius:50%;flex-shrink:0;}
 .btn-add:disabled{opacity:.38;cursor:not-allowed;transform:none !important;}
+.sg-link{background:none;border:none;color:var(--mut);font-family:var(--mono);font-size:.57rem;letter-spacing:.09em;cursor:pointer;padding:.3rem 0;transition:color .2s;text-align:left;display:inline-flex;align-items:center;gap:.4rem;}
+.sg-link:hover{color:var(--gold);}
+.sg-link::before{content:'◈';color:var(--gold);font-size:.55rem;}
+
+/* MODAL GUÍA */
+.sg-modal-ov{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:300;display:flex;align-items:center;justify-content:center;padding:1.25rem;}
+.sg-modal{position:relative;max-width:440px;width:100%;max-height:92vh;overflow-y:auto;}
+.sg-modal img{width:100%;display:block;}
+.sg-modal-cls{position:sticky;top:.5rem;float:right;clear:right;margin:.5rem .5rem 0 0;width:30px;height:30px;background:rgba(10,10,10,.9);border:.5px solid var(--brd2);color:var(--white);font-size:.7rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;z-index:1;flex-shrink:0;}
+.sg-modal-cls:hover{background:var(--gold);color:#000;border-color:var(--gold);}
 
 /* ── INFO PAGES ── */
 .info-pg{max-width:720px;margin:0 auto;padding:3rem 2.5rem 6rem;}
@@ -761,6 +771,7 @@ function Gallery({ imgs }) {
 function ProductDetail({ product, onBack, onAdd }) {
   const [mat, setMat] = useState("silver");
   const [size, setSize] = useState(null);
+  const [sizeGuideOpen, setSizeGuideOpen] = useState(false);
   const matD = MATERIALS.find(m => m.id === mat);
   const price = calcPrice(product.basePrice, mat);
   const isRing = product.linea === "Anillos";
@@ -847,6 +858,9 @@ function ProductDetail({ product, onBack, onAdd }) {
               {!size && (
                 <div className="size-note">Seleccioná una talla para continuar</div>
               )}
+              <button className="sg-link" onClick={() => setSizeGuideOpen(true)}>
+                ¿No sabés tu talla? Ver guía de medición
+              </button>
             </motion.div>
           )}
 
@@ -880,9 +894,11 @@ function ProductDetail({ product, onBack, onAdd }) {
             </div>
           </motion.div>
 
-          <motion.div variants={FU}>
-            <SizeGuide linea={product.linea} slug={product.slug}/>
-          </motion.div>
+          {product.linea === "Pulseras" && (
+            <motion.div variants={FU}>
+              <SizeGuide linea={product.linea} slug={product.slug}/>
+            </motion.div>
+          )}
 
           <motion.div variants={FI} className="di-div"/>
 
@@ -909,6 +925,36 @@ function ProductDetail({ product, onBack, onAdd }) {
           )}
         </motion.div>
       </div>
+
+      {/* MODAL GUÍA DE TALLAS */}
+      <AnimatePresence>
+        {sizeGuideOpen && (
+          <motion.div
+            className="sg-modal-ov"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            onClick={() => setSizeGuideOpen(false)}
+          >
+            <motion.div
+              className="sg-modal"
+              initial={{ opacity: 0, scale: 0.94, y: 18 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.94 }}
+              transition={{ duration: 0.25, ease: [0.25, 0.46, 0.45, 0.94] }}
+              onClick={e => e.stopPropagation()}
+            >
+              <button className="sg-modal-cls" onClick={() => setSizeGuideOpen(false)}>✕</button>
+              <img
+                src={`${import.meta.env.BASE_URL}guia-tallas-anillos.png`}
+                alt="Guía de tallas FORJA — Anillos"
+              />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
     </div>
   );
 }
