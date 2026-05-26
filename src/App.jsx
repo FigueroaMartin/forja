@@ -670,7 +670,7 @@ button{cursor:pointer;font-family:var(--mono);}
 
 /* MODAL GUÍA */
 .sg-modal-ov{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:300;display:flex;align-items:center;justify-content:center;padding:1.25rem;}
-.sg-modal{position:relative;max-width:440px;width:100%;max-height:92vh;overflow-y:auto;}
+.sg-modal{position:relative;max-width:min(700px,92vw);width:100%;max-height:92vh;overflow-y:auto;}
 .sg-modal img{width:100%;display:block;}
 .sg-modal-cls{position:sticky;top:.5rem;float:right;clear:right;margin:.5rem .5rem 0 0;width:30px;height:30px;background:rgba(10,10,10,.9);border:.5px solid var(--brd2);color:var(--white);font-size:.7rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;z-index:1;flex-shrink:0;}
 .sg-modal-cls:hover{background:var(--gold);color:#000;border-color:var(--gold);}
