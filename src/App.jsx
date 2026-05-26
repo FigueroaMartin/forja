@@ -611,11 +611,30 @@ button{cursor:pointer;font-family:var(--mono);}
 ::-webkit-scrollbar{width:4px;}
 ::-webkit-scrollbar-track{background:var(--bg);}
 ::-webkit-scrollbar-thumb{background:var(--brd2);}
+
+/* ── INFO PAGES ── */
+.info-pg{max-width:720px;margin:0 auto;padding:3rem 2.5rem 6rem;}
+.info-hdr{margin:2rem 0 3rem;}
+.info-eye{font-family:var(--mono);font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;}
+.info-t{font-family:var(--serif);font-size:3rem;font-weight:300;color:var(--white);line-height:1.15;margin-bottom:0;}
+.info-body{display:flex;flex-direction:column;gap:3rem;}
+.info-sh{font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);margin-bottom:1.2rem;padding-bottom:.6rem;border-bottom:.5px solid var(--brd);}
+.info-p{font-size:.78rem;color:var(--mut2);line-height:1.9;white-space:pre-line;margin:0;}
+.info-rows{display:flex;flex-direction:column;}
+.info-row{display:flex;justify-content:space-between;align-items:baseline;padding:.75rem 0;border-bottom:.5px solid var(--brd);}
+.info-rl{font-size:.65rem;color:var(--mut);letter-spacing:.06em;}
+.info-rv{font-size:.72rem;color:var(--white);}
+.info-link{color:var(--gold);text-decoration:none;transition:opacity .2s;}
+.info-link:hover{opacity:.75;}
+.info-tbl{display:flex;flex-direction:column;}
+.info-tr{display:grid;grid-template-columns:repeat(3,1fr);padding:.65rem .4rem;border-bottom:.5px solid var(--brd);font-size:.7rem;color:var(--mut2);}
+.info-tr-h{color:var(--mut);font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;background:rgba(255,255,255,.02);}
+@media(max-width:600px){.info-pg{padding:2rem 1.25rem 5rem;}.info-t{font-size:2.2rem;}}
 `;
 
 // ─── COMPONENTS ──────────────────────────────────────────────────────────────
 
-function Nav({ cartCount, onCartOpen, onLogo, activeLinea, onLinea, onQuote }) {
+function Nav({ cartCount, onCartOpen, onLogo, activeLinea, onLinea, onQuote, showLineas }) {
   return (
     <nav className="nav">
       <div className="nav-top">
@@ -644,11 +663,13 @@ function Nav({ cartCount, onCartOpen, onLogo, activeLinea, onLinea, onQuote }) {
           </button>
         </div>
       </div>
-      <div className="nav-lineas">
-        {LINEAS.map(l => (
-          <button key={l} className={`nav-lb${activeLinea===l?" on":""}`} onClick={() => onLinea(l)}>{l}</button>
-        ))}
-      </div>
+      {showLineas && (
+        <div className="nav-lineas">
+          {LINEAS.map(l => (
+            <button key={l} className={`nav-lb${activeLinea===l?" on":""}`} onClick={() => onLinea(l)}>{l}</button>
+          ))}
+        </div>
+      )}
     </nav>
   );
 }
@@ -1307,6 +1328,108 @@ function SuccessScreen({ orderId, cart, onReset }) {
   );
 }
 
+// ─── INFO PAGES ──────────────────────────────────────────────────────────────
+const INFO_PAGES = {
+  contacto: {
+    title:"Contacto", eyebrow:"Estamos aquí para ti",
+    sections:[
+      { heading:"Escríbenos", items:[
+        { label:"Email",     value:"hola@forja.cl",     href:"mailto:hola@forja.cl" },
+        { label:"WhatsApp",  value:"+56 9 1234 5678",   href:"https://wa.me/56912345678?text=Hola FORJA, quiero saber más sobre sus joyas" },
+        { label:"Instagram", value:"@forja.joyas",      href:"https://instagram.com/forja.joyas" },
+      ]},
+      { heading:"Horario de atención", text:"Lunes a viernes · 9:00 – 18:00 hrs\nRespuesta por email o WhatsApp en menos de 24 horas." },
+    ]
+  },
+  envios: {
+    title:"Envíos y devoluciones", eyebrow:"Entrega segura · Garantía real",
+    sections:[
+      { heading:"Envíos", items:[
+        { label:"Tiempo de entrega", value:"5–7 días hábiles" },
+        { label:"Envío gratis",      value:"En pedidos sobre $120 USD" },
+        { label:"Cobertura",         value:"Todo Chile · Consultar envíos internacionales" },
+        { label:"Seguimiento",       value:"Número de tracking por email al despachar" },
+      ]},
+      { heading:"Devoluciones", items:[
+        { label:"Plazo",     value:"15 días desde la recepción" },
+        { label:"Condición", value:"Sin uso y en empaque original" },
+        { label:"Proceso",   value:"Escríbenos y coordinamos el retiro sin costo" },
+      ]},
+      { heading:"Garantía", text:"Cada pieza FORJA tiene garantía de 6 meses contra defectos de fabricación. No cubre daños por uso inadecuado, humedad extrema ni pérdida." },
+    ]
+  },
+  tallas: {
+    title:"Guía de tallas", eyebrow:"Encuentra tu medida exacta",
+    sections:[
+      { heading:"Cómo medir tu dedo", text:"Toma un trozo de hilo o papel delgado y rodea el dedo que usarás. Marca el punto donde se cierra y mide esa longitud en milímetros — ese es tu diámetro interior.\n\nRecomendamos medir al final del día, cuando los dedos están en su mayor volumen." },
+      { heading:"Tabla de equivalencias", table:[
+        ["Talla","Diámetro (mm)","Circunferencia (mm)"],
+        ["7","17.3","54.4"],
+        ["8","18.2","57.2"],
+        ["9","19.0","59.7"],
+        ["10","19.8","62.2"],
+        ["11","20.6","64.7"],
+        ["12","21.4","67.2"],
+        ["13","22.2","69.7"],
+      ]},
+      { heading:"Consejo FORJA", text:"Si estás entre dos tallas, siempre elige la más grande. Los dedos varían durante el día y con la temperatura." },
+    ]
+  },
+  privacidad: {
+    title:"Política de privacidad", eyebrow:"Tu información, protegida",
+    sections:[
+      { heading:"Datos que recopilamos", text:"Al realizar una compra o cotización recopilamos nombre, correo electrónico y teléfono de contacto. No almacenamos datos de tarjetas de crédito — los pagos se procesan por plataformas certificadas." },
+      { heading:"Uso de los datos", text:"Tu información se usa exclusivamente para procesar pedidos, responder consultas y enviarte novedades si te suscribiste al newsletter. No vendemos ni compartimos tus datos con terceros." },
+      { heading:"Cookies", text:"Este sitio no utiliza cookies de rastreo publicitario. Solo cookies técnicas necesarias para el funcionamiento básico del sitio." },
+      { heading:"Tus derechos", text:"Puedes solicitar acceso, rectificación o eliminación de tus datos en cualquier momento escribiendo a hola@forja.cl. Respondemos en un plazo máximo de 5 días hábiles." },
+    ]
+  },
+};
+
+function InfoView({ page, onBack }) {
+  const pg = INFO_PAGES[page];
+  if (!pg) return null;
+  return (
+    <motion.div className="info-pg" initial={{opacity:0,y:20}} animate={{opacity:1,y:0}} transition={{duration:0.5}}>
+      <button className="detail-back" onClick={onBack}>← Volver</button>
+      <div className="info-hdr">
+        <div className="info-eye">{pg.eyebrow}</div>
+        <h1 className="info-t">{pg.title}</h1>
+      </div>
+      <div className="info-body">
+        {pg.sections.map((sec,i)=>(
+          <div key={i}>
+            <div className="info-sh">{sec.heading}</div>
+            {sec.text && <p className="info-p">{sec.text}</p>}
+            {sec.items && (
+              <div className="info-rows">
+                {sec.items.map((item,j)=>(
+                  <div className="info-row" key={j}>
+                    <span className="info-rl">{item.label}</span>
+                    {item.href
+                      ? <a href={item.href} target="_blank" rel="noopener noreferrer" className="info-rv info-link">{item.value}</a>
+                      : <span className="info-rv">{item.value}</span>
+                    }
+                  </div>
+                ))}
+              </div>
+            )}
+            {sec.table && (
+              <div className="info-tbl">
+                {sec.table.map((row,j)=>(
+                  <div key={j} className={`info-tr${j===0?" info-tr-h":""}`}>
+                    {row.map((cell,k)=><span key={k}>{cell}</span>)}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </motion.div>
+  );
+}
+
 // ─── APP ──────────────────────────────────────────────────────────────────────
 const TESTIMONIALS_GLOBAL = [
   {name:"Rodrigo V.", stars:5, text:"Calidad impresionante. El Norte en acero llegó perfecto y el empaque es de otro nivel. Lo uso todos los días."},
@@ -1325,7 +1448,10 @@ export default function App() {
   const [activeLinea, setActiveLinea] = useState("Todos");
   const [nlEmail, setNlEmail] = useState("");
   const [nlSent, setNlSent] = useState(false);
+  const [infoPage, setInfoPage] = useState(null);
   const catalogRef = useRef(null);
+
+  const openInfo = page => { setInfoPage(page); setView("info"); };
 
   const filtered = activeLinea === "Todos" ? PRODUCTS : PRODUCTS.filter(p => p.linea === activeLinea);
   const byLinea = LINEAS.slice(1).map(l => ({ linea: l, items: filtered.filter(p => p.linea === l) })).filter(g => g.items.length > 0);
@@ -1355,7 +1481,7 @@ export default function App() {
       {/* ANNOUNCEMENT */}
       <div className="ann">Envío gratis en pedidos sobre $120 USD · Plata 925 · Oro 18K</div>
 
-      <Nav cartCount={cart.length} onCartOpen={()=>setCartOpen(true)} onLogo={handleLogo} activeLinea={activeLinea} onLinea={handleLinea} onQuote={()=>setView("quote")}/>
+      <Nav cartCount={cart.length} onCartOpen={()=>setCartOpen(true)} onLogo={handleLogo} activeLinea={activeLinea} onLinea={handleLinea} onQuote={()=>setView("quote")} showLineas={view==="catalog"}/>
 
       {view === "catalog" && (<>
 
@@ -1506,7 +1632,7 @@ export default function App() {
             <h2 className="craft-t">El Lujo de la<br/>Identidad</h2>
             <p className="craft-d">Forja nace desde la convicción de que una joya no es solo un accesorio, sino una extensión de la identidad de quien la lleva. Cada pieza representa carácter, decisión y presencia.</p>
             <div className="craft-q">"La verdadera fuerza no necesita exagerarse: se transmite con presencia."</div>
-            <button className="btn-s" style={{alignSelf:"flex-start"}}>Nuestra historia →</button>
+            <button className="btn-s" style={{alignSelf:"flex-start"}} onClick={()=>setView("story")}>Nuestra historia →</button>
           </div>
           <div className="craft-iw">
             <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80&auto=format&fit=crop" alt="Joyería masculina"/>
@@ -1532,7 +1658,7 @@ export default function App() {
               <div className="sec-lbl">Lo que dicen nuestros clientes</div>
               <h2 className="sec-t">Opiniones</h2>
             </div>
-            <button className="sec-lnk">Ver en Google →</button>
+            <button className="sec-lnk" onClick={()=>window.open("https://www.google.com/search?q=FORJA+joyeria+masculina+Chile","_blank")}>Ver en Google →</button>
           </motion.div>
           <motion.div
             className="tgrid"
@@ -1594,13 +1720,19 @@ export default function App() {
               <div className="ftr-ct">Ayuda</div>
               <div className="ftr-cl">
                 <span className="ftr-lk" onClick={()=>setView("story")}>Nuestra historia</span>
-                {["Contacto","Envíos y devoluciones","Guía de tallas","Política de privacidad"].map(l=><span key={l} className="ftr-lk">{l}</span>)}
+                <span className="ftr-lk" onClick={()=>openInfo("contacto")}>Contacto</span>
+                <span className="ftr-lk" onClick={()=>openInfo("envios")}>Envíos y devoluciones</span>
+                <span className="ftr-lk" onClick={()=>openInfo("tallas")}>Guía de tallas</span>
+                <span className="ftr-lk" onClick={()=>openInfo("privacidad")}>Política de privacidad</span>
               </div>
             </div>
             <div>
               <div className="ftr-ct">Síguenos</div>
               <div className="ftr-cl">
-                {["Instagram","TikTok","Pinterest","Facebook"].map(l=><span key={l} className="ftr-lk">{l}</span>)}
+                <a className="ftr-lk" href="https://instagram.com/forja.joyas" target="_blank" rel="noopener noreferrer">Instagram</a>
+                <a className="ftr-lk" href="https://tiktok.com/@forja.joyas" target="_blank" rel="noopener noreferrer">TikTok</a>
+                <a className="ftr-lk" href="https://pinterest.com/forjajoyas" target="_blank" rel="noopener noreferrer">Pinterest</a>
+                <a className="ftr-lk" href="https://facebook.com/forjajoyas" target="_blank" rel="noopener noreferrer">Facebook</a>
               </div>
             </div>
           </div>
@@ -1620,6 +1752,10 @@ export default function App() {
           onBack={()=>setView("catalog")}
           onAdd={item=>{addToCart(item);setView("catalog");}}
         />
+      )}
+
+      {view === "info" && infoPage && (
+        <InfoView page={infoPage} onBack={()=>setView("catalog")}/>
       )}
 
       {view === "story" && (
