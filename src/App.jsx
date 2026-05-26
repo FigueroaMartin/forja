@@ -1340,7 +1340,11 @@ export default function App() {
 
   const scrollCat = () => setTimeout(()=>catalogRef.current?.scrollIntoView({behavior:"smooth"}),50);
   const handleLinea = l => { setActiveLinea(l); setView("catalog"); scrollCat(); };
-  const handleLogo = () => { setView("catalog"); setSelected(null); setActiveLinea("Todos"); };
+  const handleLogo = () => {
+    setView("catalog"); setSelected(null); setActiveLinea("Todos");
+    const annH = document.querySelector(".ann")?.offsetHeight ?? 0;
+    window.scrollTo({ top: annH, behavior: "smooth" });
+  };
   const handleConfirm = () => { setOrderId(genId()); setView("success"); setCartOpen(false); };
   const reset = () => { setView("catalog"); setCart([]); setSelected(null); setCartOpen(false); setOrderId(null); setActiveLinea("Todos"); };
 
