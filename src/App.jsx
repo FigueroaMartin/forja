@@ -10,7 +10,8 @@ const PRODUCTS = [
     tagline:"Sigue tu dirección. Sin excusas.",
     concepto:"Este anillo representa la claridad de quien sabe adónde va. Su geometría limpia y perfil bajo son el reflejo de un hombre que no necesita adornos para demostrar su rumbo. Lo que comunica lo hace con presencia.",
     inspiracion:"Dirección · Propósito · Claridad",
-    detalles:["Anillo sello de perfil bajo","Plata 925 · Oro 18K","Acabado cepillado satinado","Ancho 8mm · Espesor 2mm","Ajustable tallas 7–12","Resistente al agua"],
+    availableSizes:[8,9,10,11,12,13],
+    detalles:["Anillo sello de perfil bajo","Plata 925 · Oro 18K","Acabado cepillado satinado","Ancho 8mm · Espesor 2mm","Ajustable tallas 8–13","Resistente al agua"],
     accent:"#C9A84C", tag:"Más vendido",
     img:"https://plus.unsplash.com/premium_photo-1673285096774-92c7b3e57424?w=700&q=85&auto=format&fit=crop",
     imgs:[
@@ -28,7 +29,8 @@ const PRODUCTS = [
     tagline:"Tu historia grabada en metal.",
     concepto:"Un anillo sello es una declaración ancestral de identidad. Desde los romanos hasta los ejecutivos modernos, quien lleva un sello comunica que tiene algo que defender. Forja lo interpreta con líneas del siglo XXI.",
     inspiracion:"Identidad · Legado · Autoridad",
-    detalles:["Anillo sello rectangular plano","Plata 925 · Oro 18K","Superficie grabable a pedido","Ancho 12mm · Espesor 2.5mm","Tallas 7–13","Cepillado mate en cara superior"],
+    availableSizes:[8,9,10,11,12,13,14],
+    detalles:["Anillo sello rectangular plano","Plata 925 · Oro 18K","Superficie grabable a pedido","Ancho 12mm · Espesor 2.5mm","Tallas 8–14","Cepillado mate en cara superior"],
     accent:"#A8A9AD", tag:"Personalizable",
     img:"https://images.unsplash.com/photo-1603561591411-07134e71a2a9?w=700&q=85&auto=format&fit=crop",
     imgs:[
@@ -46,6 +48,7 @@ const PRODUCTS = [
     tagline:"Construido para durar. Como tú.",
     concepto:"Inspirado en la arquitectura brutalista: formas masivas, líneas rectas, sin ornamentos innecesarios. El Bloque es para el hombre que construye cosas reales y quiere una joya que lo represente.",
     inspiracion:"Fuerza · Construcción · Permanencia",
+    availableSizes:[8,9,10,11,12,13],
     detalles:["Banda ancha de perfil cuadrado","Plata 925","Acabado pulido espejo","Ancho 10mm · Espesor 3mm","Tallas 8–13","Alto impacto visual"],
     accent:"#C9A84C", tag:null,
     img:"https://images.unsplash.com/photo-1565206077202-14752579e787?w=700&q=85&auto=format&fit=crop",
@@ -63,7 +66,8 @@ const PRODUCTS = [
     tagline:"Precisión que se lleva puesta.",
     concepto:"El Corte nace de la obsesión por el detalle. Cada ángulo fue pensado para capturar la luz de manera distinta. Es el anillo del hombre que valora la ingeniería detrás de las cosas.",
     inspiracion:"Precisión · Filo · Rareza",
-    detalles:["Anillo facetado de corte geométrico","Oro 18K · Plata 925","Múltiples facetas pulidas","Ancho 8mm variable","Tallas 7–12","Diseño exclusivo FORJA"],
+    availableSizes:[8,9,10,11,12,13],
+    detalles:["Anillo facetado de corte geométrico","Oro 18K · Plata 925","Múltiples facetas pulidas","Ancho 8mm variable","Tallas 8–13","Diseño exclusivo FORJA"],
     accent:"#C9A84C", tag:"Ed. limitada",
     img:"https://images.unsplash.com/photo-1565619601015-e57cced38f39?w=700&q=85&auto=format&fit=crop",
     imgs:[
@@ -637,6 +641,29 @@ button{cursor:pointer;font-family:var(--mono);}
 .sg-brc-note{font-size:.7rem;color:var(--mut2);line-height:1.8;padding:.75rem 1rem;border-left:2px solid var(--gold);margin-bottom:1.2rem;background:rgba(201,168,76,.03);}
 .sg-dl{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--mono);font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);text-decoration:none;border:.5px solid rgba(201,168,76,.35);padding:.55rem 1.1rem;transition:all .2s;}
 .sg-dl:hover{background:rgba(201,168,76,.08);}
+.sg-card{background:var(--surf2);border:.5px solid var(--brd);padding:1.75rem 1.5rem;}
+.sg-card-hdr{text-align:center;padding-bottom:1.25rem;margin-bottom:1.25rem;border-bottom:.5px solid rgba(201,168,76,.18);}
+.sg-card-eye{font-size:.46rem;letter-spacing:.3em;color:var(--mut);text-transform:uppercase;margin-bottom:.4rem;}
+.sg-card-t{font-family:var(--serif);font-size:1.75rem;font-weight:300;color:var(--white);letter-spacing:.1em;line-height:1.1;}
+.sg-card-sub{font-size:.5rem;letter-spacing:.22em;color:var(--gold);text-transform:uppercase;margin-top:.35rem;}
+.sg-sec-hdr{display:flex;align-items:center;gap:.75rem;margin:1.2rem 0 .9rem;}
+.sg-sec-hdr::before,.sg-sec-hdr::after{content:'';flex:1;height:.5px;background:rgba(201,168,76,.25);}
+.sg-sec-lbl{font-size:.5rem;letter-spacing:.24em;color:var(--gold);text-transform:uppercase;white-space:nowrap;}
+.sg-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--brd);margin-bottom:0;}
+@media(max-width:480px){.sg-steps{grid-template-columns:1fr;}}
+.sg-step{background:var(--surf);padding:1rem .85rem;display:flex;flex-direction:column;gap:.5rem;}
+.sg-step-n{width:20px;height:20px;border-radius:50%;border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;font-size:.54rem;color:var(--gold);flex-shrink:0;}
+.sg-step-t{font-size:.63rem;color:var(--white);letter-spacing:.02em;line-height:1.3;}
+.sg-step-d{font-size:.59rem;color:var(--mut2);line-height:1.65;}
+.sg-tips-grid{display:flex;flex-direction:column;gap:.5rem;}
+.sg-tip2{display:flex;gap:.7rem;align-items:flex-start;font-size:.63rem;color:var(--mut2);line-height:1.65;}
+.sg-tip2-ic{color:var(--gold);flex-shrink:0;margin-top:.05rem;}
+.sg-footer{text-align:center;padding-top:1.2rem;margin-top:1.3rem;border-top:.5px solid rgba(201,168,76,.12);font-size:.58rem;color:var(--mut2);line-height:2;letter-spacing:.04em;}
+
+/* TALLA SELECTOR */
+.size-note{font-size:.56rem;color:var(--gold);letter-spacing:.08em;margin-top:.6rem;display:flex;align-items:center;gap:.4rem;}
+.size-note::before{content:'';width:4px;height:4px;background:var(--gold);border-radius:50%;flex-shrink:0;}
+.btn-add:disabled{opacity:.38;cursor:not-allowed;transform:none !important;}
 
 /* ── INFO PAGES ── */
 .info-pg{max-width:720px;margin:0 auto;padding:3rem 2.5rem 6rem;}
@@ -733,8 +760,11 @@ function Gallery({ imgs }) {
 
 function ProductDetail({ product, onBack, onAdd }) {
   const [mat, setMat] = useState("silver");
+  const [size, setSize] = useState(null);
   const matD = MATERIALS.find(m => m.id === mat);
   const price = calcPrice(product.basePrice, mat);
+  const isRing = product.linea === "Anillos";
+  const canAdd = !isRing || size !== null;
 
   return (
     <div className="detail">
@@ -799,6 +829,27 @@ function ProductDetail({ product, onBack, onAdd }) {
             </div>
           </motion.div>
 
+          {isRing && product.availableSizes && (
+            <motion.div variants={FU}>
+              <div className="opt-lbl">Talla</div>
+              <div className="opt-grp" style={{flexWrap:"wrap"}}>
+                {product.availableSizes.map(s => (
+                  <button
+                    key={s}
+                    className={`opt-btn${size===s?" on":""}`}
+                    onClick={() => setSize(s)}
+                    style={{minWidth:"44px",textAlign:"center"}}
+                  >
+                    {s}
+                  </button>
+                ))}
+              </div>
+              {!size && (
+                <div className="size-note">Seleccioná una talla para continuar</div>
+              )}
+            </motion.div>
+          )}
+
           <motion.div variants={FU}>
             <div className="price-from">Precio final</div>
             <div className="price-main">{fmt(price)}</div>
@@ -812,11 +863,12 @@ function ProductDetail({ product, onBack, onAdd }) {
           <motion.button
             variants={FU}
             className="btn-add"
-            onClick={() => onAdd({...product, materialId:mat, materialLabel:matD?.label, price})}
-            whileHover={{ scale: 1.01 }}
-            whileTap={{ scale: 0.98 }}
+            disabled={!canAdd}
+            onClick={() => canAdd && onAdd({...product, materialId:mat, materialLabel:matD?.label, price, size})}
+            whileHover={canAdd ? { scale: 1.01 } : {}}
+            whileTap={canAdd ? { scale: 0.98 } : {}}
           >
-            Agregar al carrito
+            {isRing && !size ? "Seleccioná una talla" : "Agregar al carrito"}
           </motion.button>
 
           <motion.div variants={FU}>
@@ -1263,7 +1315,7 @@ function CartPanel({ items, onClose, onRemove, onCheckout }) {
               <img className="ci-img" src={it.imgs[0]} alt={it.name}/>
               <div className="ci-info">
                 <div className="ci-name">{it.name}</div>
-                <div className="ci-opts">{it.linea} · {it.materialLabel}</div>
+                <div className="ci-opts">{it.linea} · {it.materialLabel}{it.size ? ` · Talla ${it.size}` : ""}</div>
                 <div className="ci-price">{fmt(it.price)}</div>
               </div>
               <button className="ci-rm" onClick={() => onRemove(i)}>✕</button>
@@ -1392,41 +1444,66 @@ function SizeGuide({ linea, slug }) {
             transition={{duration:.32,ease:[.25,.46,.45,.94]}}
           >
             <div className="sg-inner">
-              {isRing && (<>
-                <div className="sg-methods">
-                  {[
-                    {n:"01",t:"Recorta una tira de papel",d:"Córtala de unos 15 cm de largo y 1 cm de ancho. Colócala alrededor del dedo que quieras medir."},
-                    {n:"02",t:"Marcá el cierre del círculo",d:"Con un lápiz, marcá en el papel el punto exacto donde la tira se cierra sobre sí misma."},
-                    {n:"03",t:"Medí y buscá tu talla",d:"Medí desde el inicio de la tira hasta la marca. Esa es tu circunferencia. Buscá ese valor en la tabla."},
-                  ].map(m=>(
-                    <div className="sg-method" key={m.n}>
-                      <div className="sg-mn">{m.n}</div>
-                      <div><div className="sg-mt">{m.t}</div><div className="sg-md">{m.d}</div></div>
+              {isRing && (
+                <div className="sg-card">
+                  {/* Encabezado */}
+                  <div className="sg-card-hdr">
+                    <div style={{display:"flex",justifyContent:"center",marginBottom:".7rem"}}>
+                      <Logo size={28}/>
                     </div>
-                  ))}
+                    <div className="sg-card-eye">Joyería masculina de autor</div>
+                    <div className="sg-card-t">GUÍA DE TALLAS</div>
+                    <div className="sg-card-sub">Encuentra tu talla perfecta</div>
+                  </div>
+
+                  {/* Pasos */}
+                  <div className="sg-sec-hdr"><span className="sg-sec-lbl">Anillos</span></div>
+                  <div className="sg-steps">
+                    {[
+                      {n:"1",t:"Recortá una tira de papel",d:"Envolvela alrededor del dedo que querés medir."},
+                      {n:"2",t:"Marcá el cierre",d:"Con un lápiz, marcá donde la tira se cierra sobre sí misma."},
+                      {n:"3",t:"Medí la longitud",d:"Medí desde el inicio hasta la marca. Esa es tu circunferencia."},
+                    ].map(s=>(
+                      <div className="sg-step" key={s.n}>
+                        <div className="sg-step-n">{s.n}</div>
+                        <div className="sg-step-t">{s.t}</div>
+                        <div className="sg-step-d">{s.d}</div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Tabla */}
+                  <div className="sg-sec-hdr"><span className="sg-sec-lbl">Tabla de tallas</span></div>
+                  <div className="sg-tbl-wrap">
+                    <div className="sg-tbl-row two sg-tbl-h"><span>Talla FORJA</span><span>Circunferencia</span></div>
+                    {RING_SIZES.map(([t,c])=>(
+                      <div className="sg-tbl-row two" key={t}><span>{t}</span><span>{c}</span></div>
+                    ))}
+                  </div>
+
+                  {/* Tips */}
+                  <div className="sg-sec-hdr"><span className="sg-sec-lbl">Tips</span></div>
+                  <div className="sg-tips-grid">
+                    {[
+                      "Medí tu dedo al final del día, cuando esté a su tamaño normal.",
+                      "Evitá medir tus dedos cuando haga mucho frío o calor.",
+                      "Si estás entre dos tallas, te recomendamos elegir la más grande.",
+                    ].map((tip,i)=>(
+                      <div className="sg-tip2" key={i}>
+                        <span className="sg-tip2-ic">◇</span>
+                        <span>{tip}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Footer */}
+                  <div className="sg-footer">
+                    Todos nuestros anillos están diseñados para acompañarte todos los días.<br/>
+                    Si tenés dudas, contactanos y te ayudamos a elegir tu talla.<br/>
+                    <span style={{letterSpacing:".2em",fontSize:".48rem",color:"var(--mut)",textTransform:"uppercase"}}>FORJA · JOYERÍA MASCULINA DE AUTOR</span>
+                  </div>
                 </div>
-                <div style={{fontSize:".52rem",letterSpacing:".18em",color:"var(--mut)",textTransform:"uppercase",margin:"1.2rem 0 .6rem"}}>Tabla de tallas</div>
-                <div className="sg-tbl-wrap">
-                  <div className="sg-tbl-row two sg-tbl-h"><span>Talla FORJA</span><span>Circunferencia</span></div>
-                  {RING_SIZES.map(([t,c])=>(
-                    <div className="sg-tbl-row two" key={t}><span>{t}</span><span>{c}</span></div>
-                  ))}
-                </div>
-                <div style={{fontSize:".52rem",letterSpacing:".18em",color:"var(--mut)",textTransform:"uppercase",margin:"1.2rem 0 .6rem"}}>Tips</div>
-                <div className="sg-tips">
-                  {[
-                    {ic:"◇",t:"Medí tu dedo al final del día, cuando esté a su tamaño normal."},
-                    {ic:"◇",t:"Evitá medir tus dedos cuando haga mucho frío o calor."},
-                    {ic:"◇",t:"Si estás entre dos tallas, te recomendamos elegir la más grande."},
-                  ].map((tip,i)=>(
-                    <div className="sg-tip" key={i}>
-                      <span className="sg-tip-ic">{tip.ic}</span>
-                      <span>{tip.t}</span>
-                    </div>
-                  ))}
-                </div>
-                <a href={`${import.meta.env.BASE_URL}guia-tallas.pdf`} download className="sg-dl">↓ Descargar guía completa PDF</a>
-              </>)}
+              )}
 
               {!isRing && isBangle && (<>
                 <div className="sg-methods">
