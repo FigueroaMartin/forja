@@ -13,9 +13,9 @@ const PRODUCTS = [
     availableSizes:[8,9,10,11,12,13],
     detalles:["Anillo sello plano, perfil bajo","Plata 925 · Oro 18K","Acabado cepillado satinado","Ancho 8mm · Espesor 2mm","Tallas 8–13","Grabado opcional a pedido"],
     accent:"#C9A84C", tag:"Más vendido",
-    img:"https://plus.unsplash.com/premium_photo-1673285096774-92c7b3e57424?w=700&q=85&auto=format&fit=crop",
+    img:`${import.meta.env.BASE_URL}ring-signet.png`,
     imgs:[
-      "https://plus.unsplash.com/premium_photo-1673285096774-92c7b3e57424?w=700&q=85&auto=format&fit=crop",
+      `${import.meta.env.BASE_URL}ring-signet.png`,
       "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=700&q=85&auto=format&fit=crop",
     ],
     reviews:[
@@ -32,9 +32,9 @@ const PRODUCTS = [
     availableSizes:[8,9,10,11,12,13],
     detalles:["Banda lisa minimalista","Plata 925 · Oro 18K","Geometría pura, sin ornamento","Ancho 10mm · Acabado pulido espejo","Tallas 8–13","Alto impacto visual"],
     accent:"#C9A84C", tag:null,
-    img:"https://images.unsplash.com/photo-1565206077202-14752579e787?w=700&q=85&auto=format&fit=crop",
+    img:`${import.meta.env.BASE_URL}ring-banda.png`,
     imgs:[
-      "https://images.unsplash.com/photo-1565206077202-14752579e787?w=700&q=85&auto=format&fit=crop",
+      `${import.meta.env.BASE_URL}ring-banda.png`,
       "https://images.unsplash.com/photo-1575862469342-61fd7aa6d577?w=700&q=85&auto=format&fit=crop",
     ],
     reviews:[
@@ -50,9 +50,9 @@ const PRODUCTS = [
     availableSizes:[8,9,10,11,12,13],
     detalles:["Anillo facetado geométrico","Oro 18K · Plata 925","Ángulos esculturales","Ancho 8mm variable","Tallas 8–13","Diseño exclusivo FORJA"],
     accent:"#C9A84C", tag:"Ed. limitada",
-    img:"https://images.unsplash.com/photo-1565619601015-e57cced38f39?w=700&q=85&auto=format&fit=crop",
+    img:`${import.meta.env.BASE_URL}ring-corte.png`,
     imgs:[
-      "https://images.unsplash.com/photo-1565619601015-e57cced38f39?w=700&q=85&auto=format&fit=crop",
+      `${import.meta.env.BASE_URL}ring-corte.png`,
       "https://images.unsplash.com/photo-1620656798579-1984d9e87df7?w=700&q=85&auto=format&fit=crop",
     ],
     reviews:[
