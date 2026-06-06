@@ -321,10 +321,10 @@ button{cursor:pointer;font-family:var(--mono);}
 .pc-tag{position:absolute;top:1rem;left:1rem;font-size:.52rem;letter-spacing:.12em;text-transform:uppercase;background:var(--gold);color:#000;padding:.25rem .6rem;z-index:2;}
 .pc-w{position:absolute;top:1rem;right:1rem;background:rgba(10,10,10,.7);width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-size:.9rem;opacity:0;transition:opacity .2s;border:none;color:var(--mut);z-index:2;}
 .pc:hover .pc-w{opacity:1;}
-.pc-b{padding:1.25rem 1.5rem 1.75rem;display:flex;flex-direction:column;gap:.5rem;flex:1;}
-.pc-linea{font-size:.5rem;letter-spacing:.18em;color:var(--mut);text-transform:uppercase;}
-.pc-name{font-family:var(--serif);font-size:1.6rem;font-weight:300;color:var(--white);line-height:1.05;}
-.pc-tgl{font-size:.6rem;color:var(--mut);line-height:1.7;font-style:italic;flex:1;}
+.pc-b{padding:1.25rem 1.5rem 1.75rem;display:flex;flex-direction:column;gap:.3rem;flex:1;}
+.pc-linea{font-family:var(--serif);font-size:1.75rem;font-weight:300;color:var(--white);line-height:1;letter-spacing:.01em;text-transform:none;}
+.pc-name{font-family:var(--mono);font-size:.58rem;color:var(--gold);letter-spacing:.16em;text-transform:uppercase;margin-top:.1rem;}
+.pc-tgl{font-size:.6rem;color:var(--mut);line-height:1.65;font-style:italic;flex:1;margin-top:.15rem;}
 .pc-ft{display:flex;align-items:center;justify-content:space-between;margin-top:.5rem;}
 .pc-price{font-size:.72rem;color:var(--gold);letter-spacing:.04em;}
 .pc-cta{font-size:.58rem;color:var(--mut2);letter-spacing:.1em;text-transform:uppercase;transition:color .2s;}
@@ -1797,7 +1797,7 @@ export default function App() {
                       <button className="pc-w">♡</button>
                     </div>
                     <div className="pc-b">
-                      <div className="pc-linea">{p.linea}</div>
+                      <div className="pc-linea">{p.linea.slice(0,-1)}</div>
                       <div className="pc-name">{p.name}</div>
                       <div className="pc-tgl">{p.tagline}</div>
                       <div className="pc-ft">
