@@ -321,10 +321,10 @@ button{cursor:pointer;font-family:var(--mono);}
 .pc-tag{position:absolute;top:1rem;left:1rem;font-size:.52rem;letter-spacing:.12em;text-transform:uppercase;background:var(--gold);color:#000;padding:.25rem .6rem;z-index:2;}
 .pc-w{position:absolute;top:1rem;right:1rem;background:rgba(10,10,10,.7);width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-size:.9rem;opacity:0;transition:opacity .2s;border:none;color:var(--mut);z-index:2;}
 .pc:hover .pc-w{opacity:1;}
-.pc-b{padding:1.25rem 1.5rem 1.75rem;display:flex;flex-direction:column;gap:.3rem;flex:1;}
-.pc-linea{font-family:var(--serif);font-size:1.75rem;font-weight:300;color:var(--white);line-height:1;letter-spacing:.01em;text-transform:none;}
-.pc-name{font-family:var(--mono);font-size:.58rem;color:var(--gold);letter-spacing:.16em;text-transform:uppercase;margin-top:.1rem;}
-.pc-tgl{font-size:.6rem;color:var(--mut);line-height:1.65;font-style:italic;flex:1;margin-top:.15rem;}
+.pc-b{padding:1.25rem 1.5rem 1.75rem;display:flex;flex-direction:column;gap:.5rem;flex:1;}
+.pc-linea{font-size:.5rem;letter-spacing:.18em;color:var(--mut);text-transform:uppercase;}
+.pc-name{font-family:var(--serif);font-size:1.6rem;font-weight:300;color:var(--white);line-height:1.05;}
+.pc-tgl{font-size:.6rem;color:var(--mut);line-height:1.7;font-style:italic;flex:1;}
 .pc-ft{display:flex;align-items:center;justify-content:space-between;margin-top:.5rem;}
 .pc-price{font-size:.72rem;color:var(--gold);letter-spacing:.04em;}
 .pc-cta{font-size:.58rem;color:var(--mut2);letter-spacing:.1em;text-transform:uppercase;transition:color .2s;}
@@ -332,19 +332,6 @@ button{cursor:pointer;font-family:var(--mono);}
 .pc-line{position:absolute;bottom:0;left:0;height:1.5px;width:0;background:linear-gradient(to right,var(--gold),transparent);transition:width .5s var(--ease);}
 .pc:hover .pc-line{width:100%;}
 
-/* HIGHLIGHT */
-.hl{display:grid;grid-template-columns:1fr 1fr;min-height:480px;}
-@media(max-width:700px){.hl{grid-template-columns:1fr;}}
-.hl-iw{overflow:hidden;}
-.hl-iw img{width:100%;height:100%;object-fit:cover;filter:brightness(.6);transition:transform .7s var(--ease);}
-.hl:hover .hl-iw img{transform:scale(1.04);}
-.hl-c{background:var(--surf);display:flex;flex-direction:column;justify-content:center;padding:3.5rem;gap:1.5rem;}
-.hl-eye{font-size:.58rem;letter-spacing:.22em;color:var(--gold);text-transform:uppercase;}
-.hl-t{font-family:var(--serif);font-size:2.4rem;font-weight:300;color:var(--white);line-height:1.1;}
-.hl-d{font-size:.68rem;color:var(--mut);line-height:1.9;}
-.hl-list{display:flex;flex-direction:column;gap:.5rem;}
-.hl-li{display:flex;align-items:center;gap:.6rem;font-size:.62rem;color:var(--mut);}
-.hl-li::before{content:'';width:4px;height:4px;background:var(--gold);flex-shrink:0;}
 
 /* CRAFT */
 .craft{display:grid;grid-template-columns:1fr 1fr;}
@@ -1797,7 +1784,7 @@ export default function App() {
                       <button className="pc-w">♡</button>
                     </div>
                     <div className="pc-b">
-                      <div className="pc-linea">{p.linea.slice(0,-1)}</div>
+                      <div className="pc-linea">{p.linea}</div>
                       <div className="pc-name">{p.name}</div>
                       <div className="pc-tgl">{p.tagline}</div>
                       <div className="pc-ft">
@@ -1813,31 +1800,6 @@ export default function App() {
             </div>
           ))}
         </div>
-
-        {/* ── HIGHLIGHT ── */}
-        <motion.section
-          className="hl"
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.7, ease: [0.25,0.46,0.45,0.94] }}
-        >
-          <div className="hl-iw">
-            <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=900&q=80&auto=format&fit=crop" alt="Joyero artesanal"/>
-          </div>
-          <div className="hl-c">
-            <div className="hl-eye">El proceso importa</div>
-            <h2 className="hl-t">Maestría local.<br/>Legado digital.</h2>
-            <p className="hl-d">Cada pieza FORJA nace del oficio artesanal. No vendemos un objeto terminado; vendemos el derecho a presenciar su nacimiento. Cada modelo tiene nombre, historia y propósito.</p>
-            <div className="hl-list">
-              <div className="hl-li">Plata 925 · Oro 18K amarillo</div>
-              <div className="hl-li">Cada pieza tiene nombre e historia propia</div>
-              <div className="hl-li">Piezas hipoalergénicas resistentes al agua</div>
-              <div className="hl-li">Empaque de regalo incluido en cada pedido</div>
-            </div>
-            <button className="btn-p" style={{alignSelf:"flex-start"}} onClick={scrollCat}>Ver la colección</button>
-          </div>
-        </motion.section>
 
         {/* ── CRAFT ── */}
         <motion.section
