@@ -124,9 +124,9 @@ const PRODUCTS = [
     inspiracion:"Fundamento · Origen · Constancia",
     detalles:["Pulsera eslabón plano","Plata 925 · Oro 18K","Cierre caja de seguridad doble","Largo 20cm","Ancho 5mm","Resistente al agua"],
     accent:"#C9A84C", tag:"Más vendido",
-    img:"https://images.unsplash.com/photo-1612450362046-91773458b103?w=700&q=85&auto=format&fit=crop",
+    img:`${import.meta.env.BASE_URL}pulsera-base.png`,
     imgs:[
-      "https://images.unsplash.com/photo-1612450362046-91773458b103?w=700&q=85&auto=format&fit=crop",
+      `${import.meta.env.BASE_URL}pulsera-base.png`,
       "https://images.unsplash.com/photo-1748017741116-6c53196ba9d0?w=700&q=85&auto=format&fit=crop",
     ],
     reviews:[
@@ -142,9 +142,9 @@ const PRODUCTS = [
     inspiracion:"Estructura · Escultura · Peso",
     detalles:["Brazalete rígido abierto","Plata 925","Pieza escultural de autor","Ancho 6mm · Acabado cepillado","Apertura regulable","Diámetro interior 58–62mm"],
     accent:"#A8A9AD", tag:null,
-    img:"https://images.unsplash.com/photo-1681091639096-a7b2eb1d4990?w=700&q=85&auto=format&fit=crop",
+    img:`${import.meta.env.BASE_URL}pulsera-bloque.png`,
     imgs:[
-      "https://images.unsplash.com/photo-1681091639096-a7b2eb1d4990?w=700&q=85&auto=format&fit=crop",
+      `${import.meta.env.BASE_URL}pulsera-bloque.png`,
       "https://images.unsplash.com/photo-1748018384116-41eabe92aae0?w=700&q=85&auto=format&fit=crop",
     ],
     reviews:[
@@ -159,9 +159,9 @@ const PRODUCTS = [
     inspiracion:"Cotidiano · Resistencia · Libertad",
     detalles:["Pulsera eslabón delgado","Plata 925 · Oro 18K","Uso diario, resistente al agua","Largo 20cm con cierre caja","Ancho 3mm","Cierre doble seguro"],
     accent:"#C9A84C", tag:"Nuevo",
-    img:"https://images.unsplash.com/photo-1708221235889-244b2b9495f3?w=700&q=85&auto=format&fit=crop",
+    img:`${import.meta.env.BASE_URL}pulsera-cord.png`,
     imgs:[
-      "https://images.unsplash.com/photo-1708221235889-244b2b9495f3?w=700&q=85&auto=format&fit=crop",
+      `${import.meta.env.BASE_URL}pulsera-cord.png`,
       "https://images.unsplash.com/photo-1624913503273-5f9c4e980dba?w=700&q=85&auto=format&fit=crop",
     ],
     reviews:[
