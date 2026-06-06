@@ -70,9 +70,9 @@ const PRODUCTS = [
     inspiracion:"Camino · Disciplina · Sobriedad",
     detalles:["Cadena rolo 3mm","Plata 925 · Oro 18K","Largo 55cm ajustable","Cierre de langosta","Resistente al agua y al sudor","Uso diario"],
     accent:"#A8A9AD", tag:"Más vendido",
-    img:"https://plus.unsplash.com/premium_photo-1708711288213-1726e476ce74?w=700&q=85&auto=format&fit=crop",
+    img:`${import.meta.env.BASE_URL}collar-ruta.png`,
     imgs:[
-      "https://plus.unsplash.com/premium_photo-1708711288213-1726e476ce74?w=700&q=85&auto=format&fit=crop",
+      `${import.meta.env.BASE_URL}collar-ruta.png`,
       "https://images.unsplash.com/photo-1679973297332-cb76bf05275c?w=700&q=85&auto=format&fit=crop",
     ],
     reviews:[
@@ -88,9 +88,9 @@ const PRODUCTS = [
     inspiracion:"Vínculo · Peso · Continuidad",
     detalles:["Cadena curb de eslabón plano 5mm","Plata 925 · Oro 18K","Largo 50cm fijo","Cierre de mosquetón","Peso sustancial · Caída perfecta","Esencia masculina"],
     accent:"#C9A84C", tag:null,
-    img:"https://images.unsplash.com/photo-1679973297365-04286fb12e6c?w=700&q=85&auto=format&fit=crop",
+    img:`${import.meta.env.BASE_URL}collar-eslabon.png`,
     imgs:[
-      "https://images.unsplash.com/photo-1679973297365-04286fb12e6c?w=700&q=85&auto=format&fit=crop",
+      `${import.meta.env.BASE_URL}collar-eslabon.png`,
       "https://images.unsplash.com/photo-1605884878538-6468614df578?w=700&q=85&auto=format&fit=crop",
     ],
     reviews:[
@@ -105,9 +105,9 @@ const PRODUCTS = [
     inspiracion:"Enfoque · Convergencia · Sutileza",
     detalles:["Cadena fina rolo 1.5mm + colgante","Colgante hexagonal 8mm","Plata 925","Largo 45cm","Cierre de langosta","Diseño minimalista de autor"],
     accent:"#A8A9AD", tag:"Nuevo",
-    img:"https://images.unsplash.com/photo-1680068098869-aa8224f6bd64?w=700&q=85&auto=format&fit=crop",
+    img:`${import.meta.env.BASE_URL}collar-vertice.png`,
     imgs:[
-      "https://images.unsplash.com/photo-1680068098869-aa8224f6bd64?w=700&q=85&auto=format&fit=crop",
+      `${import.meta.env.BASE_URL}collar-vertice.png`,
       "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=700&q=85&auto=format&fit=crop",
     ],
     reviews:[
