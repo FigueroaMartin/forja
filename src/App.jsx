@@ -310,7 +310,9 @@ button{cursor:pointer;font-family:var(--mono);}
 .linea-desc{font-size:.62rem;color:var(--mut);letter-spacing:.06em;margin-left:auto;}
 
 /* PRODUCT GRID */
-.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1px;background:var(--brd);margin:0 2.5rem;}
+.pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--brd);margin:0 2.5rem;}
+@media(max-width:900px){.pgrid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:560px){.pgrid{grid-template-columns:1fr;}}
 .pc{background:var(--surf);cursor:pointer;display:flex;flex-direction:column;position:relative;overflow:hidden;transition:background .25s;}
 .pc:hover{background:#141414;}
 .pc-iw{position:relative;overflow:hidden;aspect-ratio:1;background:var(--surf2);}
