@@ -5,13 +5,13 @@ import { motion, AnimatePresence } from "framer-motion";
 const PRODUCTS = [
   // ── LÍNEA ANILLOS ──
   {
-    id:"frj-r01", slug:"norte", linea:"Anillos",
-    name:"Norte", basePrice:89,
-    tagline:"Sigue tu dirección. Sin excusas.",
-    concepto:"Este anillo representa la claridad de quien sabe adónde va. Su geometría limpia y perfil bajo son el reflejo de un hombre que no necesita adornos para demostrar su rumbo. Lo que comunica lo hace con presencia.",
-    inspiracion:"Dirección · Propósito · Claridad",
+    id:"frj-r01", slug:"signet", linea:"Anillos",
+    name:"Signet I", basePrice:89,
+    tagline:"El sello que define tu presencia.",
+    concepto:"El anillo sello es la forma más antigua de identidad masculina. Signet I lo reinterpreta con perfil bajo y cara plana: sobriedad de formas, acabado cepillado satinado. Una declaración sin palabras para el dedo que decidís.",
+    inspiracion:"Identidad · Legado · Presencia",
     availableSizes:[8,9,10,11,12,13],
-    detalles:["Anillo sello de perfil bajo","Plata 925 · Oro 18K","Acabado cepillado satinado","Ancho 8mm · Espesor 2mm","Ajustable tallas 8–13","Resistente al agua"],
+    detalles:["Anillo sello plano, perfil bajo","Plata 925 · Oro 18K","Acabado cepillado satinado","Ancho 8mm · Espesor 2mm","Tallas 8–13","Grabado opcional a pedido"],
     accent:"#C9A84C", tag:"Más vendido",
     img:"https://plus.unsplash.com/premium_photo-1673285096774-92c7b3e57424?w=700&q=85&auto=format&fit=crop",
     imgs:[
@@ -24,32 +24,13 @@ const PRODUCTS = [
     ]
   },
   {
-    id:"frj-r02", slug:"sello", linea:"Anillos",
-    name:"Sello", basePrice:95,
-    tagline:"Tu historia grabada en metal.",
-    concepto:"Un anillo sello es una declaración ancestral de identidad. Desde los romanos hasta los ejecutivos modernos, quien lleva un sello comunica que tiene algo que defender. Forja lo interpreta con líneas del siglo XXI.",
-    inspiracion:"Identidad · Legado · Autoridad",
-    availableSizes:[8,9,10,11,12,13,14],
-    detalles:["Anillo sello rectangular plano","Plata 925 · Oro 18K","Superficie grabable a pedido","Ancho 12mm · Espesor 2.5mm","Tallas 8–14","Cepillado mate en cara superior"],
-    accent:"#A8A9AD", tag:"Personalizable",
-    img:"https://images.unsplash.com/photo-1603561591411-07134e71a2a9?w=700&q=85&auto=format&fit=crop",
-    imgs:[
-      "https://images.unsplash.com/photo-1603561591411-07134e71a2a9?w=700&q=85&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1689287428894-9b52d1534a25?w=700&q=85&auto=format&fit=crop",
-    ],
-    reviews:[
-      {name:"Matías C.", stars:5, text:"Me lo grabaron con mis iniciales. Quedó perfecto, mejor que lo que esperaba."},
-      {name:"Andrés M.", stars:5, text:"Lo mandé a hacer en oro 18K. Vale cada peso."},
-    ]
-  },
-  {
-    id:"frj-r03", slug:"bloque", linea:"Anillos",
-    name:"Bloque", basePrice:79,
-    tagline:"Construido para durar. Como tú.",
-    concepto:"Inspirado en la arquitectura brutalista: formas masivas, líneas rectas, sin ornamentos innecesarios. El Bloque es para el hombre que construye cosas reales y quiere una joya que lo represente.",
-    inspiracion:"Fuerza · Construcción · Permanencia",
+    id:"frj-r03", slug:"banda", linea:"Anillos",
+    name:"Banda II", basePrice:65,
+    tagline:"Geometría pura. Sin ornamento.",
+    concepto:"La Banda II es una declaración de lo esencial. Geometría perfecta, sin detalle superfluo, sin concesiones al adorno. Para el hombre que sabe que el minimalismo no es falta de ideas — es la idea máxima llevada a su forma más honesta.",
+    inspiracion:"Pureza · Forma · Esencia",
     availableSizes:[8,9,10,11,12,13],
-    detalles:["Banda ancha de perfil cuadrado","Plata 925","Acabado pulido espejo","Ancho 10mm · Espesor 3mm","Tallas 8–13","Alto impacto visual"],
+    detalles:["Banda lisa minimalista","Plata 925 · Oro 18K","Geometría pura, sin ornamento","Ancho 10mm · Acabado pulido espejo","Tallas 8–13","Alto impacto visual"],
     accent:"#C9A84C", tag:null,
     img:"https://images.unsplash.com/photo-1565206077202-14752579e787?w=700&q=85&auto=format&fit=crop",
     imgs:[
@@ -62,12 +43,12 @@ const PRODUCTS = [
   },
   {
     id:"frj-r04", slug:"corte", linea:"Anillos",
-    name:"Corte", basePrice:109,
-    tagline:"Precisión que se lleva puesta.",
-    concepto:"El Corte nace de la obsesión por el detalle. Cada ángulo fue pensado para capturar la luz de manera distinta. Es el anillo del hombre que valora la ingeniería detrás de las cosas.",
-    inspiracion:"Precisión · Filo · Rareza",
+    name:"Corte III", basePrice:95,
+    tagline:"Ángulos esculturales. Luz propia.",
+    concepto:"El Corte III nace de la obsesión por la geometría. Cada faceta fue diseñada para capturar la luz desde un ángulo diferente. Es el anillo del hombre que encuentra precisión en cada cosa que hace — y que lo demuestra sin necesitar palabras.",
+    inspiracion:"Precisión · Filo · Escultura",
     availableSizes:[8,9,10,11,12,13],
-    detalles:["Anillo facetado de corte geométrico","Oro 18K · Plata 925","Múltiples facetas pulidas","Ancho 8mm variable","Tallas 8–13","Diseño exclusivo FORJA"],
+    detalles:["Anillo facetado geométrico","Oro 18K · Plata 925","Ángulos esculturales","Ancho 8mm variable","Tallas 8–13","Diseño exclusivo FORJA"],
     accent:"#C9A84C", tag:"Ed. limitada",
     img:"https://images.unsplash.com/photo-1565619601015-e57cced38f39?w=700&q=85&auto=format&fit=crop",
     imgs:[
@@ -83,11 +64,11 @@ const PRODUCTS = [
   // ── LÍNEA COLLARES ──
   {
     id:"frj-c01", slug:"ruta", linea:"Collares",
-    name:"Ruta", basePrice:110,
-    tagline:"El camino que elegiste te define.",
-    concepto:"Una cadena rolo limpia y directa. Sin pendientes, sin excesos. La Ruta es la joya del hombre que ya llegó a donde quería llegar y lo demuestra con sobriedad. Cincuenta y cinco centímetros de carácter.",
+    name:"Ruta I", basePrice:95,
+    tagline:"La cadena masculina por excelencia.",
+    concepto:"Ruta I es la cadena rolo de 3mm en su expresión más pura: limpia, directa, sin adornos. Cincuenta y cinco centímetros de carácter masculino. La joya del hombre que ya llegó a donde quería llegar y lo demuestra con sobriedad.",
     inspiracion:"Camino · Disciplina · Sobriedad",
-    detalles:["Cadena rolo eslabón redondo 3mm","Plata 925 · Oro 18K","Largo 55cm ajustable","Cierre de langosta","Resistente al agua y al sudor","Apto uso diario"],
+    detalles:["Cadena rolo 3mm","Plata 925 · Oro 18K","Largo 55cm ajustable","Cierre de langosta","Resistente al agua y al sudor","Uso diario"],
     accent:"#A8A9AD", tag:"Más vendido",
     img:"https://plus.unsplash.com/premium_photo-1708711288213-1726e476ce74?w=700&q=85&auto=format&fit=crop",
     imgs:[
@@ -101,11 +82,11 @@ const PRODUCTS = [
   },
   {
     id:"frj-c02", slug:"eslabón", linea:"Collares",
-    name:"Eslabón", basePrice:125,
-    tagline:"Cada vínculo que construyes es tuyo.",
-    concepto:"La cadena de eslabón plano es uno de los diseños más masculinos de la historia de la joyería. El Eslabón lo toma y lo simplifica al máximo: anchura justa, grosor honesto, caída perfecta.",
+    name:"Eslabón II", basePrice:110,
+    tagline:"El eslabón plano que define tu cuello.",
+    concepto:"La cadena curb de eslabón plano es uno de los diseños más masculinos de la historia de la joyería. Eslabón II lo interpreta en 5mm: anchura justa, peso honesto, caída perfecta. Presencia que habla por sí sola.",
     inspiracion:"Vínculo · Peso · Continuidad",
-    detalles:["Cadena eslabón plano tipo curb 5mm","Plata 925 · Oro 18K","Largo 50cm fijo","Cierre de mosquetón","Peso sustancial · Caída perfecta","Diseño unisex con esencia masculina"],
+    detalles:["Cadena curb de eslabón plano 5mm","Plata 925 · Oro 18K","Largo 50cm fijo","Cierre de mosquetón","Peso sustancial · Caída perfecta","Esencia masculina"],
     accent:"#C9A84C", tag:null,
     img:"https://images.unsplash.com/photo-1679973297365-04286fb12e6c?w=700&q=85&auto=format&fit=crop",
     imgs:[
@@ -118,11 +99,11 @@ const PRODUCTS = [
   },
   {
     id:"frj-c03", slug:"vértice", linea:"Collares",
-    name:"Vértice", basePrice:98,
+    name:"Vértice III", basePrice:98,
     tagline:"El punto donde todo converge.",
-    concepto:"Una cadena fina con un colgante geométrico discreto. El Vértice es para el ejecutivo que quiere una declaración sutil. Visible solo cuando importa. Un punto de enfoque para los que saben mirar.",
+    concepto:"Una cadena fina con colgante hexagonal discreto. Vértice III es para el hombre que quiere una declaración sutil. Visible solo cuando importa. Un detalle de foco para los que saben mirar.",
     inspiracion:"Enfoque · Convergencia · Sutileza",
-    detalles:["Cadena rolo fina 1.5mm + colgante","Colgante hexagonal 8mm","Plata 925","Largo 45cm","Cierre de langosta","Diseño minimalista de autor"],
+    detalles:["Cadena fina rolo 1.5mm + colgante","Colgante hexagonal 8mm","Plata 925","Largo 45cm","Cierre de langosta","Diseño minimalista de autor"],
     accent:"#A8A9AD", tag:"Nuevo",
     img:"https://images.unsplash.com/photo-1680068098869-aa8224f6bd64?w=700&q=85&auto=format&fit=crop",
     imgs:[
@@ -137,11 +118,11 @@ const PRODUCTS = [
   // ── LÍNEA PULSERAS ──
   {
     id:"frj-b01", slug:"base", linea:"Pulseras",
-    name:"Base", basePrice:64,
-    tagline:"Lo esencial nunca pasa de moda.",
-    concepto:"La pulsera de eslabón es el punto de partida de cualquier colección masculina. La Base no trata de ser más de lo que es: una pieza honesta, duradera, que se lleva solo o se apila. Sin pretensiones. Con carácter.",
+    name:"Base I", basePrice:65,
+    tagline:"Lo esencial, llevado con carácter.",
+    concepto:"Base I es la pulsera de eslabón plano que no falla. Punto de partida de cualquier colección masculina — se lleva sola o se apila. Cierre de caja con doble seguro. Honesta, duradera, sin pretensiones. Con carácter.",
     inspiracion:"Fundamento · Origen · Constancia",
-    detalles:["Pulsera eslabón plano tipo curb","Plata 925 · Oro 18K","Largo 20cm con cierre caja","Cierre doble seguro","Ancho 5mm","Resistente al agua"],
+    detalles:["Pulsera eslabón plano","Plata 925 · Oro 18K","Cierre caja de seguridad doble","Largo 20cm","Ancho 5mm","Resistente al agua"],
     accent:"#C9A84C", tag:"Más vendido",
     img:"https://images.unsplash.com/photo-1612450362046-91773458b103?w=700&q=85&auto=format&fit=crop",
     imgs:[
@@ -154,12 +135,12 @@ const PRODUCTS = [
     ]
   },
   {
-    id:"frj-b02", slug:"tensor", linea:"Pulseras",
-    name:"Tensor", basePrice:95,
-    tagline:"Tensión que se transforma en forma.",
-    concepto:"El brazalete rígido lleva milenios en la historia de la joyería masculina. El Tensor lo rediseña con apertura lateral inteligente y tensión estructural visible. Para el hombre que entiende que la fortaleza también tiene una estética.",
-    inspiracion:"Tensión · Equilibrio · Fuerza",
-    detalles:["Brazalete rígido apertura lateral","Plata 925","Ancho 6mm · Acabado cepillado","Apertura elástica regulable","Diámetro interior 58–62mm","Grabado lineal interior"],
+    id:"frj-b02", slug:"bloque", linea:"Pulseras",
+    name:"Bloque II", basePrice:85,
+    tagline:"Pieza escultural. Presencia inmediata.",
+    concepto:"El brazalete rígido abierto es la declaración más contundente de una muñeca. Bloque II es una pieza escultural — apertura calibrada, acabado cepillado, peso honesto. Para el hombre que no necesita moverse para hacerse notar.",
+    inspiracion:"Estructura · Escultura · Peso",
+    detalles:["Brazalete rígido abierto","Plata 925","Pieza escultural de autor","Ancho 6mm · Acabado cepillado","Apertura regulable","Diámetro interior 58–62mm"],
     accent:"#A8A9AD", tag:null,
     img:"https://images.unsplash.com/photo-1681091639096-a7b2eb1d4990?w=700&q=85&auto=format&fit=crop",
     imgs:[
@@ -171,12 +152,12 @@ const PRODUCTS = [
     ]
   },
   {
-    id:"frj-b03", slug:"huggie", linea:"Pulseras",
-    name:"Huggie", basePrice:72,
-    tagline:"Lo que te abraza, te define.",
-    concepto:"Un brazalete de perfil circular que rodea la muñeca con precisión. El Huggie cierra mediante un mecanismo articulado que garantiza un ajuste perfecto. Es la pieza que no ves hasta que la sientes, y cuando la sientes, no quieres quitártela.",
-    inspiracion:"Abrazo · Cuerpo · Identidad",
-    detalles:["Brazalete perfil redondo cierre articulado","Plata 925 · Oro 18K","Sección circular 4mm","Cierre articulado de precisión","Diámetro interior 56–60mm","Acabado pulido espejo"],
+    id:"frj-b03", slug:"cord", linea:"Pulseras",
+    name:"Cord III", basePrice:64,
+    tagline:"Para el uso diario. Sin excusas.",
+    concepto:"Cord III es la pulsera que no te quitás. Eslabón delgado, peso liviano, resistente al agua y al sudor. Diseñada para estar siempre puesta — en el gimnasio, en la oficina, en la playa. La pieza que elige tu estilo de vida.",
+    inspiracion:"Cotidiano · Resistencia · Libertad",
+    detalles:["Pulsera eslabón delgado","Plata 925 · Oro 18K","Uso diario, resistente al agua","Largo 20cm con cierre caja","Ancho 3mm","Cierre doble seguro"],
     accent:"#C9A84C", tag:"Nuevo",
     img:"https://images.unsplash.com/photo-1708221235889-244b2b9495f3?w=700&q=85&auto=format&fit=crop",
     imgs:[
@@ -184,7 +165,7 @@ const PRODUCTS = [
       "https://images.unsplash.com/photo-1624913503273-5f9c4e980dba?w=700&q=85&auto=format&fit=crop",
     ],
     reviews:[
-      {name:"Bruno A.", stars:5, text:"Cierre articulado impecable. Se pone y saca sin drama. Parece más caro de lo que es."},
+      {name:"Bruno A.", stars:5, text:"Cierre impecable. Se pone y saca sin drama. La uso todos los días sin excepción."},
     ]
   },
 ];
@@ -1487,7 +1468,7 @@ function SizeGuide({ linea, slug }) {
   if (linea !== "Anillos" && linea !== "Pulseras") return null;
 
   const isRing   = linea === "Anillos";
-  const isBangle = slug === "tensor" || slug === "huggie";
+  const isBangle = slug === "bloque";
 
   return (
     <div className="sg">
@@ -1548,7 +1529,7 @@ function SizeGuide({ linea, slug }) {
                   </div>
                 </div>
                 <div className="sg-brc-note">
-                  La <strong>Base</strong> tiene largo fijo de 20 cm — cómoda para muñecas de hasta 17 cm. Para muñecas más grandes, contáctanos para medida personalizada.
+                  La <strong>Base I</strong> tiene largo fijo de 20 cm — cómoda para muñecas de hasta 17 cm. Para muñecas más grandes, contáctanos para medida personalizada.
                 </div>
                 <div className="sg-tip">
                   <span className="sg-tip-ic">◇</span>
@@ -1604,8 +1585,8 @@ const INFO_PAGES = {
         ["18","6,10 cm"],["19","6,22 cm"],["20","6,35 cm"],["21","6,48 cm"],["22","6,60 cm"],
       ]},
       { heading:"Tips", text:"· Medí tu dedo al final del día, cuando esté a su tamaño normal.\n· Evitá medir tus dedos cuando haga mucho frío o calor.\n· Si estás entre dos tallas, te recomendamos elegir la más grande." },
-      { heading:"Pulseras de eslabón (Base)", text:"La Base tiene largo fijo de 20 cm — cómoda para muñecas de hasta 17 cm con holgura natural. Para muñecas más grandes, contáctanos para un largo personalizado." },
-      { heading:"Brazaletes rígidos (Tensor · Huggie)", text:"Medí la circunferencia de tus nudillos cerrando la mano suavemente — ese es el punto más ancho que debe pasar por el aro.\n\nTensor — diámetro interior 58–62 mm (ajustable)\nHuggie — diámetro interior 56–60 mm\n\nSi tus nudillos miden más de 62 mm, contáctanos." },
+      { heading:"Pulseras de eslabón (Base I · Cord III)", text:"Base I y Cord III tienen largo fijo de 20 cm — cómodas para muñecas de hasta 17 cm con holgura natural. Para muñecas más grandes, contáctanos para un largo personalizado." },
+      { heading:"Brazalete rígido (Bloque II)", text:"Medí la circunferencia de tus nudillos cerrando la mano suavemente — ese es el punto más ancho que debe pasar por el aro.\n\nBloque II — diámetro interior 58–62 mm (apertura regulable)\n\nSi tus nudillos miden más de 62 mm, contáctanos." },
       { heading:"Descargar guía completa", text:"Guía PDF con instrucciones paso a paso, tabla completa y referencia de brazaletes.", download:true },
     ]
   },
@@ -1671,10 +1652,10 @@ function InfoView({ page, onBack }) {
 
 // ─── APP ──────────────────────────────────────────────────────────────────────
 const TESTIMONIALS_GLOBAL = [
-  {name:"Rodrigo V.", stars:5, text:"Calidad impresionante. El Norte en acero llegó perfecto y el empaque es de otro nivel. Lo uso todos los días."},
-  {name:"Matías C.",  stars:5, text:"La pulsera Base es exactamente lo que buscaba: minimalista, resistente y con un cierre perfecto."},
-  {name:"Felipe A.",  stars:5, text:"Me sorprendió la atención. La Ruta en plata 925 supera todas mis expectativas."},
-  {name:"Andrés M.",  stars:5, text:"El Sello personalizado con mis iniciales quedó impecable. Vale cada peso."},
+  {name:"Rodrigo V.", stars:5, text:"Calidad impresionante. El Signet I llegó perfecto y el empaque es de otro nivel. Lo uso todos los días."},
+  {name:"Matías C.",  stars:5, text:"La Base I es exactamente lo que buscaba: minimalista, resistente y con un cierre perfecto."},
+  {name:"Felipe A.",  stars:5, text:"Me sorprendió la atención. La Ruta I en plata 925 supera todas mis expectativas."},
+  {name:"Andrés M.",  stars:5, text:"El Corte III en oro 18K es una pieza escultural. Vale cada peso."},
 ];
 
 export default function App() {
