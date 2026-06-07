@@ -598,6 +598,9 @@ button{cursor:pointer;font-family:var(--mono);}
 .qf-sent{text-align:center;padding:4rem 2.5rem;}
 .qf-sent-t{font-family:var(--serif);font-size:2.5rem;font-weight:300;color:var(--white);margin-bottom:.5rem;}
 .qf-sent-sub{font-size:.65rem;color:var(--mut);letter-spacing:.06em;line-height:2.2;margin-bottom:2rem;}
+.qf-err{font-size:.58rem;color:#e05555;letter-spacing:.04em;margin-top:.45rem;display:flex;align-items:center;gap:.35rem;line-height:1.5;}
+.qf-err::before{content:'◈';font-size:.5rem;flex-shrink:0;}
+.qf-inp.err,.qf-textarea.err{border-color:#e05555 !important;}
 @media(max-width:500px){.qf-hdr-logo{display:none;}.qf{margin:0 .75rem;}}
 
 ::-webkit-scrollbar{width:4px;}
@@ -1177,41 +1180,75 @@ function QuoteSection({ onQuote }) {
 const W3F_KEY = "d9fea95f-fc83-453e-af5d-69cacabf9cc3";
 
 function QuoteForm({ onBack }) {
-  const [pieceType, setPieceType] = useState(null);
-  const [material, setMaterial]   = useState(null);
-  const [vision, setVision]       = useState("");
-  const [engraving, setEngraving] = useState("");
-  const [budget, setBudget]       = useState(null);
-  const [name, setName]           = useState("");
-  const [contact, setContact]     = useState("");
-  const [sent, setSent]           = useState(false);
-  const [loading, setLoading]     = useState(false);
-  const [error, setError]         = useState(false);
+  const [pieceType, setPieceType]         = useState(null);
+  const [material, setMaterial]           = useState(null);
+  const [vision, setVision]               = useState("");
+  const [engraving, setEngraving]         = useState("");
+  const [budget, setBudget]               = useState(null);
+  const [name, setName]                   = useState("");
+  const [contact, setContact]             = useState("");
+  const [ringSize, setRingSize]           = useState(null);
+  const [sizeGuideOpen, setSizeGuideOpen] = useState(false);
+  const [sent, setSent]                   = useState(false);
+  const [loading, setLoading]             = useState(false);
+  const [apiError, setApiError]           = useState(false);
+  const [fieldErrors, setFieldErrors]     = useState({});
 
-  const ok = pieceType && material && vision.length > 10 && budget && name.length > 2 && contact.length > 4;
+  const pieceRef    = useRef(null);
+  const materialRef = useRef(null);
+  const visionRef   = useRef(null);
+  const budgetRef   = useRef(null);
+  const nameRef     = useRef(null);
+  const contactRef  = useRef(null);
 
   const pieceLabel  = PIECE_TYPES.find(p => p.id === pieceType)?.label ?? pieceType;
   const materialObj = MATERIALS.find(m => m.id === material);
   const materialLbl = materialObj ? `${materialObj.label} ${materialObj.suffix}` : material;
   const budgetLbl   = BUDGETS.find(b => b.id === budget)?.label ?? budget;
+  const needsSize   = pieceType === "ring" || pieceType === "set";
+
+  const clrErr = key => setFieldErrors(e => ({ ...e, [key]: null }));
 
   const handleSubmit = async () => {
-    if (!ok || loading) return;
+    if (loading) return;
+
+    const errs = {};
+    if (!pieceType)                errs.pieceType = "Elegí el tipo de pieza";
+    if (!material)                 errs.material  = "Elegí el material";
+    if (vision.trim().length < 10) errs.vision    = "Contanos un poco más sobre tu visión";
+    if (!budget)                   errs.budget    = "Seleccioná un presupuesto";
+    if (name.trim().length < 2)    errs.name      = "Ingresá tu nombre";
+    if (contact.trim().length < 4) errs.contact   = "Ingresá tu email o WhatsApp";
+
+    if (Object.keys(errs).length > 0) {
+      setFieldErrors(errs);
+      const firstRef = errs.pieceType ? pieceRef
+        : errs.material  ? materialRef
+        : errs.vision    ? visionRef
+        : errs.budget    ? budgetRef
+        : errs.name      ? nameRef
+        : contactRef;
+      firstRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+      return;
+    }
+
+    setFieldErrors({});
     setLoading(true);
-    setError(false);
+    setApiError(false);
     try {
-      const cotNum = `FRJ-${Date.now().toString().slice(-4)}`;
-      const today  = new Date().toLocaleDateString("es-CL");
+      const cotNum      = `FRJ-${Date.now().toString().slice(-4)}`;
+      const today       = new Date().toLocaleDateString("es-CL");
+      const ringSizeLbl = needsSize && ringSize ? String(ringSize) : null;
 
       const res = await fetch("/api/send-quote", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, contact, pieceLabel, materialLbl, budgetLbl, vision, engraving, cotNum, today }),
+        body: JSON.stringify({ name, contact, pieceLabel, materialLbl, budgetLbl, vision, engraving, cotNum, today, ringSizeLbl }),
       });
       const data = await res.json();
       if (data.success) { setSent(true); }
-      else { setError(true); }
-    } catch { setError(true); }
+      else { setApiError(true); }
+    } catch { setApiError(true); }
     finally { setLoading(false); }
   };
 
@@ -1260,42 +1297,72 @@ function QuoteForm({ onBack }) {
 
         {/* — Tipo de pieza — */}
         <div className="qf-div"/>
-        <motion.div variants={FU}>
+        <motion.div variants={FU} ref={pieceRef}>
           <div className="qf-sh">¿Qué tipo de pieza imaginas?</div>
           <div className="qf-tiles">
             {PIECE_TYPES.map(pt => (
-              <div key={pt.id} className={`qf-tile${pieceType===pt.id?" on":""}`} onClick={()=>setPieceType(pt.id)}>
+              <div key={pt.id} className={`qf-tile${pieceType===pt.id?" on":""}`}
+                onClick={()=>{ setPieceType(pt.id); clrErr("pieceType"); }}>
                 <div className="qf-tile-ic">{pt.icon}</div>
                 <div className="qf-tile-t">{pt.label}</div>
                 <div className="qf-tile-d">{pt.desc}</div>
               </div>
             ))}
           </div>
+          {fieldErrors.pieceType && <div className="qf-err">{fieldErrors.pieceType}</div>}
         </motion.div>
 
         {/* — Material — */}
-        <motion.div variants={FU}>
+        <motion.div variants={FU} ref={materialRef}>
           <div className="qf-sh">¿En qué material la imaginas?</div>
-          <div className="opt-grp" style={{marginBottom:"1.5rem"}}>
+          <div className="opt-grp" style={{marginBottom:".75rem"}}>
             {MATERIALS.map(m => (
-              <button key={m.id} className={`opt-btn${material===m.id?" on":""}`} onClick={()=>setMaterial(m.id)}>
+              <button key={m.id} className={`opt-btn${material===m.id?" on":""}`}
+                onClick={()=>{ setMaterial(m.id); clrErr("material"); }}>
                 {m.label} {m.suffix}
               </button>
             ))}
           </div>
+          {fieldErrors.material && <div className="qf-err" style={{marginBottom:".5rem"}}>{fieldErrors.material}</div>}
         </motion.div>
+
+        {/* — Talla anillo (solo si Anillo o Set completo) — */}
+        {needsSize && (
+          <motion.div
+            variants={FU}
+            style={{marginBottom:"1.5rem",padding:"1.25rem 1.25rem 1rem",background:"rgba(201,168,76,.04)",border:".5px solid rgba(201,168,76,.2)"}}
+          >
+            <div className="qf-sh" style={{color:"var(--gold)"}}>
+              Talla del anillo
+              {pieceType === "set" && <span style={{color:"var(--mut2)",fontSize:".5rem",letterSpacing:".08em"}}> (si incluye anillo)</span>}
+            </div>
+            <div className="opt-grp" style={{flexWrap:"wrap",marginBottom:".75rem"}}>
+              {[8,9,10,11,12,13,14,15,16,17,18].map(s => (
+                <button key={s} className={`opt-btn${ringSize===s?" on":""}`}
+                  onClick={()=>setRingSize(s)}
+                  style={{minWidth:"44px",textAlign:"center"}}>
+                  {s}
+                </button>
+              ))}
+            </div>
+            <button className="sg-link" onClick={()=>setSizeGuideOpen(true)}>
+              ¿No sabés tu talla? Ver guía de medición
+            </button>
+          </motion.div>
+        )}
 
         {/* — Visión — */}
         <div className="qf-div"/>
-        <motion.div variants={FU}>
+        <motion.div variants={FU} ref={visionRef}>
           <div className="qf-sh">Cuéntanos tu visión</div>
           <textarea
-            className="qf-textarea"
+            className={`qf-textarea${fieldErrors.vision?" err":""}`}
             placeholder="Describe qué quieres transmitir con esta pieza. ¿Qué la hace especial? ¿Hay un nombre, una fecha, un símbolo o una historia detrás? No hay detalles pequeños cuando se trata de algo verdaderamente único..."
             value={vision}
-            onChange={e=>setVision(e.target.value)}
+            onChange={e=>{ setVision(e.target.value); clrErr("vision"); }}
             rows={5}
           />
+          {fieldErrors.vision && <div className="qf-err">{fieldErrors.vision}</div>}
         </motion.div>
 
         {/* — Grabado — */}
@@ -1309,13 +1376,15 @@ function QuoteForm({ onBack }) {
 
         {/* — Presupuesto — */}
         <div className="qf-div"/>
-        <motion.div variants={FU}>
+        <motion.div variants={FU} ref={budgetRef}>
           <div className="qf-sh">Presupuesto estimado</div>
           <div className="qf-budget">
             {BUDGETS.map(b => (
-              <button key={b.id} className={`qf-bud${budget===b.id?" on":""}`} onClick={()=>setBudget(b.id)}>{b.label}</button>
+              <button key={b.id} className={`qf-bud${budget===b.id?" on":""}`}
+                onClick={()=>{ setBudget(b.id); clrErr("budget"); }}>{b.label}</button>
             ))}
           </div>
+          {fieldErrors.budget && <div className="qf-err" style={{marginTop:".5rem"}}>{fieldErrors.budget}</div>}
         </motion.div>
 
         {/* — Contacto — */}
@@ -1323,13 +1392,17 @@ function QuoteForm({ onBack }) {
         <motion.div variants={FU}>
           <div className="qf-sh">¿Cómo te contactamos?</div>
           <div style={{display:"flex",flexDirection:"column",gap:".8rem"}}>
-            <div>
+            <div ref={nameRef}>
               <label className="qf-flbl">Nombre</label>
-              <input className="qf-inp" placeholder="Tu nombre" value={name} onChange={e=>setName(e.target.value)}/>
+              <input className={`qf-inp${fieldErrors.name?" err":""}`} placeholder="Tu nombre"
+                value={name} onChange={e=>{ setName(e.target.value); clrErr("name"); }}/>
+              {fieldErrors.name && <div className="qf-err">{fieldErrors.name}</div>}
             </div>
-            <div>
+            <div ref={contactRef}>
               <label className="qf-flbl">Email o WhatsApp</label>
-              <input className="qf-inp" placeholder="correo@email.com · +56 9 ..." value={contact} onChange={e=>setContact(e.target.value)}/>
+              <input className={`qf-inp${fieldErrors.contact?" err":""}`} placeholder="correo@email.com · +56 9 ..."
+                value={contact} onChange={e=>{ setContact(e.target.value); clrErr("contact"); }}/>
+              {fieldErrors.contact && <div className="qf-err">{fieldErrors.contact}</div>}
             </div>
           </div>
         </motion.div>
@@ -1338,16 +1411,16 @@ function QuoteForm({ onBack }) {
         <motion.button
           variants={FU}
           className="btn-qsend"
-          disabled={!ok || loading}
+          disabled={loading}
           onClick={handleSubmit}
-          whileHover={ok&&!loading?{scale:1.01}:{}}
-          whileTap={ok&&!loading?{scale:0.98}:{}}
+          whileHover={!loading?{scale:1.01}:{}}
+          whileTap={!loading?{scale:0.98}:{}}
           style={{marginTop:"2rem"}}
         >
           {loading ? "Enviando…" : "Enviar solicitud de cotización"}
         </motion.button>
 
-        {error && (
+        {apiError && (
           <motion.p
             initial={{opacity:0,y:6}} animate={{opacity:1,y:0}}
             style={{fontSize:".6rem",color:"#e05555",textAlign:"center",marginTop:".75rem",letterSpacing:".04em",lineHeight:1.7}}
@@ -1363,6 +1436,30 @@ function QuoteForm({ onBack }) {
 
       </motion.div>
       </div>{/* /qf-body */}
+
+      {/* MODAL GUÍA DE TALLAS */}
+      <AnimatePresence>
+        {sizeGuideOpen && (
+          <motion.div
+            className="sg-modal-ov"
+            initial={{ opacity:0 }} animate={{ opacity:1 }} exit={{ opacity:0 }}
+            transition={{ duration:0.2 }}
+            onClick={()=>setSizeGuideOpen(false)}
+          >
+            <motion.div
+              className="sg-modal"
+              initial={{ opacity:0, scale:0.94, y:18 }}
+              animate={{ opacity:1, scale:1, y:0 }}
+              exit={{ opacity:0, scale:0.94 }}
+              transition={{ duration:0.25, ease:[0.25,0.46,0.45,0.94] }}
+              onClick={e=>e.stopPropagation()}
+            >
+              <button className="sg-modal-cls" onClick={()=>setSizeGuideOpen(false)}>✕</button>
+              <img src={`${import.meta.env.BASE_URL}guia-tallas-anillos.png`} alt="Guía de tallas FORJA — Anillos"/>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 }

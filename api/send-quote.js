@@ -3,7 +3,7 @@ import nodemailer from "nodemailer";
 export default async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).end();
 
-  const { name, contact, pieceLabel, materialLbl, budgetLbl, vision, engraving, cotNum, today } = req.body;
+  const { name, contact, pieceLabel, materialLbl, budgetLbl, vision, engraving, cotNum, today, ringSizeLbl } = req.body;
 
   // ── FILAS DE DETALLE ─────────────────────────────────────────────────────────
   const row = (label, val, bg = "#0f0f0f", valCol = "#F0EDE8") => `
@@ -100,9 +100,10 @@ export default async function handler(req, res) {
           <td style="padding:12px 20px;font-family:'Courier New',monospace;font-size:8px;letter-spacing:3px;color:#C9A84C;text-transform:uppercase">DETALLE</td>
         </tr>
         ${row("PIEZA",       pieceLabel,  "#0f0f0f")}
-        ${row("MATERIAL",    materialLbl, "#111111")}
-        ${row("PRESUPUESTO", budgetLbl,   "#0f0f0f", "#C9A84C")}
-        ${engraving ? row("GRABADO", engraving, "#111111") : ""}
+        ${ringSizeLbl ? row("TALLA ANILLO", `Talla ${ringSizeLbl}`, "#111111", "#C9A84C") : ""}
+        ${row("MATERIAL",    materialLbl, "#0f0f0f")}
+        ${row("PRESUPUESTO", budgetLbl,   "#111111", "#C9A84C")}
+        ${engraving ? row("GRABADO", engraving, "#0f0f0f") : ""}
       </table>
     </td>
   </tr>
