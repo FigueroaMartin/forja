@@ -1,8 +1,7 @@
 name: Deploy FORJA to GitHub Pages
 
 on:
-  push:
-    branches: [main, master]
+  workflow_dispatch: # solo manual — deploy automático ahora via Vercel
 
 permissions:
   contents: read
