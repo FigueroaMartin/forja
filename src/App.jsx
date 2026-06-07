@@ -1166,6 +1166,9 @@ function QuoteSection({ onQuote }) {
 }
 
 // ─── QUOTE FORM (full view) ──────────────────────────────────────────────────
+// ⚠️ Obtener access key gratis en https://web3forms.com → ingresar joyasForja@gmail.com
+const W3F_KEY = "TU_ACCESS_KEY_WEB3FORMS";
+
 function QuoteForm({ onBack }) {
   const [pieceType, setPieceType] = useState(null);
   const [material, setMaterial]   = useState(null);
@@ -1175,8 +1178,52 @@ function QuoteForm({ onBack }) {
   const [name, setName]           = useState("");
   const [contact, setContact]     = useState("");
   const [sent, setSent]           = useState(false);
+  const [loading, setLoading]     = useState(false);
+  const [error, setError]         = useState(false);
 
   const ok = pieceType && material && vision.length > 10 && budget && name.length > 2 && contact.length > 4;
+
+  const pieceLabel  = PIECE_TYPES.find(p => p.id === pieceType)?.label ?? pieceType;
+  const materialObj = MATERIALS.find(m => m.id === material);
+  const materialLbl = materialObj ? `${materialObj.label} ${materialObj.suffix}` : material;
+  const budgetLbl   = BUDGETS.find(b => b.id === budget)?.label ?? budget;
+
+  const handleSubmit = async () => {
+    if (!ok || loading) return;
+    setLoading(true);
+    setError(false);
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          access_key: W3F_KEY,
+          subject: `Nueva cotización FORJA — ${pieceLabel} en ${materialLbl}`,
+          from_name: "FORJA Web",
+          name,
+          email: contact.includes("@") ? contact : "joyasForja@gmail.com",
+          message: [
+            "NUEVA COTIZACIÓN FORJA",
+            "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+            `Nombre:      ${name}`,
+            `Contacto:    ${contact}`,
+            `Pieza:       ${pieceLabel}`,
+            `Material:    ${materialLbl}`,
+            `Presupuesto: ${budgetLbl}`,
+            "",
+            "VISIÓN DEL CLIENTE:",
+            vision,
+            "",
+            engraving ? `GRABADO: ${engraving}` : "Sin grabado especial",
+          ].join("\n"),
+        }),
+      });
+      const data = await res.json();
+      if (data.success) { setSent(true); }
+      else { setError(true); }
+    } catch { setError(true); }
+    finally { setLoading(false); }
+  };
 
   if (sent) return (
     <motion.div className="qf" initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }} transition={{ duration:0.5 }}>
@@ -1294,14 +1341,24 @@ function QuoteForm({ onBack }) {
         <motion.button
           variants={FU}
           className="btn-qsend"
-          disabled={!ok}
-          onClick={()=>ok&&setSent(true)}
-          whileHover={ok?{scale:1.01}:{}}
-          whileTap={ok?{scale:0.98}:{}}
+          disabled={!ok || loading}
+          onClick={handleSubmit}
+          whileHover={ok&&!loading?{scale:1.01}:{}}
+          whileTap={ok&&!loading?{scale:0.98}:{}}
           style={{marginTop:"2rem"}}
         >
-          Enviar solicitud de cotización
+          {loading ? "Enviando…" : "Enviar solicitud de cotización"}
         </motion.button>
+
+        {error && (
+          <motion.p
+            initial={{opacity:0,y:6}} animate={{opacity:1,y:0}}
+            style={{fontSize:".6rem",color:"#e05555",textAlign:"center",marginTop:".75rem",letterSpacing:".04em",lineHeight:1.7}}
+          >
+            Hubo un error al enviar. Por favor escribinos directo a{" "}
+            <a href="mailto:joyasForja@gmail.com" style={{color:"var(--gold)"}}>joyasForja@gmail.com</a>
+          </motion.p>
+        )}
 
         <motion.p variants={FI} style={{fontSize:".57rem",color:"var(--mut2)",textAlign:"center",marginTop:"1rem",letterSpacing:".06em",lineHeight:1.7}}>
           Sin compromiso · Respuesta en menos de 24 horas · Tu información es confidencial
