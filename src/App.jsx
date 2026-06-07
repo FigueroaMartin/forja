@@ -1167,7 +1167,7 @@ function QuoteSection({ onQuote }) {
 
 // ─── QUOTE FORM (full view) ──────────────────────────────────────────────────
 // ⚠️ Obtener access key gratis en https://web3forms.com → ingresar joyasForja@gmail.com
-const W3F_KEY = "TU_ACCESS_KEY_WEB3FORMS";
+const W3F_KEY = "d9fea95f-fc83-453e-af5d-69cacabf9cc3";
 
 function QuoteForm({ onBack }) {
   const [pieceType, setPieceType] = useState(null);
