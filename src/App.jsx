@@ -561,27 +561,34 @@ button{cursor:pointer;font-family:var(--mono);}
 .qss-d{font-size:.58rem;color:var(--mut);line-height:1.75;}
 
 /* QUOTE FORM VIEW */
-.qf{max-width:720px;margin:0 auto;padding:3.5rem 2.5rem 5rem;}
-.qf-hdr{margin-bottom:2rem;}
-.qf-lbl{font-size:.52rem;letter-spacing:.28em;color:var(--gold);text-transform:uppercase;margin-bottom:.55rem;}
-.qf-t{font-family:var(--serif);font-size:clamp(2.2rem,4vw,3.2rem);font-weight:300;color:var(--white);line-height:1.02;margin-bottom:.75rem;}
-.qf-sub{font-size:.65rem;color:var(--mut);line-height:1.9;max-width:520px;}
+.qf{max-width:720px;margin:0 auto;padding:0 0 4rem;background:var(--surf);border:.5px solid var(--brd2);position:relative;overflow:hidden;}
+.qf::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold) 0%,rgba(201,168,76,.12) 100%);pointer-events:none;z-index:1;}
+.qf-back{display:inline-flex;align-items:center;gap:.5rem;font-size:.6rem;letter-spacing:.12em;color:var(--mut);text-transform:uppercase;background:none;border:none;padding:1.5rem 2.5rem .25rem;transition:color .2s;cursor:pointer;}
+.qf-back:hover{color:var(--white);}
+.qf-hdr{padding:.5rem 2.5rem 2rem;margin-bottom:0;border-bottom:.5px solid var(--brd);background:radial-gradient(ellipse 90% 120% at 0% -5%,rgba(201,168,76,.07),transparent 60%);display:flex;align-items:flex-start;justify-content:space-between;gap:1.5rem;}
+.qf-hdr-text{flex:1;}
+.qf-hdr-logo{display:flex;flex-direction:column;align-items:center;gap:.4rem;opacity:.9;flex-shrink:0;padding-top:.5rem;}
+.qf-hdr-logo-word{font-family:var(--serif);font-size:.72rem;letter-spacing:.42em;color:var(--gold);text-transform:uppercase;font-weight:300;}
+.qf-body{padding:0 2.5rem;}
+.qf-lbl{font-size:.6rem;letter-spacing:.28em;color:var(--gold);text-transform:uppercase;margin-bottom:.6rem;}
+.qf-t{font-family:var(--serif);font-size:clamp(2.8rem,5vw,4rem);font-weight:300;color:var(--white);line-height:1.02;margin-bottom:.85rem;}
+.qf-sub{font-size:.72rem;color:var(--mut);line-height:1.9;max-width:520px;}
 .qf-div{height:.5px;background:var(--brd);margin:2rem 0;}
-.qf-sh{font-size:.52rem;letter-spacing:.2em;color:var(--mut);text-transform:uppercase;margin-bottom:.9rem;}
+.qf-sh{font-size:.64rem;letter-spacing:.2em;color:var(--mut);text-transform:uppercase;margin-bottom:.9rem;}
 .qf-tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:1px;background:var(--brd);margin-bottom:1.5rem;}
-.qf-tile{background:var(--surf);padding:1.25rem 1rem;cursor:pointer;border:1.5px solid transparent;transition:all .22s;display:flex;flex-direction:column;gap:.4rem;}
-.qf-tile:hover{background:#141414;}
+.qf-tile{background:var(--bg);padding:1.25rem 1rem;cursor:pointer;border:1.5px solid transparent;transition:all .22s;display:flex;flex-direction:column;gap:.4rem;}
+.qf-tile:hover{background:#0e0e0e;}
 .qf-tile.on{border-color:var(--gold);background:rgba(201,168,76,.04);}
 .qf-tile-ic{font-size:1.05rem;opacity:.65;}
 .qf-tile-t{font-family:var(--serif);font-size:1rem;color:var(--white);}
 .qf-tile-d{font-size:.54rem;color:var(--mut);letter-spacing:.04em;}
-.qf-textarea{width:100%;background:var(--surf);border:.5px solid var(--brd);color:var(--white);font-family:var(--mono);font-size:.67rem;padding:1rem 1.1rem;outline:none;resize:vertical;min-height:110px;transition:border-color .2s;line-height:1.9;-webkit-appearance:none;}
+.qf-textarea{width:100%;background:var(--bg);border:.5px solid var(--brd);color:var(--white);font-family:var(--mono);font-size:.67rem;padding:1rem 1.1rem;outline:none;resize:vertical;min-height:110px;transition:border-color .2s;line-height:1.9;-webkit-appearance:none;}
 .qf-textarea:focus{border-color:var(--gold);}
 .qf-textarea::placeholder{color:var(--mut2);}
-.qf-inp{width:100%;background:var(--surf);border:.5px solid var(--brd);color:var(--white);font-family:var(--mono);font-size:.68rem;padding:.75rem 1rem;outline:none;transition:border-color .2s;-webkit-appearance:none;}
+.qf-inp{width:100%;background:var(--bg);border:.5px solid var(--brd);color:var(--white);font-family:var(--mono);font-size:.68rem;padding:.75rem 1rem;outline:none;transition:border-color .2s;-webkit-appearance:none;}
 .qf-inp:focus{border-color:var(--gold);}
 .qf-inp::placeholder{color:var(--mut2);}
-.qf-flbl{font-size:.54rem;letter-spacing:.14em;color:var(--mut);text-transform:uppercase;margin-bottom:.35rem;display:block;}
+.qf-flbl{font-size:.62rem;letter-spacing:.14em;color:var(--mut);text-transform:uppercase;margin-bottom:.35rem;display:block;}
 .qf-budget{display:flex;flex-wrap:wrap;gap:.5rem;}
 .qf-bud{padding:.55rem 1.1rem;border:.5px solid var(--brd2);background:transparent;color:var(--mut);font-family:var(--mono);font-size:.6rem;letter-spacing:.06em;transition:all .22s;cursor:pointer;}
 .qf-bud:hover{border-color:var(--silver);color:var(--white);}
@@ -589,9 +596,10 @@ button{cursor:pointer;font-family:var(--mono);}
 .btn-qsend{width:100%;padding:1.1rem;background:var(--gold);color:#000;font-family:var(--mono);font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;border:none;transition:opacity .2s,transform .15s;margin-top:.5rem;}
 .btn-qsend:hover:not(:disabled){opacity:.88;transform:translateY(-1px);}
 .btn-qsend:disabled{opacity:.35;cursor:not-allowed;}
-.qf-sent{text-align:center;padding:4rem 1rem;}
+.qf-sent{text-align:center;padding:4rem 2.5rem;}
 .qf-sent-t{font-family:var(--serif);font-size:2.5rem;font-weight:300;color:var(--white);margin-bottom:.5rem;}
 .qf-sent-sub{font-size:.65rem;color:var(--mut);letter-spacing:.06em;line-height:2.2;margin-bottom:2rem;}
+@media(max-width:500px){.qf-hdr-logo{display:none;}.qf{margin:0 .75rem;}}
 
 ::-webkit-scrollbar{width:4px;}
 ::-webkit-scrollbar-track{background:var(--bg);}
@@ -1232,16 +1240,23 @@ function QuoteForm({ onBack }) {
 
   return (
     <motion.div className="qf" initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }} transition={{ duration:0.5 }}>
-      <button className="detail-back" onClick={onBack}>← Volver al catálogo</button>
+      <button className="qf-back" onClick={onBack}>← Volver al catálogo</button>
 
       <div className="qf-hdr">
-        <div className="qf-lbl">Pieza única · Forja personalizada</div>
-        <h1 className="qf-t">Forjemos algo<br/>solo para ti</h1>
-        <p className="qf-sub">
-          Cuéntanos tu visión y un maestro joyero te contactará en menos de 24 horas con una propuesta diseñada desde cero — solo para ti.
-        </p>
+        <div className="qf-hdr-text">
+          <div className="qf-lbl">Pieza única · Forja personalizada</div>
+          <h1 className="qf-t">Forjemos algo<br/>solo para ti</h1>
+          <p className="qf-sub">
+            Cuéntanos tu visión y un maestro joyero te contactará en menos de 24 horas con una propuesta diseñada desde cero — solo para ti.
+          </p>
+        </div>
+        <div className="qf-hdr-logo">
+          <Logo size={54} color="#C9A84C"/>
+          <span className="qf-hdr-logo-word">FORJA</span>
+        </div>
       </div>
 
+      <div className="qf-body">
       <motion.div initial="hidden" animate="show" variants={SC(0.15, 0.09)}>
 
         {/* — Tipo de pieza — */}
@@ -1348,6 +1363,7 @@ function QuoteForm({ onBack }) {
         </motion.p>
 
       </motion.div>
+      </div>{/* /qf-body */}
     </motion.div>
   );
 }
