@@ -561,8 +561,7 @@ button{cursor:pointer;font-family:var(--mono);}
 .qss-d{font-size:.58rem;color:var(--mut);line-height:1.75;}
 
 /* QUOTE FORM VIEW */
-.qf{max-width:720px;margin:0 auto;padding:0 0 4rem;background:var(--surf);border:.5px solid var(--brd2);position:relative;overflow:hidden;}
-.qf::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold) 0%,rgba(201,168,76,.12) 100%);pointer-events:none;z-index:1;}
+.qf{max-width:720px;margin:0 auto;padding:0 0 4rem;background:var(--surf);border:.5px solid var(--brd2);border-top:2px solid var(--gold);}
 .qf-back{display:inline-flex;align-items:center;gap:.5rem;font-size:.6rem;letter-spacing:.12em;color:var(--mut);text-transform:uppercase;background:none;border:none;padding:1.5rem 2.5rem .25rem;transition:color .2s;cursor:pointer;}
 .qf-back:hover{color:var(--white);}
 .qf-hdr{padding:.5rem 2.5rem 2rem;margin-bottom:0;border-bottom:.5px solid var(--brd);background:radial-gradient(ellipse 90% 120% at 0% -5%,rgba(201,168,76,.07),transparent 60%);display:flex;align-items:flex-start;justify-content:space-between;gap:1.5rem;}
