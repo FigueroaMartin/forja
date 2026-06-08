@@ -1699,7 +1699,7 @@ const INFO_PAGES = {
     title:"Contacto", eyebrow:"Estamos aquí para ti",
     sections:[
       { heading:"Escríbenos", items:[
-        { label:"Email",     value:"hola@forja.cl",     href:"mailto:hola@forja.cl" },
+        { label:"Email",     value:"joyasforja@gmail.com",     href:"mailto:joyasforja@gmail.com" },
         { label:"WhatsApp",  value:"+56 9 6457 0295",   href:"https://wa.me/56964570295?text=Hola FORJA, quiero saber más sobre sus joyas" },
         { label:"Instagram", value:"@forja.joyas",      href:"https://instagram.com/forja.joyas" },
       ]},
@@ -1745,7 +1745,7 @@ const INFO_PAGES = {
       { heading:"Datos que recopilamos", text:"Al realizar una compra o cotización recopilamos nombre, correo electrónico y teléfono de contacto. No almacenamos datos de tarjetas de crédito — los pagos se procesan por plataformas certificadas." },
       { heading:"Uso de los datos", text:"Tu información se usa exclusivamente para procesar pedidos, responder consultas y enviarte novedades si te suscribiste al newsletter. No vendemos ni compartimos tus datos con terceros." },
       { heading:"Cookies", text:"Este sitio no utiliza cookies de rastreo publicitario. Solo cookies técnicas necesarias para el funcionamiento básico del sitio." },
-      { heading:"Tus derechos", text:"Puedes solicitar acceso, rectificación o eliminación de tus datos en cualquier momento escribiendo a hola@forja.cl. Respondemos en un plazo máximo de 5 días hábiles." },
+      { heading:"Tus derechos", text:"Puedes solicitar acceso, rectificación o eliminación de tus datos en cualquier momento escribiendo a joyasforja@gmail.com. Respondemos en un plazo máximo de 5 días hábiles." },
     ]
   },
 };
