@@ -699,7 +699,7 @@ function Nav({ cartCount, onCartOpen, onLogo, activeLinea, onLinea, onQuote, sho
         <div className="nav-right">
           <a
             className="nav-wa"
-            href="https://wa.me/56912345678?text=Hola%20FORJA%2C%20quiero%20saber%20m%C3%A1s%20sobre%20sus%20joyas"
+            href="https://wa.me/56964570295?text=Hola%20FORJA%2C%20quiero%20saber%20m%C3%A1s%20sobre%20sus%20joyas"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -1700,7 +1700,7 @@ const INFO_PAGES = {
     sections:[
       { heading:"Escríbenos", items:[
         { label:"Email",     value:"hola@forja.cl",     href:"mailto:hola@forja.cl" },
-        { label:"WhatsApp",  value:"+56 9 1234 5678",   href:"https://wa.me/56912345678?text=Hola FORJA, quiero saber más sobre sus joyas" },
+        { label:"WhatsApp",  value:"+56 9 6457 0295",   href:"https://wa.me/56964570295?text=Hola FORJA, quiero saber más sobre sus joyas" },
         { label:"Instagram", value:"@forja.joyas",      href:"https://instagram.com/forja.joyas" },
       ]},
       { heading:"Horario de atención", text:"Lunes a viernes · 9:00 – 18:00 hrs\nRespuesta por email o WhatsApp en menos de 24 horas." },
