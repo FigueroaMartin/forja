@@ -185,9 +185,9 @@ const PIECE_TYPES = [
 ];
 
 const BUDGETS = [
-  { id:"b1", label:"$80 – $150 USD" },
-  { id:"b2", label:"$150 – $300 USD" },
-  { id:"b3", label:"$300 – $600 USD" },
+  { id:"b1", label:"$50.000 – $100.000 CLP" },
+  { id:"b2", label:"$100.000 – $200.000 CLP" },
+  { id:"b3", label:"$200.000 – $400.000 CLP" },
   { id:"b4", label:"Sin límite definido" },
 ];
 
@@ -689,7 +689,7 @@ button{cursor:pointer;font-family:var(--mono);}
 
 // ─── COMPONENTS ──────────────────────────────────────────────────────────────
 
-function Nav({ cartCount, onCartOpen, onLogo, activeLinea, onLinea, onQuote, showLineas }) {
+function Nav({ onLogo, activeLinea, onLinea, onQuote, showLineas }) {
   return (
     <nav className="nav">
       <div className="nav-top">
@@ -699,7 +699,7 @@ function Nav({ cartCount, onCartOpen, onLogo, activeLinea, onLinea, onQuote, sho
         <div className="nav-right">
           <a
             className="nav-wa"
-            href="https://wa.me/56964570295?text=Hola%20FORJA%2C%20quiero%20saber%20m%C3%A1s%20sobre%20sus%20joyas"
+            href="https://wa.me/56951061114?text=Hola%20FORJA%2C%20quiero%20saber%20m%C3%A1s%20sobre%20sus%20joyas"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -708,24 +708,7 @@ function Nav({ cartCount, onCartOpen, onLogo, activeLinea, onLinea, onQuote, sho
             </svg>
             <span className="nav-wa-text">Chatea con nosotros</span>
           </a>
-          <button className="nav-quote" onClick={onQuote}>Cotizar</button>
-          <button className="nav-cart" onClick={onCartOpen}>
-            <AnimatePresence mode="wait">
-              {cartCount > 0 && (
-                <motion.span
-                  key={cartCount}
-                  className="nav-bbl"
-                  initial={{ scale: 0.5, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  exit={{ scale: 0.5, opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  {cartCount}
-                </motion.span>
-              )}
-            </AnimatePresence>
-            Carrito
-          </button>
+          <button className="nav-quote" onClick={onQuote}>Cotizar pieza</button>
         </div>
       </div>
       {showLineas && (
@@ -769,7 +752,7 @@ function Gallery({ imgs }) {
   );
 }
 
-function ProductDetail({ product, onBack, onAdd }) {
+function ProductDetail({ product, onBack, onQuote }) {
   const [mat, setMat] = useState("silver");
   const [size, setSize] = useState(null);
   const [sizeGuideOpen, setSizeGuideOpen] = useState(false);
@@ -866,24 +849,19 @@ function ProductDetail({ product, onBack, onAdd }) {
           )}
 
           <motion.div variants={FU}>
-            <div className="price-from">Precio final</div>
+            <div className="price-from">Precio referencial desde</div>
             <div className="price-main">{fmt(price)}</div>
-            <div className="price-bd">
-              Base {fmt(product.basePrice)}
-              {matD?.modifier > 0 && ` + ${matD.label} ${fmt(matD.modifier)}`}
-            </div>
-            <div className="price-ship">✓ Envío gratis · Entrega 5–7 días hábiles</div>
+            <div className="price-ship">El precio final se define en la cotización según tus especificaciones</div>
           </motion.div>
 
           <motion.button
             variants={FU}
             className="btn-add"
-            disabled={!canAdd}
-            onClick={() => canAdd && onAdd({...product, materialId:mat, materialLabel:matD?.label, price, size})}
-            whileHover={canAdd ? { scale: 1.01 } : {}}
-            whileTap={canAdd ? { scale: 0.98 } : {}}
+            onClick={onQuote}
+            whileHover={{ scale: 1.01 }}
+            whileTap={{ scale: 0.98 }}
           >
-            {isRing && !size ? "Seleccioná una talla" : "Agregar al carrito"}
+            Cotizar esta pieza →
           </motion.button>
 
           <motion.div variants={FU}>
@@ -1464,141 +1442,6 @@ function QuoteForm({ onBack }) {
   );
 }
 
-function CartPanel({ items, onClose, onRemove, onCheckout }) {
-  const total = items.reduce((s,i) => s+i.price, 0);
-  return (
-    <>
-      <motion.div
-        className="overlay"
-        onClick={onClose}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.2 }}
-      />
-      <motion.aside
-        className="cart-panel"
-        initial={{ x: "100%" }}
-        animate={{ x: 0 }}
-        exit={{ x: "100%" }}
-        transition={{ duration: 0.38, ease: [0, 0.55, 0.45, 1] }}
-      >
-        <div className="cart-hdr">
-          <span className="cart-ttl">Carrito</span>
-          <button className="cart-cls" onClick={onClose}>✕</button>
-        </div>
-        <div className="cart-items">
-          {items.length === 0 ? (
-            <div className="cart-empty">
-              <div style={{marginBottom:"1rem",opacity:.3}}><Logo size={28}/></div>
-              El carrito está vacío.<br/>Explora la colección.
-            </div>
-          ) : items.map((it,i) => (
-            <motion.div
-              className="cart-item"
-              key={i}
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: i * 0.06, duration: 0.3 }}
-            >
-              <img className="ci-img" src={it.imgs[0]} alt={it.name}/>
-              <div className="ci-info">
-                <div className="ci-name">{it.name}</div>
-                <div className="ci-opts">{it.linea} · {it.materialLabel}{it.size ? ` · Talla ${it.size}` : ""}</div>
-                <div className="ci-price">{fmt(it.price)}</div>
-              </div>
-              <button className="ci-rm" onClick={() => onRemove(i)}>✕</button>
-            </motion.div>
-          ))}
-        </div>
-        {items.length > 0 && (
-          <div className="cart-ftr">
-            <div>
-              <div className="cart-cnt">{items.length} {items.length===1?"pieza":"piezas"}</div>
-              <div className="cart-tot">
-                <span className="cart-tot-l">Total</span>
-                <span className="cart-tot-v">{fmt(total)}</span>
-              </div>
-            </div>
-            <button className="btn-chk" onClick={onCheckout}>Proceder al pago</button>
-          </div>
-        )}
-      </motion.aside>
-    </>
-  );
-}
-
-function CheckoutForm({ cart, onBack, onConfirm }) {
-  const total = cart.reduce((s,i) => s+i.price, 0);
-  const [f, setF] = useState({name:"",email:"",card:"",exp:"",cvv:""});
-  const set = k => e => setF(p => ({...p,[k]:e.target.value}));
-  const ok = f.name.length>2 && f.email.includes("@") && f.card.length>=16 && f.exp.length>=4 && f.cvv.length>=3;
-  return (
-    <motion.div
-      className="checkout"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-    >
-      <button className="detail-back" onClick={onBack}>← Volver al carrito</button>
-      <div className="co-t">Checkout</div>
-      <p className="co-s">Transacción segura · Sin almacenamiento de datos</p>
-      <div className="co-sum">
-        <div className="co-sum-h">Resumen del pedido</div>
-        {cart.map((it,i) => (
-          <div className="co-row" key={i}><span>{it.name} · {it.materialLabel}</span><span>{fmt(it.price)}</span></div>
-        ))}
-        <div className="co-row" style={{color:"var(--mut2)",fontSize:".6rem"}}><span>Envío</span><span>Gratis</span></div>
-        <div className="co-row tot"><span>Total</span><span className="v">{fmt(total)}</span></div>
-      </div>
-      <div className="fs">
-        <div className="fs-h">Datos de contacto</div>
-        <div className="field"><label>Nombre completo</label><input placeholder="Juan Rodríguez" value={f.name} onChange={set("name")}/></div>
-        <div className="field"><label>Email</label><input type="email" placeholder="juan@email.com" value={f.email} onChange={set("email")}/></div>
-      </div>
-      <div className="fs">
-        <div className="fs-h">Datos de pago (simulado)</div>
-        <div className="field"><label>Número de tarjeta</label><input placeholder="4242 4242 4242 4242" maxLength={16} value={f.card} onChange={set("card")}/></div>
-        <div className="field-row">
-          <div className="field"><label>Vencimiento</label><input placeholder="MM/AA" maxLength={5} value={f.exp} onChange={set("exp")}/></div>
-          <div className="field"><label>CVV</label><input placeholder="123" maxLength={3} value={f.cvv} onChange={set("cvv")}/></div>
-        </div>
-      </div>
-      <button className="btn-cfm" disabled={!ok} onClick={onConfirm}>Confirmar pedido — {fmt(total)}</button>
-    </motion.div>
-  );
-}
-
-function SuccessScreen({ orderId, cart, onReset }) {
-  const total = cart.reduce((s,i) => s+i.price, 0);
-  const del = new Date(Date.now()+7*86400000).toLocaleDateString("es-CL",{day:"numeric",month:"long"});
-  return (
-    <motion.div
-      className="suc"
-      initial={{ opacity: 0, y: 30 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-    >
-      <motion.div
-        style={{marginBottom:"2rem"}}
-        initial={{ scale: 0.7, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ delay: 0.2, duration: 0.5, ease: [0, 0.55, 0.45, 1] }}
-      >
-        <Logo size={56}/>
-      </motion.div>
-      <div className="suc-t">Pedido confirmado</div>
-      <div className="suc-id">{orderId}</div>
-      <p className="suc-s">Tu pieza comenzará a forjarse en las próximas horas. Recibirás confirmación por correo.</p>
-      <div className="suc-meta">
-        <div className="suc-row"><span>Total pagado</span><span>{fmt(total)}</span></div>
-        <div className="suc-row"><span>Piezas</span><span>{cart.length}</span></div>
-        <div className="suc-row"><span>Entrega estimada</span><span>{del}</span></div>
-      </div>
-      <button className="btn-gh" onClick={onReset}>Volver al catálogo</button>
-    </motion.div>
-  );
-}
 
 // ─── SIZE GUIDE ──────────────────────────────────────────────────────────────
 const RING_SIZES = [
@@ -1700,7 +1543,7 @@ const INFO_PAGES = {
     sections:[
       { heading:"Escríbenos", items:[
         { label:"Email",     value:"joyasforja@gmail.com",     href:"mailto:joyasforja@gmail.com" },
-        { label:"WhatsApp",  value:"+56 9 6457 0295",   href:"https://wa.me/56964570295?text=Hola FORJA, quiero saber más sobre sus joyas" },
+        { label:"WhatsApp",  value:"+56 9 5106 1114",   href:"https://wa.me/56951061114?text=Hola FORJA, quiero saber más sobre sus joyas" },
         { label:"Instagram", value:"@forja.joyas",      href:"https://instagram.com/forja.joyas" },
       ]},
       { heading:"Horario de atención", text:"Lunes a viernes · 9:00 – 18:00 hrs\nRespuesta por email o WhatsApp en menos de 24 horas." },
@@ -1810,10 +1653,6 @@ const TESTIMONIALS_GLOBAL = [
 export default function App() {
   const [view, setView] = useState("catalog");
   const [selected, setSelected] = useState(null);
-  const [cart, setCart] = useState([]);
-  const [cartOpen, setCartOpen] = useState(false);
-  const [toast, setToast] = useState(false);
-  const [orderId, setOrderId] = useState(null);
   const [activeLinea, setActiveLinea] = useState("Todos");
   const [nlEmail, setNlEmail] = useState("");
   const [nlSent, setNlSent] = useState(false);
@@ -1825,9 +1664,6 @@ export default function App() {
   const filtered = activeLinea === "Todos" ? PRODUCTS : PRODUCTS.filter(p => p.linea === activeLinea);
   const byLinea = LINEAS.slice(1).map(l => ({ linea: l, items: filtered.filter(p => p.linea === l) })).filter(g => g.items.length > 0);
 
-  const showToast = () => { setToast(true); setTimeout(()=>setToast(false), 1500); };
-  const addToCart = item => { setCart(c=>[...c,item]); showToast(); };
-  const removeFromCart = idx => setCart(c=>c.filter((_,i)=>i!==idx));
   useEffect(() => {
     const annH = document.querySelector(".ann")?.offsetHeight ?? 0;
     window.scrollTo({ top: annH, behavior: "instant" });
@@ -1840,8 +1676,6 @@ export default function App() {
     const annH = document.querySelector(".ann")?.offsetHeight ?? 0;
     window.scrollTo({ top: annH, behavior: "smooth" });
   };
-  const handleConfirm = () => { setOrderId(genId()); setView("success"); setCartOpen(false); };
-  const reset = () => { setView("catalog"); setCart([]); setSelected(null); setCartOpen(false); setOrderId(null); setActiveLinea("Todos"); };
 
   return (
     <>
@@ -1850,7 +1684,7 @@ export default function App() {
       {/* ANNOUNCEMENT */}
       <div className="ann">Envío gratis en pedidos sobre $120 USD · Plata 925 · Oro 18K</div>
 
-      <Nav cartCount={cart.length} onCartOpen={()=>setCartOpen(true)} onLogo={handleLogo} activeLinea={activeLinea} onLinea={handleLinea} onQuote={()=>setView("quote")} showLineas={view==="catalog"}/>
+      <Nav onLogo={handleLogo} activeLinea={activeLinea} onLinea={handleLinea} onQuote={()=>setView("quote")} showLineas={view==="catalog"}/>
 
       {view === "catalog" && (<>
 
@@ -2094,7 +1928,7 @@ export default function App() {
         <ProductDetail
           product={selected}
           onBack={()=>setView("catalog")}
-          onAdd={item=>{addToCart(item);setView("catalog");}}
+          onQuote={()=>setView("quote")}
         />
       )}
 
@@ -2114,40 +1948,6 @@ export default function App() {
         <QuoteForm onBack={()=>setView("catalog")}/>
       )}
 
-      {view === "checkout" && (
-        <CheckoutForm cart={cart} onBack={()=>setCartOpen(true)} onConfirm={handleConfirm}/>
-      )}
-
-      {view === "success" && (
-        <SuccessScreen orderId={orderId} cart={cart} onReset={reset}/>
-      )}
-
-      {/* CART con AnimatePresence */}
-      <AnimatePresence>
-        {cartOpen && (
-          <CartPanel
-            items={cart}
-            onClose={()=>setCartOpen(false)}
-            onRemove={removeFromCart}
-            onCheckout={()=>{setCartOpen(false);setView("checkout");}}
-          />
-        )}
-      </AnimatePresence>
-
-      {/* TOAST con AnimatePresence */}
-      <AnimatePresence>
-        {toast && (
-          <motion.div
-            className="toast"
-            initial={{ opacity: 0, y: 16, x: "-50%" }}
-            animate={{ opacity: 1, y: 0,  x: "-50%" }}
-            exit={{ opacity: 0,    y: -10, x: "-50%" }}
-            transition={{ duration: 0.25, ease: [0, 0.55, 0.45, 1] }}
-          >
-            ✓ Agregado al carrito
-          </motion.div>
-        )}
-      </AnimatePresence>
     </>
   );
 }
