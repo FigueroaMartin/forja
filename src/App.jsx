@@ -6,7 +6,7 @@ const PRODUCTS = [
   // ── LÍNEA ANILLOS ──
   {
     id:"frj-r01", slug:"signet", linea:"Anillos",
-    name:"Signet I", basePrice:89,
+    name:"Signet I", basePrice:85000,
     tagline:"El sello que define tu presencia.",
     concepto:"El anillo sello es la forma más antigua de identidad masculina. Signet I lo reinterpreta con perfil bajo y cara plana: sobriedad de formas, acabado cepillado satinado. Una declaración sin palabras para el dedo que decidís.",
     inspiracion:"Identidad · Legado · Presencia",
@@ -25,7 +25,7 @@ const PRODUCTS = [
   },
   {
     id:"frj-r03", slug:"banda", linea:"Anillos",
-    name:"Banda II", basePrice:65,
+    name:"Banda II", basePrice:62000,
     tagline:"Geometría pura. Sin ornamento.",
     concepto:"La Banda II es una declaración de lo esencial. Geometría perfecta, sin detalle superfluo, sin concesiones al adorno. Para el hombre que sabe que el minimalismo no es falta de ideas — es la idea máxima llevada a su forma más honesta.",
     inspiracion:"Pureza · Forma · Esencia",
@@ -43,7 +43,7 @@ const PRODUCTS = [
   },
   {
     id:"frj-r04", slug:"corte", linea:"Anillos",
-    name:"Corte III", basePrice:95,
+    name:"Corte III", basePrice:90000,
     tagline:"Ángulos esculturales. Luz propia.",
     concepto:"El Corte III nace de la obsesión por la geometría. Cada faceta fue diseñada para capturar la luz desde un ángulo diferente. Es el anillo del hombre que encuentra precisión en cada cosa que hace — y que lo demuestra sin necesitar palabras.",
     inspiracion:"Precisión · Filo · Escultura",
@@ -64,7 +64,7 @@ const PRODUCTS = [
   // ── LÍNEA COLLARES ──
   {
     id:"frj-c01", slug:"ruta", linea:"Collares",
-    name:"Ruta I", basePrice:95,
+    name:"Ruta I", basePrice:90000,
     tagline:"La cadena masculina por excelencia.",
     concepto:"Ruta I es la cadena rolo de 3mm en su expresión más pura: limpia, directa, sin adornos. Cincuenta y cinco centímetros de carácter masculino. La joya del hombre que ya llegó a donde quería llegar y lo demuestra con sobriedad.",
     inspiracion:"Camino · Disciplina · Sobriedad",
@@ -82,7 +82,7 @@ const PRODUCTS = [
   },
   {
     id:"frj-c02", slug:"eslabón", linea:"Collares",
-    name:"Eslabón II", basePrice:110,
+    name:"Eslabón II", basePrice:105000,
     tagline:"El eslabón plano que define tu cuello.",
     concepto:"La cadena curb de eslabón plano es uno de los diseños más masculinos de la historia de la joyería. Eslabón II lo interpreta en 5mm: anchura justa, peso honesto, caída perfecta. Presencia que habla por sí sola.",
     inspiracion:"Vínculo · Peso · Continuidad",
@@ -99,7 +99,7 @@ const PRODUCTS = [
   },
   {
     id:"frj-c03", slug:"vértice", linea:"Collares",
-    name:"Vértice III", basePrice:98,
+    name:"Vértice III", basePrice:93000,
     tagline:"El punto donde todo converge.",
     concepto:"Una cadena fina con colgante hexagonal discreto. Vértice III es para el hombre que quiere una declaración sutil. Visible solo cuando importa. Un detalle de foco para los que saben mirar.",
     inspiracion:"Enfoque · Convergencia · Sutileza",
@@ -118,7 +118,7 @@ const PRODUCTS = [
   // ── LÍNEA PULSERAS ──
   {
     id:"frj-b01", slug:"base", linea:"Pulseras",
-    name:"Base I", basePrice:65,
+    name:"Base I", basePrice:62000,
     tagline:"Lo esencial, llevado con carácter.",
     concepto:"Base I es la pulsera de eslabón plano que no falla. Punto de partida de cualquier colección masculina — se lleva sola o se apila. Cierre de caja con doble seguro. Honesta, duradera, sin pretensiones. Con carácter.",
     inspiracion:"Fundamento · Origen · Constancia",
@@ -136,7 +136,7 @@ const PRODUCTS = [
   },
   {
     id:"frj-b02", slug:"bloque", linea:"Pulseras",
-    name:"Bloque II", basePrice:85,
+    name:"Bloque II", basePrice:80000,
     tagline:"Pieza escultural. Presencia inmediata.",
     concepto:"El brazalete rígido abierto es la declaración más contundente de una muñeca. Bloque II es una pieza escultural — apertura calibrada, acabado cepillado, peso honesto. Para el hombre que no necesita moverse para hacerse notar.",
     inspiracion:"Estructura · Escultura · Peso",
@@ -153,7 +153,7 @@ const PRODUCTS = [
   },
   {
     id:"frj-b03", slug:"cord", linea:"Pulseras",
-    name:"Cord III", basePrice:64,
+    name:"Cord III", basePrice:60000,
     tagline:"Para el uso diario. Sin excusas.",
     concepto:"Cord III es la pulsera que no te quitás. Eslabón delgado, peso liviano, resistente al agua y al sudor. Diseñada para estar siempre puesta — en el gimnasio, en la oficina, en la playa. La pieza que elige tu estilo de vida.",
     inspiracion:"Cotidiano · Resistencia · Libertad",
@@ -173,8 +173,8 @@ const PRODUCTS = [
 const LINEAS = ["Todos","Anillos","Collares","Pulseras"];
 
 const MATERIALS = [
-  { id:"silver", label:"Plata", modifier:0,  suffix:"925" },
-  { id:"gold",   label:"Oro",   modifier:80, suffix:"18K" },
+  { id:"silver", label:"Plata", modifier:0,     suffix:"925" },
+  { id:"gold",   label:"Oro",   modifier:75000, suffix:"18K" },
 ];
 
 const PIECE_TYPES = [
@@ -192,7 +192,7 @@ const BUDGETS = [
 ];
 
 const calcPrice = (base, mat) => base + (MATERIALS.find(m=>m.id===mat)?.modifier ?? 0);
-const fmt = n => `$${n.toLocaleString("es-CL")} USD`;
+const fmt = n => `$${n.toLocaleString("es-CL")}`;
 const genId = () => `FRJ-${Date.now().toString(36).toUpperCase()}`;
 
 // ─── ANIMATION VARIANTS ───────────────────────────────────────────────────────
@@ -818,7 +818,7 @@ function ProductDetail({ product, onBack, onQuote }) {
                   className={`opt-btn${mat===m.id?" on":""}`}
                   onClick={() => setMat(m.id)}
                 >
-                  {m.label} {m.suffix}{m.modifier>0?` +${m.modifier}`:""}
+                  {m.label} {m.suffix}{m.modifier>0?` +${fmt(m.modifier)}`:""}
                 </button>
               ))}
             </div>
@@ -1554,7 +1554,7 @@ const INFO_PAGES = {
     sections:[
       { heading:"Envíos", items:[
         { label:"Tiempo de entrega", value:"5–7 días hábiles" },
-        { label:"Envío gratis",      value:"En pedidos sobre $120 USD" },
+        { label:"Envío gratis",      value:"En pedidos sobre $120.000" },
         { label:"Cobertura",         value:"Todo Chile · Consultar envíos internacionales" },
         { label:"Seguimiento",       value:"Número de tracking por email al despachar" },
       ]},
@@ -1682,7 +1682,7 @@ export default function App() {
       <style>{css}</style>
 
       {/* ANNOUNCEMENT */}
-      <div className="ann">Envío gratis en pedidos sobre $120 USD · Plata 925 · Oro 18K</div>
+      <div className="ann">Envío gratis en pedidos sobre $120.000 · Plata 925 · Oro 18K</div>
 
       <Nav onLogo={handleLogo} activeLinea={activeLinea} onLinea={handleLinea} onQuote={()=>setView("quote")} showLineas={view==="catalog"}/>
 
